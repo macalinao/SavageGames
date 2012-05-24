@@ -10,6 +10,8 @@ import com.sk89q.worldedit.bukkit.WorldEditPlugin
 
 # Main plugin class.
 class SavageGames < JavaPlugin
+  # Accessors
+  def worldEdit; @worldEdit; end
 
   def onEnable
     # Load WorldEdit

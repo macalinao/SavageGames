@@ -1,0 +1,13 @@
+name: SavageGames
+description: SavageGames plugin.
+author: AlbireoX
+website: http://savagerealms.net/
+version: 0.1
+
+main: net.savagerealms.savagegames.savagegames.SavageGames
+depend: ["WorldEdit"]
+
+commands:
+  savagegames:
+    description: SavageGames main command.
+    usage: /savagegames [args]
