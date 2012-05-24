@@ -4,15 +4,29 @@ import java.util.logging.Level
 
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.Location
+import org.bukkit.Bukkit
 
+import com.sk89q.worldedit.bukkit.WorldEditPlugin
+
+# Main plugin class.
 class SavageGames < JavaPlugin
 
   def onEnable
-    getLogger().log Level.INFO, "Let the SavageGames begin!"
+    # Load WorldEdit
+    worldEdit = getServer.getPluginManager.getPlugin "WorldEdit"
+    if worldEdit.kind_of?(WorldEditPlugin)
+      @worldEdit = WorldEditPlugin(worldEdit)
+    else
+      getLogger.log Level.SEVERE, "WorldEdit not found! This plugin is being disabled."
+      Bukkit.getPluginManager.disablePlugin(self)
+    end
+
+    # We're loaded!
+    getLogger.log Level.INFO, "Let the SavageGames begin!"
   end
 
   def onDisable
-    getLogger().log Level.INFO, "SavageGames disabled."
+    getLogger.log Level.INFO, "SavageGames disabled."
   end
 
 end
@@ -50,3 +64,5 @@ class Arena
   end
 
 end
+
+
