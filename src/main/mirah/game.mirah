@@ -1,6 +1,7 @@
 package net.savagerealms.savagegames
 
 import java.util.ArrayList
+import java.util.Date
 
 import org.bukkit.entity.Player
 import org.bukkit.Bukkit
@@ -11,13 +12,18 @@ class Game
   def arena; @arena; end
   def mode; @mode; end
   def participants; @participants; end
+  def players; @players; end
+  def spectators; @spectators; end
 
   # Initializes a game.
   def initialize(arena:Arena)
     @arena = arena
-    @mode = "waiting"
+
+    changeMode "waiting"
 
     @participants = ArrayList.new
+    @players = ArrayList.new
+    @spectators = ArrayList.new
   end
 
   ###################
@@ -38,11 +44,27 @@ class Game
   # STARTING
   ###################
 
+  # Checks if the game can be started.
+  def canStart:String
+    if @participants.size < @arena.minPlayers
+      return "Not enough players."
+    end
+
+    return nil
+  end
+
   # Starts the game.
   def start
-    @mode = "starting"
+    if canStart != nil
+      return false # Don't do this! Use canStart directly before starting.
+    end
+
+    changeMode "starting"
+
     @task = Bukkit.getScheduler.scheduleAsyncRepeatingTask SavageGames.i, \
       GameCountdown.new(self, 10), 0, 20
+
+    return true
   end
 
   # Ends an in-progress countdown.
@@ -51,8 +73,35 @@ class Game
   end
 
   ###################
+  # INGAME
+  ###################
+
+  # Begins the ingame phase of the game.
+  def beginIngame
+    changeMode "ingame"
+    endCountdown
+    broadcast "May the games forever be in your favor!"
+  end
+
+  ###################
+  # ENDGAME
+  ###################
+
+  # The endgame -- 2 contestants left!
+  def beginEndgame
+    changeMode "endgame"
+    broadcast "Two contestants left!"
+  end
+
+  ###################
   # GENERAL
   ###################
+
+  # Changes the mode of the game.
+  def changeMode(mode:String)
+    event = EventFactory.callGameModeChange self, mode
+    @mode = event.mode
+  end
 
   # Broadcasts a message to all participants of the game.
   def broadcast(message:String)
@@ -76,8 +125,7 @@ class GameCountdown
     if @time > 0
       @game.broadcast Integer.toString(@time) + " seconds left!"
     else
-      @game.broadcast "May the games be in your favor!"
-      @game.endCountdown
+      @game.beginIngame
     end
     @time -= 1
   end

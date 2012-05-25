@@ -9,7 +9,11 @@ class Arena
   # Accessors
   def min; @min; end
   def max; @max; end
+
   def spawns; @spawns; end
+  
+  def minPlayers; @minPlayers; end
+  def minPlayers=(a:int); @minPlayers = a; end
 
   # Handy
   def world; @min.getWorld; end

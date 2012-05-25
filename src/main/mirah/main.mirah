@@ -12,9 +12,13 @@ class SavageGames < JavaPlugin
   # Accessors
   def self.i; @@i; end
   def worldEdit; @worldEdit; end
+  def invs; @inventoryKeeper; end
 
   def onEnable
     @@i = self
+
+    # Inventory keeper
+    @inventoryKeeper = InventoryKeeper.new
 
     # Load WorldEdit
     worldEdit = getServer.getPluginManager.getPlugin "WorldEdit"
@@ -30,6 +34,8 @@ class SavageGames < JavaPlugin
   end
 
   def onDisable
+    @@i = nil
+
     getLogger.log Level.INFO, "SavageGames disabled."
   end
 
