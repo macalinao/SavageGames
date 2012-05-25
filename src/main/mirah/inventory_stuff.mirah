@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack
 
 # Keeps inventories persisted.
 class InventoryKeeper
-  # Initialize hashmap
+  # Init some stuff
   def initialize
     @inventories = HashMap.new
   end
