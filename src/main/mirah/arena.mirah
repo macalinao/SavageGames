@@ -1,5 +1,7 @@
 package net.savagerealms.savagegames
 
+import java.util.HashMap
+
 import org.bukkit.Location
 
 # An arena, with a location min and max.

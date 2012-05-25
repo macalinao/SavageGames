@@ -22,7 +22,7 @@ class SavageGames < JavaPlugin
       @worldEdit = WorldEditPlugin(worldEdit)
     else
       getLogger.log Level.SEVERE, "WorldEdit not found! This plugin is being disabled."
-      Bukkit.getPluginManager.disablePlugin(self)
+      getServer.getPluginManager.disablePlugin(self)
     end
 
     # We're loaded!
