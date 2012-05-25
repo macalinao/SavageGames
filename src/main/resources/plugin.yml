@@ -4,7 +4,7 @@ author: AlbireoX
 website: http://savagerealms.net/
 version: 0.1
 
-main: net.savagerealms.savagegames.savagegames.SavageGames
+main: net.savagerealms.savagegames.SavageGames
 depend: ["WorldEdit"]
 
 commands:
