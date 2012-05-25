@@ -1,5 +1,7 @@
 package net.savagerealms.savagegames
 
+import java.util.ArrayList
+
 import org.bukkit.entity.Player
 import org.bukkit.Bukkit
 
@@ -18,12 +20,9 @@ class Game
     @participants = ArrayList.new
   end
 
-  # Starts the game.
-  def start
-    @mode = "starting"
-    @task = Bukkit.getScheduler.scheduleAsyncRepeatingTask SavageGames.i, \
-      GameCountdown.new(self, 10), 0, 20
-  end
+  ###################
+  # WAITING
+  ###################
 
   # Adds a participant to the game.
   def addParticipant(p:Player)
@@ -35,16 +34,31 @@ class Game
     @arena.capacity <= @participants.size
   end
 
-  # Broadcasts a message to all participants of the game.
-  def broadcast(message:String)
-    @participants.each do |p|
-      Player(p).sendMessage message # Mirah doesn't have generics yet.
-    end
+  ###################
+  # STARTING
+  ###################
+
+  # Starts the game.
+  def start
+    @mode = "starting"
+    @task = Bukkit.getScheduler.scheduleAsyncRepeatingTask SavageGames.i, \
+      GameCountdown.new(self, 10), 0, 20
   end
 
   # Ends an in-progress countdown.
   def endCountdown
     Bukkit.getScheduler.cancelTask @task if @task != 0
+  end
+
+  ###################
+  # GENERAL
+  ###################
+
+  # Broadcasts a message to all participants of the game.
+  def broadcast(message:String)
+    @participants.each do |p|
+      Player(p).sendMessage message # Mirah doesn't have generics yet.
+    end
   end
 
 end
