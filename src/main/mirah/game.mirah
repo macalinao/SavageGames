@@ -5,19 +5,20 @@ import java.util.Date
 
 import org.bukkit.entity.Player
 import org.bukkit.Bukkit
+import org.bukkit.World
 
 # Represents an active game.
 class Game
   # Accessors
-  def arena; @arena; end
+  def world; @world; end
   def mode; @mode; end
   def participants; @participants; end
   def players; @players; end
   def spectators; @spectators; end
 
   # Initializes a game.
-  def initialize(arena:Arena)
-    @arena = arena
+  def initialize(world:World)
+    @world = world
 
     changeMode "waiting"
 
@@ -37,7 +38,7 @@ class Game
 
   # Checks if the game is a full game.
   def isFull?
-    @arena.capacity <= @participants.size
+    @world.capacity <= @participants.size
   end
 
   ###################
@@ -46,7 +47,7 @@ class Game
 
   # Checks if the game can be started.
   def canStart:String
-    if @participants.size < @arena.minPlayers
+    if @participants.size < @world.minPlayers
       return "Not enough players."
     end
 
