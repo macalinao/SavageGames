@@ -7,6 +7,7 @@ import org.bukkit.Location
 # An arena, with a location min and max.
 class Arena
   # Accessors
+  def id; @id; end
   def min; @min; end
   def max; @max; end
 
@@ -19,11 +20,12 @@ class Arena
   def world; @min.getWorld; end
 
   # Initializes the arena.
-  def initialize(min:Location, max:Location)
+  def initialize(id:String, min:Location, max:Location)
     if not min.getWorld.equals max.getWorld
       raise IllegalArgumentException.new "Worlds of the arena are not the same!"
     end
 
+    @id = id
     @min = min
     @max = max
 

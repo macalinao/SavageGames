@@ -32,7 +32,7 @@ class Game
 
   # Adds a participant to the game.
   def addParticipant(p:Player)
-    participants.add p unless isFull?
+    @participants.add p unless isFull?
   end
 
   # Checks if the game is a full game.
