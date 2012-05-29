@@ -2,6 +2,7 @@ package net.savagerealms.savagegames
 
 import java.util.ArrayList
 import java.util.Date
+import java.util.HashMap
 
 import org.bukkit.entity.Player
 import org.bukkit.Bukkit
@@ -16,8 +17,11 @@ class Game
   def players; @players; end
   def spectators; @spectators; end
 
+  def settings; @settings; end
+
   # Initializes a game.
-  def initialize(world:World)
+  def initialize(settings:GameSettings, world:World)
+    @settings = settings
     @world = world
 
     changeMode "waiting"
@@ -38,7 +42,7 @@ class Game
 
   # Checks if the game is a full game.
   def isFull?
-    @world.capacity <= @participants.size
+    @settings.capacity <= @participants.size
   end
 
   ###################
@@ -47,7 +51,7 @@ class Game
 
   # Checks if the game can be started.
   def canStart:String
-    if @participants.size < @world.minPlayers
+    if @participants.size < @settings.minPlayers
       return "Not enough players."
     end
 
@@ -111,6 +115,27 @@ class Game
     end
   end
 
+end
+
+class GameSettings
+  """Game settings."""
+
+  def capacity():int; @capacity; end
+  def minPlayers():int; @minPlayers; end
+
+  def initialize(settings:HashMap)
+    begin
+      @capacity = Integer.parseInt String(settings.get 'capacity')
+    rescue NumberFormatException
+      @capacity = 24
+    end
+
+    begin
+      @minPlayers = Integer.parseInt String(settings.get 'minPlayers')
+    rescue NumberFormatException
+      @minPlayers = 6
+    end
+  end
 end
 
 # Game Countdown helper class.

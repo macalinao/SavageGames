@@ -4,16 +4,12 @@
   <groupId>net.savagerealms</groupId>
   <version>dev-SNAPSHOT</version>
   <packaging>jar</packaging>
-  <name>MirahHello</name>
+  <name>SavageGames</name>
 
   <repositories>
     <repository>
       <id>repobo-snap</id>
       <url>http://repo.bukkit.org/content/groups/public</url>
-    </repository>
-    <repository>
-      <id>sk89q-mvn2</id>
-      <url>http://mvn2.sk89q.com/repo</url>
     </repository>
   </repositories>
 
@@ -24,11 +20,6 @@
       <version>1.2.5-R2.0</version>
       <type>jar</type>
       <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.sk89q</groupId>
-      <artifactId>worldedit</artifactId>
-      <version>5.4-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
