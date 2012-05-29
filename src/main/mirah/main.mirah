@@ -21,6 +21,10 @@ class SavageGames < JavaPlugin
     # Game manager
     @gameManager = GameManager.new self
 
+    # Event listener
+    @eventListener = SGListener.new self
+    getServer.getPluginManager.registerEvents @eventListener, self
+
     # We're loaded!
     getLogger.log Level.INFO, "Let the SavageGames begin!"
   end
