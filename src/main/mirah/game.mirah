@@ -125,14 +125,14 @@ class GameSettings
 
   def initialize(settings:HashMap)
     begin
-      @capacity = Integer.parseInt String(settings.get 'capacity')
-    rescue NumberFormatException
+      @capacity = Integer(settings.get 'capacity')
+    rescue Exception
       @capacity = 24
     end
 
     begin
-      @minPlayers = Integer.parseInt String(settings.get 'minPlayers')
-    rescue NumberFormatException
+      @minPlayers = Integer(settings.get 'minPlayers')
+    rescue Exception
       @minPlayers = 6
     end
   end
