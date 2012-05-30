@@ -11,16 +11,17 @@ class SClass
     @name = name
   end
 
-  def bind(player:Player):void
-    """Called when the game starts."""
-  end
+  ##
+  # Called when the game starts.
+  #
+  def bind(player:Player):void; end
 end
 
+##
+# The Warrior class.
+# Starts out with a stone sword.
+#
 class Warrior < SClass
-  """
-  The Warrior class.
-  Starts out with a stone sword.
-  """
   def initialize(name:String)
     super 'Warrior'
   end
