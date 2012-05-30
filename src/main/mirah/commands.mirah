@@ -1,2 +1,1 @@
-package net.savagerealms.savagegames.commands
-
+package net.savagerealms.savagegames

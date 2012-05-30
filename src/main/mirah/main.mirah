@@ -5,15 +5,32 @@ import java.util.ArrayList
 
 import org.bukkit.plugin.java.JavaPlugin
 
+import com.onarandombox.MultiverseCore.api.MVPlugin
+
 # Main plugin class.
 class SavageGames < JavaPlugin
   # Accessors
   def self.i; @@i; end
   def invs; @inventoryKeeper; end
   def games; @gameManager; end
+  def mv; @mv; end
 
   def onEnable
     @@i = self
+
+    # Multiverse
+    plugin = getServer.getPluginManager.getPlugin 'Multiverse-Core'
+    unless plugin != null
+      getLogger.log Level.SEVERE, 'Multiverse not found! Disabling plugin.'
+      getServer.getPluginManager.disablePlugin self
+    end
+
+    begin
+      @mv = MVPlugin(plugin)
+    rescue Exception => ex
+      getLogger.log Level.SEVERE, 'Multiverse not found! Disabling plugin.'
+      getServer.getPluginManager.disablePlugin self
+    end
 
     # Inventory keeper
     @inventoryKeeper = InventoryKeeper.new
