@@ -8,6 +8,8 @@ import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.World
 import org.bukkit.WorldType
+import org.bukkit.Location
+import org.bukkit.Material
 
 ##
 # Represents a type of game characterized by a map and its behaviors.
@@ -47,8 +49,14 @@ class GameType
   end
 
   ##
+  # Gets the spawn point of the GameType. Tributes will spawn
+  # within 50 blocks of this point.
+  #
+  def spawnPoint():Location; end
+
+  ##
   # Sets up the GameType.
-  def setup():World; end
+  def setup():void; end
 
   ##
   # Tears down the GameType.
@@ -60,12 +68,14 @@ end
 # Utilizes the power of Multiverse.
 #
 class WorldGameType < GameType
+  def spawnPoint(); @spawnPoint; end
 
   ##
   # Initializes the GameType.
   def initialize(settings:HashMap, main:SavageGames)
     super settings, main
   end
+
 
   def setup()
     wm = @main.mv.getCore.getMVWorldManager
@@ -85,7 +95,28 @@ class WorldGameType < GameType
       return
     end
 
-    @main.getLogger.log Level.INFO, 'World generated! Now the Savage Games can begin!'
+    @main.getLogger.log Level.INFO, 'World generated! Determining spawn...'
+
+    world = @main.getServer.getWorld @worldName
+    if world == nil
+      @main.getLogger.log Level.SEVERE, 'World did not get generated safely!'
+      return
+    end
+
+    # Usability check
+
+    bx = 0
+    bz = 0
+    block = world.getHighestBlockAt bx, bz
+    while block.getType.getMaterial.equals(Material.WATER) or \
+      block.getType.getMaterial.equals(Material.LAVA)
+
+      bx += 1
+      bz += 1
+      block = world.getHighestBlockAt bx, bz
+    end
+
+    @spawnPoint = block.getLocation.add 0, 1, 0
   end
 
   def tearDown()
