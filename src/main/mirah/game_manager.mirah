@@ -33,7 +33,9 @@ class GameManager
   ##
   # Creates a new game with the given GameType.
   #
-  def createGame(type:GameType)
-    Game.new
+  def createGame(type:GameType):Game
+    game = Game.new type
+    games.put type.spawnPoint.getWorld, game
+    return game
   end
 end
