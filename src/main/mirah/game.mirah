@@ -17,11 +17,11 @@ class Game
   def players; @players; end
   def spectators; @spectators; end
 
-  def settings; @settings; end
+  def type; @type; end
 
   # Initializes a game.
-  def initialize(settings:GameSettings, world:World)
-    @settings = settings
+  def initialize(type:GameType)
+    @type = type
     @world = world
 
     changeMode "waiting"
@@ -42,7 +42,7 @@ class Game
 
   # Checks if the game is a full game.
   def isFull?
-    @settings.capacity <= @participants.size
+    @type.capacity <= @participants.size
   end
 
   ###################
@@ -50,17 +50,17 @@ class Game
   ###################
 
   # Checks if the game can be started.
-  def canStart:String
-    if @participants.size < @settings.minPlayers
-      return "Not enough players."
+  def canStart
+    if @participants.size < @type.minPlayers
+      return false
     end
 
-    return nil
+    return true
   end
 
   # Starts the game.
   def start
-    if canStart != nil
+    unless canStart
       return false # Don't do this! Use canStart directly before starting.
     end
 
@@ -115,27 +115,6 @@ class Game
     end
   end
 
-end
-
-class GameSettings
-  """Game settings."""
-
-  def capacity():int; @capacity; end
-  def minPlayers():int; @minPlayers; end
-
-  def initialize(settings:HashMap)
-    begin
-      @capacity = Integer(settings.get 'capacity')
-    rescue Exception
-      @capacity = 24
-    end
-
-    begin
-      @minPlayers = Integer(settings.get 'minPlayers')
-    rescue Exception
-      @minPlayers = 6
-    end
-  end
 end
 
 # Game Countdown helper class.

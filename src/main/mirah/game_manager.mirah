@@ -9,24 +9,31 @@ import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.World
 
+##
+# Manages Games.
+#
 class GameManager
-  """
-  Manages Games.
-  """
   def games; @games; end
 
+  ##
+  # Initializes a new GameManager.
+  #
   def initialize(main:SavageGames)
     @main = main
     @games = HashMap.new
   end
 
+  ##
+  # Gets the game corresponding with the given world.
+  #
   def getGame(world:World)
-    """Gets the game corresponding with the given world."""
     games.get world
   end
 
+  ##
+  # Creates a new game with the given GameType.
+  #
   def createGame(type:GameType)
-    """Creates a new game with the given GameType."""
-    return
+    Game.new
   end
 end

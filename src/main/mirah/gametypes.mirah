@@ -2,6 +2,7 @@ package net.savagerealms.savagegames
 
 import java.io.File
 import java.util.logging.Level
+import java.util.HashMap
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -12,9 +13,42 @@ import org.bukkit.WorldType
 # Represents a type of game characterized by a map and its behaviors.
 #
 class GameType
+  def settings():HashMap; @settings; end
+  def main():SavageGames; @main; end
+
+  ##
+  # Gets the capacity of the GameType.
+  #
+  def capacity():int
+    begin
+      return Integer(settings.get 'capacity').intValue
+    rescue Exception
+      return 24
+    end
+  end
+
+  ##
+  # Gets the minimum players the game can have.
+  #
+  def minPlayers():int
+    begin
+      return Integer(settings.get 'minPlayers').intValue
+    rescue Exception
+      return 6
+    end
+  end
+
+  ##
+  # Creates a new GameType with the given settings.
+  #
+  def initialize(settings:HashMap, main:SavageGames)
+    @settings = settings
+    @main = main
+  end
+
   ##
   # Sets up the GameType.
-  def setup():void; end
+  def setup():World; end
 
   ##
   # Tears down the GameType.
@@ -29,13 +63,14 @@ class WorldGameType < GameType
 
   ##
   # Initializes the GameType.
-  def initialize(main:SavageGames)
-    @main = main
+  def initialize(settings:HashMap, main:SavageGames)
+    super settings, main
   end
 
   def setup()
     wm = @main.mv.getCore.getMVWorldManager
 
+    # Generate a name
     @worldName = '_sgame'
     while Bukkit.getWorld(@worldName) != nil
       @worldName += '1'
@@ -68,9 +103,6 @@ class WorldGameType < GameType
     FileUtils.delete folder
 
     @main.getLogger.log Level.INFO, 'World ' + @worldName + ' deleted!'
-  end
-
-  def delete(file:File)
   end
 end
 
