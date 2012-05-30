@@ -11,7 +11,6 @@ import org.bukkit.World
 # Represents an active game.
 class Game
   # Accessors
-  def world; @world; end
   def mode; @mode; end
   def participants; @participants; end
   def players; @players; end
@@ -22,7 +21,6 @@ class Game
   # Initializes a game.
   def initialize(type:GameType)
     @type = type
-    @world = world
 
     changeMode "waiting"
 

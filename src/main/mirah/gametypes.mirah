@@ -56,7 +56,7 @@ class GameType
 
   ##
   # Sets up the GameType.
-  def setup():void; end
+  def setup(); false; end
 
   ##
   # Tears down the GameType.
@@ -68,7 +68,7 @@ end
 # Utilizes the power of Multiverse.
 #
 class WorldGameType < GameType
-  def spawnPoint(); @spawnPoint; end
+  def spawnPoint():Location; @spawnPoint; end
 
   ##
   # Initializes the GameType.
@@ -78,62 +78,63 @@ class WorldGameType < GameType
 
 
   def setup()
-    wm = @main.mv.getCore.getMVWorldManager
+    wm = main.mv.getCore.getMVWorldManager
 
     # Generate a name
-    @worldName = '_sgame'
-    while Bukkit.getWorld(@worldName) != nil
-      @worldName += '1'
+    worldName = '_sgame'
+    while Bukkit.getWorld(worldName) != nil
+      worldName += '1'
     end
 
-    @main.getLogger.log Level.INFO, "Generating new SavageGames world `#{@worldName}'..."
-    added = wm.addWorld @worldName, World.Environment.NORMAL, \
+    @main.getLogger.log Level.INFO, "Generating new SavageGames world `#{worldName}'..."
+    added = wm.addWorld worldName, World.Environment.NORMAL, \
       Long.toString(Double.doubleToRawLongBits Math.random()), WorldType.NORMAL, Boolean.TRUE, ''
     
     unless added
       @main.getLogger.log Level.SEVERE, "Unable to generate world for some odd reason!"
-      return
+      return false
     end
 
     @main.getLogger.log Level.INFO, 'World generated! Determining spawn...'
 
-    world = @main.getServer.getWorld @worldName
-    if world == nil
+    @world = @main.getServer.getWorld worldName
+    if @world == nil
       @main.getLogger.log Level.SEVERE, 'World did not get generated safely!'
-      return
+      return false
     end
 
     # Usability check
 
     bx = 0
     bz = 0
-    block = world.getHighestBlockAt bx, bz
+    block = @world.getHighestBlockAt bx, bz
     while block.getType.getMaterial.equals(Material.WATER) or \
       block.getType.getMaterial.equals(Material.LAVA)
 
       bx += 1
       bz += 1
-      block = world.getHighestBlockAt bx, bz
+      block = @world.getHighestBlockAt bx, bz
     end
 
     @spawnPoint = block.getLocation.add 0, 1, 0
+
+    @main.getLogger.log Level.INFO, 'Spawn determined!'
+
+    return true
   end
 
   def tearDown()
-    world = Bukkit.getWorld @worldName
-    if world == nil
-      return
-    end
-
-    world.getPlayers.each do |p| # Should never happen
+    @world.getPlayers.each do |p| # Should never happen
       Player(p).kickPlayer 'Please rejoin, why are you still here?'
     end
 
-    Bukkit.getServer.unloadWorld @worldName, false
-    folder = File.new Bukkit.getServer.getWorldContainer, @worldName
+    worldName = world.getName
+
+    Bukkit.getServer.unloadWorld worldName, false
+    folder = File.new Bukkit.getServer.getWorldContainer, worldName
     FileUtils.delete folder
 
-    @main.getLogger.log Level.INFO, 'World ' + @worldName + ' deleted!'
+    @main.getLogger.log Level.INFO, 'World ' + worldName + ' deleted!'
   end
 end
 
