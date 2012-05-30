@@ -5,6 +5,8 @@ import java.util.logging.Level
 
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
+import org.bukkit.World
+import org.bukkit.WorldType
 
 ##
 # Represents a type of game characterized by a map and its behaviors.
@@ -39,8 +41,16 @@ class WorldGameType < GameType
       @worldName += '1'
     end
 
-   # wm.addWorld 
-    return
+    @main.getLogger.log Level.INFO, "Generating new SavageGames world `#{@worldName}'..."
+    added = wm.addWorld @worldName, World.Environment.NORMAL, \
+      Long.toString(Double.doubleToRawLongBits Math.random()), WorldType.NORMAL, Boolean.TRUE, ''
+    
+    unless added
+      @main.getLogger.log Level.SEVERE, "Unable to generate world for some odd reason!"
+      return
+    end
+
+    @main.getLogger.log Level.INFO, 'World generated! Now the Savage Games can begin!'
   end
 
   def tearDown()
