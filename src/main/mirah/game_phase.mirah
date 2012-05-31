@@ -116,9 +116,16 @@ end
 class LobbyPhase < GamePhase
 
   def enter(game:Game)
+    LobbyPhase.schedule_new_countdown game
   end
 
   def exit(game:Game)
+  end
+
+  def self.schedule_new_countdown(game:Game)
+    game.start_repeating_task 'lobby_countdown', \
+      LobbyCountdown.new ((System.currentTimeMillis / 1000) + 300), \
+      0, 1
   end
 
   ##
@@ -127,22 +134,48 @@ class LobbyPhase < GamePhase
   # At the end of its time, checks to see if the game is ready.
   # If it is, it progresses to the next phase.
   #
-  # Make it repeat every minute so it tells you how much time is left.
+  # Make it repeat every so often so it tells you how much time is left.
   #
   class LobbyCountdown < GameTask
-    def run
+    def eta; @eta; end
 
+    def initialize(eta:long)
+      @eta = eta
     end
 
-    ##
-    # Checks if the game can start.
-    #
-    def can_start(game:Game)
-      if game.participants.size < game.type.minPlayers
-        return false
+    def run
+      now = System.currentTimeMillis / 1000
+      diff = eta - now
+
+      secs = diff / 1000
+
+      if secs < 10
+        unless game.can_start
+          game.broadcast 'The start of the game is being delayed as there are not enough players.'
+          LobbyPhase.schedule_new_countdown game
+        else
+          game.next_phase
+        end
       end
 
-      return true
+      h = secs / 3600
+      r = secs % 3600
+      m = r / 60
+      s = r % 60
+
+      if m > 1 and (s % 30 != 0)
+        return
+      end
+
+      if s > 10 and s % 10 != 0
+        return
+      end
+
+      hs = (h > 0) ? '#{h}h' : ''
+      ms = (m > 0) ? '#{m}m' : ''
+      ss = (s > 0) ? '#{s}s' : ''
+
+      game.broadcast 'The game will be starting in #{h}#{m}#{s}. Be prepared.'
     end
   end
 end

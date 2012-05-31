@@ -17,7 +17,7 @@ class GameCountdown
     if @time > 0
       @game.broadcast Integer.toString(@time) + " seconds left!"
     else
-      @game.nextPhase
+      @game.next_phase
     end
     @time -= 1
   end

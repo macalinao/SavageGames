@@ -66,7 +66,7 @@ class Game
   ##
   # Moves on to the next phase of the game.
   #
-  def nextPhase()
+  def next_phase()
     phase.end self
     @phase = phase.next
     if @phase != nil
@@ -90,6 +90,17 @@ class Game
     participants.each do |p|
       Player(p).sendMessage message
     end
+  end
+
+  ##
+  # Checks if the game can start.
+  #
+  def can_start()
+    if participants.size < type.minPlayers
+      return false
+    end
+
+    return true
   end
 
   ###################

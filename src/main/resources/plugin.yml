@@ -1,7 +1,7 @@
 name: SavageGames
 description: SavageGames plugin.
 author: AlbireoX
-website: http://savagerealms.net/
+website: http://savagegames.net/
 version: 0.1
 
 main: net.savagerealms.savagegames.SavageGames
