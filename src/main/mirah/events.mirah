@@ -7,13 +7,12 @@ import org.bukkit.event.Cancellable
 
 import org.bukkit.entity.Player
 
-###################
-# EVENT FACTORY
-###################
-
+##
+# Makes events.
+#
 class EventFactory
-  def self.callGameModeChange(game:Game, mode:String)
-    event = SGGameModeChangeEvent.new game, mode
+  def self.callGamePhaseChange(game:Game, phase:GamePhase)
+    event = SGGamePhaseChangeEvent.new game, phase
     callEvent event
     event
   end
@@ -37,8 +36,10 @@ end
 GAME EVENTS
 """
 
+##
+# Represents an event happening within a game.
+#
 class SGGameEvent < SGEvent
-  """Represents an event happening with a game."""
   def game; @game; end # It's final!
 
   def initialize(game:Game)
@@ -46,17 +47,20 @@ class SGGameEvent < SGEvent
   end
 end
 
-class SGGameModeChangeEvent < SGGameEvent
-  """Called when a game's mode changes."""
-  def mode; @mode; end
+##
+# Called when a game's phase changes.
+#
+class SGGamePhaseChangeEvent < SGGameEvent
+  """Called when a game's phase changes."""
+  def phase; @phase; end
 
   def self.initialize
     @@handlers = HandlerList.new
   end
 
-  def initialize(game:Game, mode:String)
+  def initialize(game:Game, phase:GamePhase)
     super(game)
-    @mode = mode
+    @phase = phase
   end
 
   def getHandlers
@@ -72,9 +76,10 @@ end
 GAME/PLAYER EVENTS
 """
 
+##
+# Event relating to both players and games.
+#
 class SGGamePlayerEvent < SGGameEvent
-  """Events relating to both players and games."""
-
   def player; @player; end
 
   def self.initialize
@@ -87,9 +92,11 @@ class SGGamePlayerEvent < SGGameEvent
   end
 end
 
+##
+# Called when a player attempts to cross the border of a game.
+#
 class SGGamePlayerBorderEvent < SGGamePlayerEvent
   implements Cancellable
-  """Called when a player attempts to cross the border of a game."""
 
   def self.initialize
     @@handlers = HandlerList.new
@@ -119,8 +126,9 @@ end
 ###################
 # TEST EVENTS
 ###################
-
+##
 # Don't worry about it
+#
 class SGSampleEvent < SGEvent
   implements Cancellable
 
