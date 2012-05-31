@@ -46,7 +46,34 @@ end
 ##
 # A game phase.
 #
+# Has tasks built in.
+#
 class GamePhase
+
+  def initialize()
+    @tasks = HashMap.new
+  end
+
+  ##
+  # Sets the task of the given game.
+  #
+  def setTaskOf(game:Game, task:int)
+    @tasks.put game, Integer.valueOf(task)
+  end
+
+  ##
+  # Finishes the task of the given game.
+  #
+  def finishTaskOf(game:Game)
+    task = @tasks.remove game
+    if task == nil
+      return
+    end
+
+    intTask = Integer(task).intValue
+    Bukkit.getScheduler.cancelTask intTask if intTask > 0
+  end
+
   ##
   # Begins the game phase.
   def begin(game:Game):void
@@ -87,21 +114,36 @@ end
 # and fighting to get onto the server.
 #
 class LobbyPhase < GamePhase
-  ##
-  # Checks if the game can start.
-  #
-  def canStart(game:Game)
-    if game.participants.size < game.type.minPlayers
-      return false
-    end
-
-    return true
-  end
 
   def enter(game:Game)
   end
 
   def exit(game:Game)
+  end
+
+  ##
+  # Lobby countdown
+  #
+  # At the end of its time, checks to see if the game is ready.
+  # If it is, it progresses to the next phase.
+  #
+  # Make it repeat every minute so it tells you how much time is left.
+  #
+  class LobbyCountdown < GameTask
+    def run
+
+    end
+
+    ##
+    # Checks if the game can start.
+    #
+    def can_start(game:Game)
+      if game.participants.size < game.type.minPlayers
+        return false
+      end
+
+      return true
+    end
   end
 end
 
@@ -111,30 +153,6 @@ end
 # This is where the game is about to start.
 #
 class CountdownPhase < GamePhase
-
-  def initialize()
-    @tasks = HashMap.new
-  end
-
-  ##
-  # Sets the task of the given game.
-  #
-  def setTaskOf(game:Game, task:int)
-    @tasks.put game, Integer.valueOf(task)
-  end
-
-  ##
-  # Finishes the task of the given game.
-  #
-  def finishTaskOf(game:Game)
-    task = @tasks.remove game
-    if task == nil
-      return
-    end
-
-    intTask = Integer(task).intValue
-    Bukkit.getScheduler.cancelTask intTask if intTask > 0
-  end
 
   def enter(game:Game)
     setTaskOf game, (Bukkit.getScheduler.scheduleAsyncRepeatingTask SavageGames.i, \
