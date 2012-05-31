@@ -1,4 +1,4 @@
-package net.savagerealms.savagegames
+package net.savagegames.savagegames
 
 import java.io.File
 import java.io.IOException
@@ -24,6 +24,17 @@ class GameManager
   end
 
   ##
+  # Gets any game. (In reality it's the first found, but whatever)
+  #
+  def get_any_game:Game
+    game_array = games.values.toArray
+    unless game_array.length > 0
+      return nil
+    end
+    return game_array[0]
+  end
+
+  ##
   # Gets the game corresponding with the given world.
   #
   def getGame(world:World)
@@ -33,7 +44,7 @@ class GameManager
   ##
   # Creates a new game with the given GameType.
   #
-  def createGame(type:GameType):Game
+  def create_game(type:GameType):Game
     game = Game.new type
     games.put type.spawnPoint.getWorld, game
     return game

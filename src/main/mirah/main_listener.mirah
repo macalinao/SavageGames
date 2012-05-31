@@ -1,4 +1,4 @@
-package net.savagerealms.savagegames
+package net.savagegames.savagegames
 
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener

@@ -1,4 +1,4 @@
-package net.savagerealms.savagegames
+package net.savagegames.savagegames
 
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack

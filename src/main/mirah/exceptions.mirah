@@ -1,4 +1,4 @@
-package net.savagerealms.savagegames
+package net.savagegames.savagegames
 
 ##
 # An exception thrown by SavageGames.

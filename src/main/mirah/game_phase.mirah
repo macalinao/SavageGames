@@ -1,4 +1,4 @@
-package net.savagerealms.savagegames
+package net.savagegames.savagegames
 
 import java.util.LinkedList
 import java.util.HashMap

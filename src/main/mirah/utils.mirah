@@ -1,4 +1,4 @@
-package net.savagerealms.savagegames
+package net.savagegames.savagegames
 
 import java.io.File
 
@@ -13,3 +13,4 @@ class FileUtils
     f.delete
   end
 end
+`

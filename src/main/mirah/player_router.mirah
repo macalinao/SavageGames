@@ -1,4 +1,4 @@
-package net.savagerealms.savagegames
+package net.savagegames.savagegames
 
 import org.bukkit.entity.Player
 
@@ -11,6 +11,11 @@ interface PlayerRouter do
   def initialize(main:SavageGames)
     @main = main
   end
+
+  ##
+  # Sets up the router.
+  #
+  def setup; end
 
   ##
   # Routes the player to where they should be.
@@ -31,8 +36,17 @@ end
 class SingleGamePlayerRouter
   implements PlayerRouter
 
+  def current_game; @current_game; end
+
   def initialize(main:SavageGames)
     super main
+  end
+
+  def setup
+    @current_game = main.games.get_any_game
+    if @current_game == nil
+      @current_game = main.games.create_game
+    end
   end
 
   def route(player:Player)
@@ -40,6 +54,6 @@ class SingleGamePlayerRouter
   end
 
   def route_death(player:Player, game:Game)
-    
+
   end
 end
