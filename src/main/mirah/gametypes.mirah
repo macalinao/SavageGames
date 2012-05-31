@@ -74,6 +74,8 @@ class WorldGameType < GameType
   # Initializes the GameType.
   def initialize(settings:HashMap, main:SavageGames)
     super settings, main
+
+    @spawnPoint = Location(nil)
   end
 
 
@@ -81,25 +83,26 @@ class WorldGameType < GameType
     wm = main.mv.getCore.getMVWorldManager
 
     # Generate a name
+    worldName = String(nil)
     worldName = '_sgame'
     while Bukkit.getWorld(worldName) != nil
       worldName += '1'
     end
 
-    @main.getLogger.log Level.INFO, "Generating new SavageGames world `#{worldName}'..."
+    main.getLogger.log Level.INFO, "Generating new SavageGames world `#{worldName}'..."
     added = wm.addWorld worldName, World.Environment.NORMAL, \
       Long.toString(Double.doubleToRawLongBits Math.random()), WorldType.NORMAL, Boolean.TRUE, ''
     
     unless added
-      @main.getLogger.log Level.SEVERE, "Unable to generate world for some odd reason!"
+      main.getLogger.log Level.SEVERE, "Unable to generate world for some odd reason!"
       return false
     end
 
-    @main.getLogger.log Level.INFO, 'World generated! Determining spawn...'
+    main.getLogger.log Level.INFO, 'World generated! Determining spawn...'
 
-    @world = @main.getServer.getWorld worldName
+    @world = main.getServer.getWorld worldName
     if @world == nil
-      @main.getLogger.log Level.SEVERE, 'World did not get generated safely!'
+      main.getLogger.log Level.SEVERE, 'World did not get generated safely!'
       return false
     end
 
@@ -108,8 +111,8 @@ class WorldGameType < GameType
     bx = 0
     bz = 0
     block = @world.getHighestBlockAt bx, bz
-    while block.getType.getMaterial.equals(Material.WATER) or \
-      block.getType.getMaterial.equals(Material.LAVA)
+    while block.getType.equals(Material.WATER) or \
+      block.getType.equals(Material.LAVA)
 
       bx += 1
       bz += 1
@@ -118,7 +121,7 @@ class WorldGameType < GameType
 
     @spawnPoint = block.getLocation.add 0, 1, 0
 
-    @main.getLogger.log Level.INFO, 'Spawn determined!'
+    main.getLogger.log Level.INFO, 'Spawn determined!'
 
     return true
   end
@@ -128,13 +131,13 @@ class WorldGameType < GameType
       Player(p).kickPlayer 'Please rejoin, why are you still here?'
     end
 
-    worldName = world.getName
+    worldName = @world.getName
 
     Bukkit.getServer.unloadWorld worldName, false
     folder = File.new Bukkit.getServer.getWorldContainer, worldName
     FileUtils.delete folder
 
-    @main.getLogger.log Level.INFO, 'World ' + worldName + ' deleted!'
+    main.getLogger.log Level.INFO, 'World ' + worldName + ' deleted!'
   end
 end
 
