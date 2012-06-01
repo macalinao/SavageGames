@@ -8,17 +8,15 @@ package net.savagegames.savagegames
 #
 class LobbyPhase < GamePhase
 
-  def enter(game:Game)
+  def enter(game:Game):void
     LobbyPhase.schedule_new_countdown game
   end
 
-  def exit(game:Game)
+  def exit(game:Game):void
   end
 
-  def self.schedule_new_countdown(game:Game)
-    game.start_repeating_task 'lobby_countdown', \
-      LobbyCountdown.new((System.currentTimeMillis / 1000) + 300), \
-      0, 1
+  def self.schedule_new_countdown(game:Game):void
+    game.start_repeating_task 'lobby_countdown', LobbyCountdown.new((System.currentTimeMillis / 1000) + 300), 0, 1
   end
 
   ##
@@ -36,7 +34,7 @@ class LobbyPhase < GamePhase
       @eta = eta
     end
 
-    def run
+    def run:void
       now = System.currentTimeMillis / 1000
       diff = eta - now
 

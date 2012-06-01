@@ -114,6 +114,10 @@ class SGListener
   def onPlayerInteract(event:PlayerInteractEvent):void
     item = event.getItem
 
+    if item == nil
+      return
+    end
+
     unless item.getType.equals Material.COMPASS
       return
     end
