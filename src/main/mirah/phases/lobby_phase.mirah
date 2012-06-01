@@ -60,11 +60,11 @@ class LobbyPhase < GamePhase
         return
       end
 
-      hs = (h > 0) ? Long.toString(h) + 'h' : ''
-      ms = (m > 0) ? Long.toString(m) + 'm' : ''
-      ss = (s > 0) ? Long.toString(s) + 's' : ''
+      hs = (h > 0) ? Long.toString(h) + 'hours ' : ''
+      ms = (m > 0) ? Long.toString(m) + 'minutes ' : ''
+      ss = (s > 0) ? Long.toString(s) + 'seconds ' : ''
 
-      game.broadcast 'The game will be starting in ' + hs + ms + ss + '. Be prepared.'
+      game.broadcast 'The game will be starting in ' + (hs + ms + ss).trim + '. Be prepared.'
     end
   end
 end
