@@ -8,6 +8,8 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDeathEvent
+import org.bukkit.event.player.PlayerDeathEvent
 
 ##
 # The general SavageGames listener.
@@ -49,5 +51,19 @@ class SGListener
       #
 
     end
+  end
+
+  $EventHandler
+  def onEntityDeath(event:EntityDeathEvent):void
+    unless event.kind_of? PlayerDeathEvent
+      return
+    end
+
+    player = PlayerDeathEvent(event).getEntity
+    cause = player.getLastDamageCause
+
+    # TODO messages
+
+    player.getLocation.getWorld.strikeLightningEffect player.getLocation
   end
 end
