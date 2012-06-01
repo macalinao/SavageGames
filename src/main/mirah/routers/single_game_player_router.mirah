@@ -41,7 +41,7 @@ class SingleGamePlayerRouter < PlayerRouter
   end
 
   def route_to_lobby(player:Player)
-    # TODO
+    current_game.add_participant player # TODO
   end
 
   ##
