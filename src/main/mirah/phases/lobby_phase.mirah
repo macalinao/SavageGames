@@ -1,5 +1,7 @@
 package net.savagegames.savagegames
 
+import org.bukkit.ChatColor
+
 ##
 # The lobby phase of the game.
 #
@@ -13,6 +15,7 @@ class LobbyPhase < GamePhase
   end
 
   def exit(game:Game):void
+    game.cancel_task 'lobby_countdown'
   end
 
   def self.schedule_new_countdown(game:Game):void
@@ -38,7 +41,7 @@ class LobbyPhase < GamePhase
       now = System.currentTimeMillis / 1000
       secs = eta - now
 
-      if secs < 10
+      if secs < 0
         unless game.can_start
           game.broadcast 'The start of the game is being delayed as there are not enough players.'
           LobbyPhase.schedule_new_countdown game
@@ -52,11 +55,11 @@ class LobbyPhase < GamePhase
       m = r / 60
       s = r % 60
 
-      if m > 1 and (s % 30 != 0)
+      if m > 0 and (s % 30 != 0)
         return
       end
 
-      if s > 10 and s % 10 != 0
+      if s > 10 and s % 15 != 0
         return
       end
 
@@ -64,7 +67,12 @@ class LobbyPhase < GamePhase
       ms = (m > 0) ? Long.toString(m) + 'minutes ' : ''
       ss = (s > 0) ? Long.toString(s) + 'seconds ' : ''
 
-      game.broadcast 'The game will be starting in ' + (hs + ms + ss).trim + '. Be prepared.'
+      if s > 10
+        game.broadcast ChatColor.YELLOW.toString + 'The game will be starting in ' + (hs + ms + ss).trim + '. Be prepared.'
+      else
+        game.broadcast ChatColor.YELLOW.toString + ss + ' seconds left!'
+      end
+
     end
   end
 end
