@@ -80,9 +80,8 @@ class WorldGameType < GameType
 
     worldName = @world.getName
 
-    Bukkit.getServer.unloadWorld worldName, false
-    folder = File.new Bukkit.getServer.getWorldContainer, worldName
-    FileUtils.delete folder
+    wm = main.mv.getCore.getMVWorldManager
+    wm.deleteWorld worldName
 
     main.getLogger.log Level.INFO, 'World ' + worldName + ' deleted!'
   end
