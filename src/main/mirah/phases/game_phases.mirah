@@ -7,21 +7,18 @@ import java.util.LinkedList
 #
 class GamePhases
   def self.Lobby(); @@lobby; end
-  def self.Countdown(); @@countdown; end
   def self.Diaspora(); @@diaspora; end
   def self.Main(); @@main; end
   def self.Feast(); @@feast; end
 
   def self.initialize():void
     @@lobby = GamePhase(LobbyPhase.new)
-    @@countdown = GamePhase(CountdownPhase.new)
     @@diaspora = GamePhase(DiasporaPhase.new)
     @@main = GamePhase(MainPhase.new)
     @@feast = GamePhase(FeastPhase.new)
 
     @@phases = LinkedList.new
     @@phases.add @@lobby
-    @@phases.add @@countdown
     @@phases.add @@diaspora
     @@phases.add @@main
     @@phases.add @@feast
