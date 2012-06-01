@@ -275,6 +275,9 @@ class MainPhase < GamePhase
     game.broadcast 'You are no longer invincible. Let the bloodshed begin!'
   end
 
+  def exit(game:Game)
+  end
+
 end
 
 ##
