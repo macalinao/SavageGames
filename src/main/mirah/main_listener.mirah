@@ -57,16 +57,17 @@ class SGListener
     unless event.kind_of? EntityDamageByEntityEvent
       return
     end
+    puts 'a'
     ede = EntityDamageByEntityEvent(event)
 
-    if ede.getEntity.kind_of?(Player) and ede.getDamager.kind_of?(Player)
-
+    if ede.getEntity.kind_of?(Player) or ede.getDamager.kind_of?(Player)
+      puts 'b'
       # Check if in game
       game = main.games.get_game ede.getEntity.getLocation.getWorld
       if game == nil
         return
       end
-
+      puts 'c'
       unless game.phase.is_at_least GamePhases.Main
         ede.setCancelled true
       end
