@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 # Routes players who join to the correct lobby.
 #
 class PlayerRouter
-  def main(); @main; end
+  def main; @main; end
 
   def initialize(main:SavageGames)
     @main = main

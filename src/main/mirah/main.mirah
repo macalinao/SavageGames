@@ -14,6 +14,7 @@ class SavageGames < JavaPlugin
   def invs; @inventoryKeeper; end
   def games; @gameManager; end
   def mv; @mv; end
+  def router; @router; end
 
   def onEnable
     @@i = self
@@ -32,6 +33,9 @@ class SavageGames < JavaPlugin
       getServer.getPluginManager.disablePlugin self
     end
 
+    # Player router
+    @router = SingleGamePlayerRouter.new self
+
     # Inventory keeper
     @inventoryKeeper = InventoryKeeper.new
 
@@ -41,6 +45,9 @@ class SavageGames < JavaPlugin
     # Event listener
     @eventListener = SGListener.new self
     getServer.getPluginManager.registerEvents @eventListener, self
+
+    # Start routing
+    router.setup
 
     # We're loaded!
     getLogger.log Level.INFO, "Let the SavageGames begin!"
