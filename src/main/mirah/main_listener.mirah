@@ -49,7 +49,7 @@ class SGListener
         return
       end
 
-      unless game.phase.is_at_least GamePhases.Lobby
+      unless game.phase.is_at_least GamePhases.Diaspora
         event.setCancelled true
       end
     end
