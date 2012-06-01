@@ -99,6 +99,10 @@ class SGListener
       return
     end
 
+    if game.type.spawn.getWorld != player.getLocation.getWorld
+      return
+    end
+
     spawn = game.type.spawn
 
     minx = spawn.getBlockX - 256
