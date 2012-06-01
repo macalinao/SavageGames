@@ -64,4 +64,19 @@ class SGListenerSpec extends Specification {
         then: "The event should be cancelled"
         1 * event.setCancelled(true)
     }
+
+    def "the event is not cancelled if a player gets damaged in the diaspora not by another player"() {
+        given:
+        def event = Mock(EntityDamageEvent)
+        def player = Mock(Player)
+
+        event.getEntity() >> player
+        game.phase() >> GamePhases.Diaspora()
+
+        when: "The player is damaged"
+        listener.onEntityDamage event
+
+        then: "The event should be cancelled"
+        (_..0) * event.setCancelled(true)
+    }
 }
