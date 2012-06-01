@@ -216,7 +216,7 @@ class CountdownPhase < GamePhase
 
   def enter(game:Game)
     game.start_repeating_task 'countdown', \
-      (GameCountdown.new game, 10), 0, 20
+      GameCountdown.new, 0, 20
   end
 
   def exit(game:Game)
@@ -230,16 +230,15 @@ class CountdownPhase < GamePhase
   #
   class GameCountdown < GameTask
     
-    def initialize(game:Game, time:int)
-      @game = game
-      @time = time
+    def initialize
+      @time = 10
     end
 
     def run
       if @time > 0
-        @game.broadcast Integer.toString(@time) + " seconds left!"
+        game.broadcast Integer.toString(@time) + " seconds left!"
       else
-        @game.next_phase
+        game.next_phase
       end
       @time -= 1
     end
@@ -251,17 +250,23 @@ end
 # The diaspora phase of the game.
 #
 # This is where everyone leaves from the center.
+# You are not vulnerable to other players.
 #
 class DiasporaPhase < GamePhase
 
   def enter(game:Game)
     game.broadcast 'May the games forever be in your favor!'
+    game.start_delayed_task 'diaspora', DiasporaTimer.new, 2400 # 20 * 60 * 2
   end
 
   def exit(game:Game)
-
   end
 
+  class DiasporaTimer < GameTask
+    def run
+      game.next_phase
+    end
+  end
 end
 
 ##
@@ -272,7 +277,7 @@ end
 class MainPhase < GamePhase
 
   def enter(game:Game)
-    game.broadcast 'You are no longer invincible. Let the bloodshed begin!'
+    game.broadcast 'You are now vulnerable to other players. Let the bloodshed begin!'
   end
 
   def exit(game:Game)
