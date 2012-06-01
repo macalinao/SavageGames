@@ -41,7 +41,7 @@ class DiasporaPhase < GamePhase
   end
 
   class DiasporaTimer < GameTask
-    def run
+    def run:void
       game.next_phase
     end
   end
