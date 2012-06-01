@@ -16,7 +16,7 @@ class LobbyPhase < GamePhase
   end
 
   def self.schedule_new_countdown(game:Game):void
-    game.start_repeating_task 'lobby_countdown', LobbyCountdown.new((System.currentTimeMillis / 1000) + 300), 0, 1
+    game.start_repeating_task 'lobby_countdown', LobbyCountdown.new, 0, 20
   end
 
   ##
@@ -30,15 +30,13 @@ class LobbyPhase < GamePhase
   class LobbyCountdown < GameTask
     def eta; @eta; end
 
-    def initialize(eta:long)
-      @eta = eta
+    def initialize
+      @eta = (System.currentTimeMillis / 1000) + 300
     end
 
     def run:void
       now = System.currentTimeMillis / 1000
-      diff = eta - now
-
-      secs = diff / 1000
+      secs = eta - now
 
       if secs < 10
         unless game.can_start
@@ -66,7 +64,7 @@ class LobbyPhase < GamePhase
       ms = (m > 0) ? Long.toString(m) + 'm' : ''
       ss = (s > 0) ? Long.toString(s) + 's' : ''
 
-      game.broadcast 'The game will be starting in #{h}#{m}#{s}. Be prepared.'
+      game.broadcast 'The game will be starting in ' + hs + ms + ss + '. Be prepared.'
     end
   end
 end
