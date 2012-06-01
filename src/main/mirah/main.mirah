@@ -15,6 +15,7 @@ class SavageGames < JavaPlugin
   def games; @gameManager; end
   def mv; @mv; end
   def router; @router; end
+  def classes; @classes; end
 
   def onEnable
     @@i = self
@@ -41,6 +42,9 @@ class SavageGames < JavaPlugin
 
     # Game manager
     @gameManager = GameManager.new self
+
+    # Classes
+    @classes = ClassManager.new
 
     # Event listener
     @eventListener = SGListener.new self

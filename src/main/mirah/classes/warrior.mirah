@@ -1,28 +1,15 @@
 package net.savagegames.savagegames
 
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
 import org.bukkit.Material
-
-class SClass
-  def name():String; @name; end
-
-  def initialize(name:String)
-    @name = name
-  end
-
-  ##
-  # Called when the game starts.
-  #
-  def bind(player:Player):void; end
-end
+import org.bukkit.inventory.ItemStack
 
 ##
 # The Warrior class.
 # Starts out with a stone sword.
 #
 class Warrior < SClass
-  def initialize(name:String)
+  def initialize
     super 'Warrior'
   end
 
