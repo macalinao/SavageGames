@@ -45,6 +45,15 @@ class Game
   end
 
   ##
+  # Removes a player from the game.
+  #
+  # Just from the list.
+  #
+  def remove_player(p:Player):void
+    @players.remove p
+  end
+
+  ##
   # Adds a participant to the game.
   #
   def add_participant(p:Player):boolean

@@ -57,17 +57,15 @@ class SGListener
     unless event.kind_of? EntityDamageByEntityEvent
       return
     end
-    puts 'a'
+
     ede = EntityDamageByEntityEvent(event)
 
     if ede.getEntity.kind_of?(Player) or ede.getDamager.kind_of?(Player)
-      puts 'b'
       # Check if in game
       game = main.games.get_game ede.getEntity.getLocation.getWorld
       if game == nil
         return
       end
-      puts 'c'
       unless game.phase.is_at_least GamePhases.Main
         ede.setCancelled true
       end
@@ -84,11 +82,16 @@ class SGListener
     end
 
     player = Player(event.getEntity)
-    cause = player.getLastDamageCause
 
-    # TODO messages
+    world = player.getLocation.getWorld
+    world.strikeLightningEffect player.getLocation
 
-    player.getLocation.getWorld.strikeLightningEffect player.getLocation
+    game = main.games.get_game_of_player player
+    if game == nil
+      return
+    end
+
+    main.router.route_death player, game
   end
 
   $EventHandler
