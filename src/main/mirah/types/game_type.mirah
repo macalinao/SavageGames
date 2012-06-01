@@ -15,8 +15,8 @@ import org.bukkit.Material
 # Represents a type of game characterized by a map and its behaviors.
 #
 class GameType
-  def settings():HashMap; @settings; end
-  def main():SavageGames; SavageGames.i; end
+  def settings:HashMap; @settings; end
+  def main:SavageGames; SavageGames.i; end
 
   ##
   # Gets the capacity of the GameType.
