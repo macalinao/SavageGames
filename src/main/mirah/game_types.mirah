@@ -16,7 +16,7 @@ import org.bukkit.Material
 #
 class GameType
   def settings():HashMap; @settings; end
-  def main():SavageGames; @main; end
+  def main():SavageGames; SavageGames.i; end
 
   ##
   # Gets the capacity of the GameType.
@@ -43,9 +43,8 @@ class GameType
   ##
   # Creates a new GameType with the given settings.
   #
-  def initialize(settings:HashMap, main:SavageGames)
+  def initialize(settings:HashMap)
     @settings = settings
-    @main = main
   end
 
   ##

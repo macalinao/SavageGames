@@ -31,6 +31,10 @@ class GamePhases
     @@phases.add @@feast
   end
 
+  ##
+  # Gets the game phase after the given one.
+  # Returns nil if there is none.
+  #
   def self.after(phase:GamePhase)
     index = @@phases.indexOf phase
     after = index + 1
@@ -40,6 +44,22 @@ class GamePhases
     end
 
     return @@phases.get after
+  end
+
+  ##
+  # Gets the latter game phase.
+  #
+  def self.last(phase:GamePhase, other:GamePhase):GamePhase
+    i = @@phases.indexOf phase
+    j = @@phases.indexOf other
+
+    if i > j
+      return i
+    elsif i < j
+      return j
+    else
+      return i # The first is the last
+    end 
   end
 end
 
@@ -90,8 +110,15 @@ class GamePhase
   ##
   # Gets the next game phase.
   #
-  def next()
+  def next
     GamePhases.after self
+  end
+
+  ##
+  # Returns true if this phase is at or past the given phase.
+  #
+  def is_at_least(phase:GamePhase)
+    return (GamePhases.last phase, self) == self
   end
 
   ##

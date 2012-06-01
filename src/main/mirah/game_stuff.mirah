@@ -103,6 +103,13 @@ class Game
     return true
   end
 
+  ##
+  # Adds a spectator to the game.
+  #
+  def add_spectator(player:Player)
+    player.sendMessage 'You are technically supposed to be spectating now.'
+  end
+
   ###################
   # TASKS
   ###################
