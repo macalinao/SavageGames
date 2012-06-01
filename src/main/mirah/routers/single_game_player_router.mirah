@@ -25,6 +25,10 @@ class SingleGamePlayerRouter < PlayerRouter
   def route(player:Player)
     ensure_game_exists
 
+    puts current_game
+    puts current_game.phase
+    puts GamePhases.Diaspora
+
     if current_game.phase.is_at_least GamePhases.Diaspora
       current_game.add_spectator player
     else
@@ -47,6 +51,7 @@ class SingleGamePlayerRouter < PlayerRouter
     @current_game = main.games.get_any_game
     if @current_game == nil
       @current_game = main.games.create_game next_game_type
+      @current_game.start
     end
   end
 

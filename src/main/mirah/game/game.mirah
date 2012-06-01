@@ -25,17 +25,23 @@ class Game
     return list
   end
 
+  ##
   # Initializes a game.
+  #
   def initialize(type:GameType)
     @type = type
     @tasks = HashMap.new
 
     @players = ArrayList.new
     @spectators = ArrayList.new
+  end
 
-    @phase = GamePhase(nil)
-
-    phase = GamePhases.Lobby
+  ##
+  # Starts the game.
+  #
+  def start:void
+    @phase = GamePhases.Lobby
+    @phase.begin self
   end
 
   ##
