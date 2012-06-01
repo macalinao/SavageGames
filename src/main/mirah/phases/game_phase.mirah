@@ -40,7 +40,7 @@ class GamePhase
   ##
   # Returns true if this phase is at or past the given phase.
   #
-  def is_at_least(phase:GamePhase)
+  def is_at_least(phase:GamePhase):boolean
     return (GamePhases.last phase, self) == self
   end
 

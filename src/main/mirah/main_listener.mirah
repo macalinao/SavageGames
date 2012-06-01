@@ -39,6 +39,17 @@ class SGListener
 
   $EventHandler
   def onEntityDamage(event:EntityDamageEvent):void
+    player = Player(nil)
+
+    if event.getEntity.kind_of? Player
+      player = Player(event.getEntity)
+
+      game = main.games.get_game_of_player player
+      if game.phase.is_at_least GamePhases.Lobby
+        event.setCancelled true
+      end
+    end
+
     unless event.kind_of? EntityDamageByEntityEvent
       return
     end
@@ -58,6 +69,7 @@ class SGListener
       #
 
     end
+   
   end
 
   $EventHandler

@@ -25,4 +25,9 @@ class GamePhasesSpec extends Specification {
         expect:
         GamePhases.last(GamePhases.Lobby(), GamePhases.Lobby()) == GamePhases.Lobby()
     }
+
+    def "with lobby and main, main is last"() {
+        expect:
+        GamePhases.last(GamePhases.Lobby(), GamePhases.Main()) == GamePhases.Main()
+    }
 }

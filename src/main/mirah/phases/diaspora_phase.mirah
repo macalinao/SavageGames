@@ -14,6 +14,7 @@ class DiasporaPhase < GamePhase
   end
 
   def exit(game:Game)
+    game.cancel_task 'diaspora'
   end
 
   class DiasporaTimer < GameTask

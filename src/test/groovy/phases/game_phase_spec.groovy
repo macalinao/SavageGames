@@ -12,4 +12,15 @@ class GamePhaseSpec extends Specification {
         expect:
         GamePhases.Feast().next() == null
     }
+
+    def "lobby is not at least main"() {
+        expect:
+        GamePhases.Lobby().is_at_least(GamePhases.Main()) == false
+    }
+
+    def "main is at least lobby"() {
+        expect:
+        GamePhases.Main().is_at_least(GamePhases.Lobby()) == true
+    }
+
 }
