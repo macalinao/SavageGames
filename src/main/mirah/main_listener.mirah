@@ -91,8 +91,18 @@ class SGListener
     pz = player.getLocation.getBlockZ
 
     unless px > minx and px < maxx and pz > minz and pz < maxz
-      player.sendMessage ChatColor.RED.toString + '[WARNING] YOU HAVE CROSSED THE FORCEFIELD! IF YOU STAY OUTSIDE, YOU WILL BE KILLED!'
-      event.setCancelled true
+      rminx = minx - 16
+      rmaxx = maxx + 16
+
+      rminz = minz - 16
+      rmaxz = maxz + 16
+
+      unless px > rminx and px < rmaxx and pz > rminz and pz < rmaxz
+        player.getLocation.getWorld.strikeLightning player.getLocation
+        player.sendMessage ChatColor.RED.toString + 'YOU ARE BEING KILLED BY THE FORCE FIELD!'
+      else
+        player.sendMessage ChatColor.RED.toString + '[WARNING] YOU HAVE CROSSED THE FORCEFIELD! IF YOU WANDER ANY FURTHER, YOU WILL BE KILLED!'
+      end
     end
   end
 end
