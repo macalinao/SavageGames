@@ -1,6 +1,9 @@
 package net.savagegames.savagegames
 
 import org.bukkit.ChatColor
+import org.bukkit.Material
+import org.bukkit.Location
+import org.bukkit.event.block.Action
 
 import org.bukkit.entity.Player
 
@@ -11,6 +14,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
 
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
 
@@ -104,5 +108,39 @@ class SGListener
         player.sendMessage ChatColor.RED.toString + '[WARNING] YOU HAVE CROSSED THE FORCEFIELD! IF YOU WANDER ANY FURTHER, YOU WILL BE KILLED!'
       end
     end
+  end
+
+  $EventHandler
+  def onPlayerInteract(event:PlayerInteractEvent):void
+    item = event.getItem
+
+    unless item.getType.equals Material.COMPASS
+      return
+    end
+
+    unless event.getAction.equals Action.RIGHT_CLICK_AIR or event.getAction.equals Action.RIGHT_CLICK_BLOCK
+      return
+    end
+
+    # Get the closest player
+    player = event.getPlayer
+    shortest = 1000000
+    shortestp = Player(nil)
+    """
+    main.getServer.getOnlinePlayers.each do |p|
+      pl = Player(p)
+      dist = pl.getLocation.distanceSquared player.getLocation
+      if dist < shortest
+        shortest = dist
+        shortestp = pl
+      end
+    end
+    """
+    unless shortestp != nil
+      return
+    end
+
+    player.setCompassTarget shortestp.getLocation
+    player.sendMessage 'Your compass is now pointing to ' + shortestp.getName + '.'
   end
 end
