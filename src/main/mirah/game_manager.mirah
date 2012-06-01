@@ -8,6 +8,7 @@ import java.util.logging.Level
 import org.bukkit.Bukkit
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.World
+import org.bukkit.entity.Player
 
 ##
 # Manages Games.
@@ -37,8 +38,10 @@ class GameManager
   ##
   # Gets the game corresponding with the given world.
   #
-  def getGame(world:World)
-    games.get world
+  def get_game(world:World):Game
+    g = games.get world
+    return nil if g == nil
+    return Game(g)
   end
 
   ##
@@ -48,5 +51,12 @@ class GameManager
     game = Game.new type
     games.put type.spawnPoint.getWorld, game
     return game
+  end
+
+  ##
+  # Gets the game that the given player is in.
+  #
+  def get_game_of_player(player:Player):Game
+    return get_game player.getLocation.getWorld
   end
 end
