@@ -103,7 +103,7 @@ class SGListener
       return
     end
 
-    if game.type.spawn.getWorld != player.getLocation.getWorld
+    unless game.type.spawn.getWorld.equals player.getLocation.getWorld
       return
     end
 
