@@ -121,7 +121,7 @@ class Game
   #
   def start_repeating_task(name:String, task:GameTask, delay:long, interval:long):void
     task.game = self
-    task_id = Bukkit.getScheduler.scheduleAsyncRepeatingTask SavageGames.i, task, delay, interval
+    task_id = Bukkit.getScheduler.scheduleSyncRepeatingTask SavageGames.i, task, delay, interval
     
     current = get_task name
     unless current < 0
@@ -136,7 +136,7 @@ class Game
   #
   def start_delayed_task(name:String, task:GameTask, delay:long):void
     task.game = self
-    task_id = Bukkit.getScheduler.scheduleAsyncDelayedTask SavageGames.i, task, delay
+    task_id = Bukkit.getScheduler.scheduleSyncDelayedTask SavageGames.i, task, delay
     
     current = get_task name
     unless current < 0 and Bukkit.getScheduler.isQueued current

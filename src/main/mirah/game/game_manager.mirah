@@ -58,6 +58,15 @@ class GameManager
   # Gets the game that the given player is in.
   #
   def get_game_of_player(player:Player):Game
-    return get_game player.getLocation.getWorld
+    game = get_game player.getLocation.getWorld
+    if game == nil
+      games.values.each do |g|
+        game = Game(g)
+        if game.players.contains player
+          return game
+        end
+      end
+    end
+    return nil
   end
 end

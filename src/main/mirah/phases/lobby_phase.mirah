@@ -19,6 +19,7 @@ class LobbyPhase < GamePhase
   end
 
   def self.schedule_new_countdown(game:Game):void
+    game.cancel_task 'lobby_countdown'
     game.start_repeating_task 'lobby_countdown', LobbyCountdown.new, 0, 20
   end
 
@@ -31,22 +32,24 @@ class LobbyPhase < GamePhase
   # Make it repeat every so often so it tells you how much time is left.
   #
   class LobbyCountdown < GameTask
-    def eta; @eta; end
+    def time; @time; end
 
     def initialize
-      @eta = (System.currentTimeMillis / 1000) + 300
+      @time = 300
     end
 
     def run:void
-      now = System.currentTimeMillis / 1000
-      secs = eta - now
+      secs = @time
+      @time -= 1
 
-      if secs < 0
+      if secs <= 0
         unless game.can_start
           game.broadcast 'The start of the game is being delayed as there are not enough players.'
           LobbyPhase.schedule_new_countdown game
+          return
         else
           game.next_phase
+          return
         end
       end
 
@@ -63,14 +66,14 @@ class LobbyPhase < GamePhase
         return
       end
 
-      hs = (h > 0) ? Long.toString(h) + 'hours ' : ''
-      ms = (m > 0) ? Long.toString(m) + 'minutes ' : ''
-      ss = (s > 0) ? Long.toString(s) + 'seconds ' : ''
+      hs = (h > 0) ? Long.toString(h) + ' hours ' : ''
+      ms = (m > 0) ? Long.toString(m) + ' minutes ' : ''
+      ss = (s > 0) ? Long.toString(s) + ' seconds ' : ''
 
-      if s > 10
+      unless h == 0 and m == 0 and s <= 10
         game.broadcast ChatColor.YELLOW.toString + 'The game will be starting in ' + (hs + ms + ss).trim + '. Be prepared.'
       else
-        game.broadcast ChatColor.YELLOW.toString + ss + ' seconds left!'
+        game.broadcast ChatColor.YELLOW.toString + ss + 'left!'
       end
 
     end

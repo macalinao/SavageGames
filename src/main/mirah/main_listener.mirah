@@ -45,7 +45,11 @@ class SGListener
       player = Player(event.getEntity)
 
       game = main.games.get_game_of_player player
-      if game.phase.is_at_least GamePhases.Lobby
+      if game == nil
+        return
+      end
+
+      unless game.phase.is_at_least GamePhases.Lobby
         event.setCancelled true
       end
     end

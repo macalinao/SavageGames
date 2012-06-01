@@ -65,6 +65,7 @@ class WorldGameType < GameType
       bz += 1
       block = @world.getHighestBlockAt bx, bz
     end
+    puts block
 
     @spawn = block.getLocation.add 0, 1, 0
 
