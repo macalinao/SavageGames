@@ -1,5 +1,7 @@
 package net.savagegames.savagegames
 
+import org.bukkit.ChatColor
+
 import org.bukkit.entity.Player
 
 import org.bukkit.event.EventHandler
@@ -9,7 +11,6 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
 
-import org.bukkit.event.player.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
 
@@ -57,11 +58,11 @@ class SGListener
 
   $EventHandler
   def onEntityDeath(event:EntityDeathEvent):void
-    unless event.kind_of? PlayerDeathEvent
+    unless event.getEntity.kind_of? Player
       return
     end
 
-    player = PlayerDeathEvent(event).getEntity
+    player = Player(event.getEntity)
     cause = player.getLastDamageCause
 
     # TODO messages
@@ -90,7 +91,7 @@ class SGListener
     pz = player.getLocation.getBlockZ
 
     unless px > minx and px < maxx and pz > minz and pz < maxz
-      player.sendMessage 'You have crossed the border. NOT.'
+      player.sendMessage ChatColor.RED.toString + '[WARNING] YOU HAVE CROSSED THE FORCEFIELD! IF YOU STAY OUTSIDE, YOU WILL BE KILLED!'
       event.setCancelled true
     end
   end
