@@ -49,6 +49,7 @@ class GameManager
   #
   def create_game(type:GameType):Game
     game = Game.new type
+    type.setup
     games.put type.spawnPoint.getWorld, game
     return game
   end

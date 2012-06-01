@@ -59,11 +59,13 @@ class Game
   ##
   # Moves on to the next phase of the game.
   #
-  def next_phase()
+  def next_phase:void
     phase.end self
-    @phase = phase.next
-    if @phase != nil
-      phase.begin self
+    next_phase = phase.next
+
+    if next_phase != nil
+      @phase = next_phase
+      next_phase.begin self
     else
       end_game
     end
@@ -72,7 +74,7 @@ class Game
   ##
   # Ends the game.
   #
-  def end_game()
+  def end_game:void
     # TODO
   end
 
@@ -99,7 +101,8 @@ class Game
   ##
   # Adds a spectator to the game.
   #
-  def add_spectator(player:Player)
+  def add_spectator(player:Player):void
+    @spectators.add player
     player.sendMessage 'You are technically supposed to be spectating now.'
   end
 
@@ -110,7 +113,7 @@ class Game
   ##
   # Starts a new repeating task.
   #
-  def start_repeating_task(name:String, task:GameTask, delay:long, interval:long)
+  def start_repeating_task(name:String, task:GameTask, delay:long, interval:long):void
     task.game = self
     task_id = Bukkit.getScheduler.scheduleAsyncRepeatingTask SavageGames.i, task, delay, interval
     
@@ -125,7 +128,7 @@ class Game
   ##
   # Starts a new delayed task.
   #
-  def start_delayed_task(name:String, task:GameTask, delay:long)
+  def start_delayed_task(name:String, task:GameTask, delay:long):void
     task.game = self
     task_id = Bukkit.getScheduler.scheduleAsyncDelayedTask SavageGames.i, task, delay
     
@@ -140,7 +143,7 @@ class Game
   ##
   # Cancels a task.
   #
-  def cancel_task(name:String)
+  def cancel_task(name:String):void
     task = @tasks.get name
 
     current = get_task name
@@ -167,12 +170,4 @@ class Game
 
     return Integer(task).intValue
   end
-end
-
-##
-# A game task.
-#
-class GameTask < Runnable
-  def game; @game; end  
-  def game=(game:Game); @game = game; end 
 end

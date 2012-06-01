@@ -16,7 +16,7 @@ class GamePhases
   def self.Main(); @@main; end
   def self.Feast(); @@feast; end
 
-  def self.initialize()
+  def self.initialize():void
     @@lobby = GamePhase(LobbyPhase.new)
     @@countdown = GamePhase(CountdownPhase.new)
     @@diaspora = GamePhase(DiasporaPhase.new)
@@ -35,7 +35,7 @@ class GamePhases
   # Gets the game phase after the given one.
   # Returns nil if there is none.
   #
-  def self.after(phase:GamePhase)
+  def self.after(phase:GamePhase):GamePhase
     index = @@phases.indexOf phase
     after = index + 1
 
@@ -43,7 +43,7 @@ class GamePhases
       return nil
     end
 
-    return @@phases.get after
+    return GamePhase(@@phases.get after)
   end
 
   ##
@@ -75,26 +75,6 @@ class GamePhase
   end
 
   ##
-  # Sets the task of the given game.
-  #
-  def setTaskOf(game:Game, task:int)
-    @tasks.put game, Integer.valueOf(task)
-  end
-
-  ##
-  # Finishes the task of the given game.
-  #
-  def finishTaskOf(game:Game)
-    task = @tasks.remove game
-    if task == nil
-      return
-    end
-
-    intTask = Integer(task).intValue
-    Bukkit.getScheduler.cancelTask intTask if intTask > 0
-  end
-
-  ##
   # Begins the game phase.
   def begin(game:Game):void
     enter game
@@ -110,7 +90,7 @@ class GamePhase
   ##
   # Gets the next game phase.
   #
-  def next
+  def next:GamePhase
     GamePhases.after self
   end
 
@@ -198,9 +178,9 @@ class LobbyPhase < GamePhase
         return
       end
 
-      hs = (h > 0) ? '#{h}h' : ''
-      ms = (m > 0) ? '#{m}m' : ''
-      ss = (s > 0) ? '#{s}s' : ''
+      hs = (h > 0) ? Long.toString(h) + 'h' : ''
+      ms = (m > 0) ? Long.toString(m) + 'm' : ''
+      ss = (s > 0) ? Long.toString(s) + 's' : ''
 
       game.broadcast 'The game will be starting in #{h}#{m}#{s}. Be prepared.'
     end
