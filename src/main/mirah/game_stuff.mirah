@@ -130,7 +130,7 @@ class Game
     task_id = Bukkit.getScheduler.scheduleAsyncDelayedTask SavageGames.i, task, delay
     
     current = get_task name
-    unless current < 0
+    unless current < 0 and Bukkit.getScheduler.isQueued current
       return
     end
 
