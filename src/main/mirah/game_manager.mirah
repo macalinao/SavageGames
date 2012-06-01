@@ -50,7 +50,7 @@ class GameManager
   def create_game(type:GameType):Game
     game = Game.new type
     type.setup
-    games.put type.spawnPoint.getWorld, game
+    games.put type.spawn.getWorld, game
     return game
   end
 

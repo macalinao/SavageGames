@@ -12,73 +12,21 @@ import org.bukkit.Location
 import org.bukkit.Material
 
 ##
-# Represents a type of game characterized by a map and its behaviors.
-#
-class GameType
-  def settings():HashMap; @settings; end
-  def main():SavageGames; SavageGames.i; end
-
-  ##
-  # Gets the capacity of the GameType.
-  #
-  def capacity():int
-    begin
-      return Integer(settings.get 'capacity').intValue
-    rescue Exception
-      return 24
-    end
-  end
-
-  ##
-  # Gets the minimum players the game can have.
-  #
-  def minPlayers():int
-    begin
-      return Integer(settings.get 'minPlayers').intValue
-    rescue Exception
-      return 6
-    end
-  end
-
-  ##
-  # Creates a new GameType with the given settings.
-  #
-  def initialize(settings:HashMap)
-    @settings = settings
-  end
-
-  ##
-  # Gets the spawn point of the GameType. Tributes will spawn
-  # within 50 blocks of this point.
-  #
-  def spawnPoint():Location; end
-
-  ##
-  # Sets up the GameType.
-  def setup(); false; end
-
-  ##
-  # Tears down the GameType.
-  def tearDown():void; end
-end
-
-##
 # Represents a GameType using a map generator.
 # Utilizes the power of Multiverse.
 #
 class WorldGameType < GameType
-  def spawnPoint():Location; @spawnPoint; end
-
   ##
   # Initializes the GameType.
   def initialize(settings:HashMap)
     super settings
 
-    @spawnPoint = Location(nil)
+    @spawn = Location(nil)
   end
 
+  def spawn:Location; @spawn; end
 
-  def setup()
+  def setup
     wm = main.mv.getCore.getMVWorldManager
 
     # Generate a name
@@ -118,7 +66,7 @@ class WorldGameType < GameType
       block = @world.getHighestBlockAt bx, bz
     end
 
-    @spawnPoint = block.getLocation.add 0, 1, 0
+    @spawn = block.getLocation.add 0, 1, 0
 
     main.getLogger.log Level.INFO, 'Spawn determined!'
 
@@ -139,15 +87,3 @@ class WorldGameType < GameType
     main.getLogger.log Level.INFO, 'World ' + worldName + ' deleted!'
   end
 end
-
-"""
-class TCGameType < GameType
-  def initialize(config:WorldConfig)
-    
-  end
-
-  def setup()
-
-  end
-end
-"""
