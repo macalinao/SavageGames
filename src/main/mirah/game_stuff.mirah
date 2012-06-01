@@ -12,6 +12,7 @@ import org.bukkit.World
 class Game
   # Accessors
   def phase; @phase; end
+  def phase=(phase:GamePhase); @phase = phase; end
 
   def players; @players; end
   def spectators; @spectators; end
@@ -34,7 +35,7 @@ class Game
 
     @phase = GamePhase(nil)
 
-    setPhase GamePhases.Lobby
+    phase = GamePhases.Lobby
   end
 
   ##
@@ -53,14 +54,6 @@ class Game
   #
   def is_full?
     @type.capacity <= @players.size
-  end
-
-  ##
-  # Changes the phase of the game.
-  #
-  def setPhase(phase:GamePhase)
-    event = EventFactory.callGamePhaseChange self, phase
-    @phase = event.phase
   end
 
   ##
