@@ -151,7 +151,7 @@ class LobbyPhase < GamePhase
 
   def self.schedule_new_countdown(game:Game)
     game.start_repeating_task 'lobby_countdown', \
-      LobbyCountdown.new ((System.currentTimeMillis / 1000) + 300), \
+      LobbyCountdown.new((System.currentTimeMillis / 1000) + 300), \
       0, 1
   end
 
@@ -215,14 +215,36 @@ end
 class CountdownPhase < GamePhase
 
   def enter(game:Game)
-    setTaskOf game, (Bukkit.getScheduler.scheduleAsyncRepeatingTask SavageGames.i, \
-      GameCountdown.new(game, 10), 0, 20)
+    game.start_repeating_task 'countdown', \
+      (GameCountdown.new game, 10), 0, 20
   end
 
   def exit(game:Game)
-    finishTaskOf game
+    game.cancel_task 'countdown'
   end
 
+  ##
+  # Game Countdown helper class.
+  #
+  # Used by the countdown phase.
+  #
+  class GameCountdown < GameTask
+    
+    def initialize(game:Game, time:int)
+      @game = game
+      @time = time
+    end
+
+    def run
+      if @time > 0
+        @game.broadcast Integer.toString(@time) + " seconds left!"
+      else
+        @game.next_phase
+      end
+      @time -= 1
+    end
+
+  end
 end
 
 ##
