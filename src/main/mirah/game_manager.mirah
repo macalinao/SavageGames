@@ -31,7 +31,7 @@ class GameManager
     unless game_array.length > 0
       return nil
     end
-    return game_array[0]
+    return Game(game_array[0])
   end
 
   ##

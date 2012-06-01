@@ -71,8 +71,8 @@ class WorldGameType < GameType
 
   ##
   # Initializes the GameType.
-  def initialize(settings:HashMap, main:SavageGames)
-    super settings, main
+  def initialize(settings:HashMap)
+    super settings
 
     @spawnPoint = Location(nil)
   end

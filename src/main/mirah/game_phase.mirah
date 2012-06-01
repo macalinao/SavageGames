@@ -54,11 +54,11 @@ class GamePhases
     j = @@phases.indexOf other
 
     if i > j
-      return i
+      return phase
     elsif i < j
-      return j
+      return other
     else
-      return i # The first is the last
+      return phase # The first is the last
     end 
   end
 end

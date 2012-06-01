@@ -1,14 +1,15 @@
 package net.savagegames.savagegames
 
 import java.util.concurrent.ArrayBlockingQueue
+import java.util.HashMap
 
 import org.bukkit.entity.Player
 
 ##
 # Routes players who join to the correct lobby.
 #
-interface PlayerRouter do
-  def main; @main; end
+class PlayerRouter
+  def main(); @main; end
 
   def initialize(main:SavageGames)
     @main = main
@@ -35,14 +36,14 @@ end
 ##
 # Router for a single game server.
 #
-class SingleGamePlayerRouter
-  implements PlayerRouter
+class SingleGamePlayerRouter < PlayerRouter
 
   def current_game; @current_game; end
 
   def initialize(main:SavageGames)
     super main
 
+    @current_game = Game(nil)
     @queue = ArrayBlockingQueue.new 10
   end
 
@@ -61,13 +62,16 @@ class SingleGamePlayerRouter
   end
 
   def route_death(player:Player, game:Game)
-    current_game.add_spectator player
+    game.add_spectator player
   end
 
   def route_to_lobby(player:Player)
     # TODO
   end
 
+  ##
+  # Ensures that a game exists.
+  #
   def ensure_game_exists
     @current_game = main.games.get_any_game
     if @current_game == nil
@@ -80,10 +84,10 @@ class SingleGamePlayerRouter
   # Let's hope nobody finds out what map is going
   # to be next via the source code that's on Github.
   #
-  def populate_queue
+  def populate_queue()
     settings = HashMap.new
-    settings.put 'capacity', Integer(24)
-    settings.put 'minPlayers', Integer(1)
+    settings.put 'capacity', Integer.valueOf(24)
+    settings.put 'minPlayers', Integer.valueOf(1)
 
     @queue.add WorldGameType.new settings
     @queue.add WorldGameType.new settings
@@ -100,11 +104,11 @@ class SingleGamePlayerRouter
   ##
   # Gets the next game type.
   #
-  def next_game_type:GameType
+  def next_game_type():GameType
     if @queue.size <= 0
       populate_queue
     end
 
-    return @queue.poll
+    return GameType(@queue.poll)
   end
 end
