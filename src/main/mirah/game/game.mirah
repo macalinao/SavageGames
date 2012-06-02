@@ -90,7 +90,7 @@ class Game
     phase.end self
     nextt = phase.next
 
-    if next_phase != nil
+    if nextt != nil
       @phase = nextt
       nextt.begin self
     else
