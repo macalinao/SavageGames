@@ -8,9 +8,9 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
 ##
-# The Firefighter class.
+# The Pyro class.
 #
-class Firefighter < SClass
+class Pyro < SClass
   def initialize
     super 'Firefighter'
   end
