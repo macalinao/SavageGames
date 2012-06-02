@@ -88,11 +88,11 @@ class Game
   #
   def next_phase:void
     phase.end self
-    next_phase = phase.next
+    nextt = phase.next
 
     if next_phase != nil
-      @phase = next_phase
-      next_phase.begin self
+      @phase = nextt
+      nextt.begin self
     else
       end_game
     end
