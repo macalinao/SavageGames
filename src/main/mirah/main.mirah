@@ -53,6 +53,9 @@ class SavageGames < JavaPlugin
     # Start routing
     router.setup
 
+    # Register commands
+    Commands.register_all self
+
     # We're loaded!
     getLogger.log Level.INFO, "Let the SavageGames begin!"
   end
