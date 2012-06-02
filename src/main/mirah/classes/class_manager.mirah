@@ -57,6 +57,13 @@ class ClassManager
   end
 
   ##
+  # Resets the class of the given player to nothing.
+  #
+  def reset_class_of_player(player:Player):void
+    @player_classes.remove player
+  end
+
+  ##
   # Gets a list of all classes.
   #
   def list
