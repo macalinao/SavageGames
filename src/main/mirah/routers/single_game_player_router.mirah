@@ -37,6 +37,9 @@ class SingleGamePlayerRouter < PlayerRouter
     game.add_spectator player
   end
 
+  ##
+  # Routes a player to the lobby.
+  #
   def route_to_lobby(player:Player)
     player.sendMessage ChatColor.GREEN.toString + 'Welcome to the SavageGames!'
     player.sendMessage ChatColor.GREEN.toString + 'Please choose a class with the command /class <class name>'

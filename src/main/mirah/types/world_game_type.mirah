@@ -53,23 +53,7 @@ class WorldGameType < GameType
       return false
     end
 
-    # Usability check
-
-    bx = 0
-    bz = 0
-    block = @world.getHighestBlockAt bx, bz
-    puts "HIGHEST BLOCK IS " + block.toString
-    while block.getType.equals(Material.WATER) or \
-      block.getType.equals(Material.LAVA)
-
-      bx += 1
-      bz += 1
-      block = @world.getHighestBlockAt bx, bz
-    end
-    puts block
-
-    @spawn = block.getLocation.add 0, 1, 0
-
+    @spawn = @world.getSpawnLocation
     main.getLogger.log Level.INFO, 'Spawn determined!'
 
     return true
