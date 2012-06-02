@@ -7,7 +7,7 @@ import org.bukkit.command.CommandExecutor
 class SGCommand
   implements CommandExecutor
 
-  def execute(sender:CommandSender, cmd:Command, label:String, args:String[]):boolean
+  def onCommand(sender:CommandSender, cmd:Command, label:String, args:String[]):boolean
     run sender, cmd, label, args
     return true
   end
