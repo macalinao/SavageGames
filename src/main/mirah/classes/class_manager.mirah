@@ -21,11 +21,6 @@ class ClassManager
     setup_classes
   end
 
-  private
-  def setup_classes
-    add_class Warrior.new
-  end
-
   ##
   # Gets the class with the given name.
   #
@@ -68,5 +63,10 @@ class ClassManager
   #
   def list
     return ArrayList.new @classes.values
+  end
+
+  private
+  def setup_classes
+    add_class Warrior.new
   end
 end
