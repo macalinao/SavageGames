@@ -3,6 +3,7 @@ package net.savagegames.savagegames
 import java.util.concurrent.ArrayBlockingQueue
 import org.bukkit.entity.Player
 import java.util.HashMap
+import org.bukkit.ChatColor
 
 ##
 # Router for a single game server.
@@ -37,6 +38,9 @@ class SingleGamePlayerRouter < PlayerRouter
   end
 
   def route_to_lobby(player:Player)
+    player.sendMessage ChatColor.GREEN.toString + 'Welcome to the SavageGames!'
+    player.sendMessage ChatColor.GREEN.toString + 'Please choose a class with the command /class <class name>'
+    player.sendMessage ChatColor.YELLOW.toString + 'Available classes: ' + main.classes.list_classes_available(player)
     current_game.add_participant player # TODO
   end
 

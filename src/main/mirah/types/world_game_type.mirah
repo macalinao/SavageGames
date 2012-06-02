@@ -58,6 +58,7 @@ class WorldGameType < GameType
     bx = 0
     bz = 0
     block = @world.getHighestBlockAt bx, bz
+    puts "HIGHEST BLOCK IS " + block.toString
     while block.getType.equals(Material.WATER) or \
       block.getType.equals(Material.LAVA)
 
