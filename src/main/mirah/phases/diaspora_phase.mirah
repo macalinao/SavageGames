@@ -2,6 +2,7 @@ package net.savagegames.savagegames
 
 import org.bukkit.entity.Player
 import org.bukkit.Material
+import org.bukkit.inventory.ItemStack
 
 ##
 # The diaspora phase of the game.
