@@ -14,6 +14,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
 
+import org.bukkit.event.player.PlayerChatEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerMoveEvent
@@ -170,5 +171,30 @@ class SGListener
 
     player.setCompassTarget shortestp.getLocation
     player.sendMessage 'Your compass is now pointing to ' + shortestp.getName + '.'
+  end
+
+  $EventHandler
+  def onPlayerChat(event:PlayerChatEvent):void
+    player = event.getPlayer
+    game = main.games.get_game_of_player player
+    if game == nil
+      # This shouldn't ever happen, but just in case...
+      return
+    end
+
+    # We'll handle the chat our own way.
+    event.setCancelled true
+
+    clazz = main.classes.get_class_of_player player
+    if clazz == nil
+      return
+    end
+
+    name = player.getName
+    message = event.getMessage
+
+    # TODO handle donators
+    # TODO split chat of players and spectators
+    game.broadcast "<#{name}> #{message}"
   end
 end
