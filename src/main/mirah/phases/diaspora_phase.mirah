@@ -17,36 +17,7 @@ class DiasporaPhase < GamePhase
     # Setup the players
     game.players.each do |p|
       player = Player(p)
-      player.teleport game.type.spawn
-
-      # Remove main inv
-      inv = player.getInventory.getContents
-      inv.length.times {|i|
-        inv[i] = null
-      }
-      player.getInventory.setContents inv
-
-      # Remove armor inv
-      ainv = player.getInventory.getArmorContents
-      ainv.length.times {|i|
-        ainv[i] = null
-      }
-      player.getInventory.setArmorContents ainv
-
-      player.updateInventory
-
-      # Give compass
-      items = ItemStack[1]
-      items[0] = ItemStack.new(Material.COMPASS, 1)
-      player.getInventory.addItem items
-
-      # Setup class
-      clazz = SavageGames.i.classes.get_class_of_player player
-      if clazz == null
-        player.sendMessage ChatColor.RED.toString + 'Because you have not chosen a class, you have been assigned a random class.'
-        clazz = SavageGames.i.classes.get_class 'warrior'
-      end
-      clazz.bind player
+      setup_player player
     end
 
     game.broadcast 'May the odds be ever in your favor!'
@@ -55,6 +26,42 @@ class DiasporaPhase < GamePhase
 
   def exit(game:Game)
     game.cancel_task 'diaspora'
+  end
+
+  ##
+  # Sets up a player for the game.
+  #
+  def setup_player(player:Player):void
+    player.teleport game.type.spawn
+
+    # Remove main inv
+    inv = player.getInventory.getContents
+    inv.length.times {|i|
+      inv[i] = null
+    }
+    player.getInventory.setContents inv
+
+    # Remove armor inv
+    ainv = player.getInventory.getArmorContents
+    ainv.length.times {|i|
+      ainv[i] = null
+    }
+    player.getInventory.setArmorContents ainv
+
+    player.updateInventory
+
+    # Give compass
+    items = ItemStack[1]
+    items[0] = ItemStack.new(Material.COMPASS, 1)
+    player.getInventory.addItem items
+
+    # Setup class
+    clazz = SavageGames.i.classes.get_class_of_player player
+    if clazz == null
+      player.sendMessage ChatColor.RED.toString + 'Because you have not chosen a class, you have been assigned a random class.'
+      clazz = SavageGames.i.classes.get_class 'warrior'
+    end
+    clazz.bind player
   end
 
   class DiasporaTimer < GameTask
