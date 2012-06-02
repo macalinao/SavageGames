@@ -79,6 +79,7 @@ class ClassManager
         response += ', ' + clazz.name
       else
         response += clazz.name
+        first = false
       end
     end
 
