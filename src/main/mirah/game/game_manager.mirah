@@ -62,12 +62,12 @@ class GameManager
     if game == nil
       games.values.each do |g|
         game = Game(g)
-        if game.players.contains player
+        if game.participants.contains player
           return game
         end
       end
     end
-    return nil
+    return game
   end
 
   ##

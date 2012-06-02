@@ -205,6 +205,6 @@ class SGListener
 
     # TODO handle donators
     # TODO split chat of players and spectators
-    game.broadcast "<#{name}> #{message}"
+    game.broadcast_to_players "<#{name}> #{message}"
   end
 end

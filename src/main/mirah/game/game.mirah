@@ -110,7 +110,21 @@ class Game
   #
   def broadcast(message:String)
     participants.each do |p|
-      Player(p).sendMessage message
+      player = Player(p)
+      clazz = SavageGames.i.classes.get_class_of_player player
+    end
+  end
+
+  ##
+  # Broadcasts a message only to people who have chosen a class.
+  #
+  def broadcast_to_players(message:String)
+    participants.each do |p|
+      player = Player(p)
+      clazz = SavageGames.i.classes.get_class_of_player player
+      unless clazz == nil
+        player.sendMessage message
+      end
     end
   end
 
