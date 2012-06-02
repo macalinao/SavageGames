@@ -121,7 +121,7 @@ class SGListener
     px = player.getLocation.getBlockX
     pz = player.getLocation.getBlockZ
 
-    puts "DEBUG1: " + player.getLocation.toString
+    puts ": " + player.getLocation.toString
     puts "DEBUG2: " + game.type.spawn.toString
 
     unless px > minx and px < maxx and pz > minz and pz < maxz
@@ -132,10 +132,11 @@ class SGListener
       rmaxz = maxz + 16
 
       unless px > rminx and px < rmaxx and pz > rminz and pz < rmaxz
-        player.getLocation.getWorld.strikeLightning player.getLocation
+        player.getLocation.getWorld.strikeLightningEffect player.getLocation
+        player.damage 1
         player.sendMessage ChatColor.RED.toString + 'YOU ARE BEING KILLED BY THE FORCE FIELD!'
       else
-        player.sendMessage ChatColor.RED.toString + '[WARNING] YOU HAVE CROSSED THE FORCEFIELD! IF YOU WANDER ANY FURTHER, YOU WILL BE KILLED!'
+        player.sendMessage ChatColor.RED.toString + '[WARNING] You have crossed the forcefield! You will be killed if you keep going!'
       end
     end
   end
