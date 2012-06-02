@@ -44,7 +44,7 @@ class DiasporaPhase < GamePhase
       clazz = SavageGames.i.classes.get_class_of_player player
       if clazz == null
         player.sendMessage ChatColor.RED.toString + 'Because you have not chosen a class, you have been assigned a random class.'
-        clazz = SavageGames.i.classes.get 'warrior'
+        clazz = SavageGames.i.classes.get_class 'warrior'
       end
       clazz.bind player
     end

@@ -160,6 +160,7 @@ class SGListener
     player = event.getPlayer
     shortest = 1000000
     shortestp = Player(nil)
+
     """
     main.getServer.getOnlinePlayers.each do |p|
       pl = Player(p)
@@ -170,6 +171,7 @@ class SGListener
       end
     end
     """
+
     unless shortestp != nil
       return
     end
