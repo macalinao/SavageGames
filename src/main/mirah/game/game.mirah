@@ -58,7 +58,7 @@ class Game
   #
   def add_participant(p:Player):boolean
     unless is_full?
-      @players.add p
+      players.add p
       return true
     end
     return false 
@@ -68,6 +68,10 @@ class Game
   # Adds a spectator to the game.
   #
   def add_spectator(player:Player):void
+    if players.contains player
+      players.remove player
+    end
+
     @spectators.add player
     player.sendMessage 'You are technically supposed to be spectating now.'
   end

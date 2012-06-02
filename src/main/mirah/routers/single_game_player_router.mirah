@@ -33,7 +33,6 @@ class SingleGamePlayerRouter < PlayerRouter
   end
 
   def route_death(player:Player, game:Game)
-    game.remove_player player
     game.add_spectator player
   end
 
