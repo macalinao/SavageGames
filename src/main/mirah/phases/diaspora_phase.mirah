@@ -11,6 +11,7 @@ import org.bukkit.entity.Player
 class DiasporaPhase < GamePhase
 
   def enter(game:Game)
+    # Setup the players
     game.players.each do |p|
       player = Player(p)
       player.teleport game.type.spawn
@@ -30,10 +31,14 @@ class DiasporaPhase < GamePhase
       player.getInventory.setArmorContents ainv
 
       player.updateInventory
+
+      # Setup class
+      clazz = main.classes.get_class_of_player player
+      clazz.bind player
     end
 
     game.broadcast 'May the odds be ever in your favor!'
-    game.start_delayed_task 'diaspora', DiasporaTimer.new, 2400 # 20 * 60 * 2
+    game.start_repeating_task 'diaspora', DiasporaTimer.new, (60 * 20), (15 * 20)
   end
 
   def exit(game:Game)
@@ -41,8 +46,19 @@ class DiasporaPhase < GamePhase
   end
 
   class DiasporaTimer < GameTask
+    def initialize
+      @time_left = 4
+    end
+
     def run:void
-      game.next_phase
+      time = @time_left * 15
+      if time <= 0
+        game.next_phase
+        return
+      end
+
+      game.broadcast Integer.toString(time) + ' seconds left until vulnerability!'
+      @time_left -= 1
     end
   end
 end
