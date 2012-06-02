@@ -11,3 +11,6 @@ commands:
   savagegames:
     description: SavageGames main command.
     usage: /savagegames [args]
+  class:
+    description: Selects a class.
+    usage: /class <class name>

@@ -16,6 +16,7 @@ class ClassManager
   #
   def initialize
     @classes = HashMap.new
+    @player_classes = HashMap.new
 
     setup_classes
   end
@@ -37,6 +38,22 @@ class ClassManager
   #
   def add_class(clazz:SClass):void
     @classes.put clazz.name.toLowerCase, clazz
+  end
+
+  ##
+  # Sets the class of the given player to the given class.
+  #
+  def set_class_of_player(player:Player, clazz:SClass):void
+    @player_classes.put player, clazz
+  end
+
+  ##
+  # Gets the class of the given player.
+  #
+  def get_class_of_player(player:Player):SClass
+    c = @player_classes.get player
+    return nil if c == nil
+    return SClass(c)
   end
 
   ##
