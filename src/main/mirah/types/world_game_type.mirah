@@ -31,7 +31,7 @@ class WorldGameType < GameType
 
     # Generate a name
     worldName = String(nil)
-    worldName = '_sgame'
+    worldName = '__sgame__'
     while Bukkit.getWorld(worldName) != nil
       worldName += '1'
     end
