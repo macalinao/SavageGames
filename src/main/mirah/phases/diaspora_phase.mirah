@@ -1,6 +1,7 @@
 package net.savagegames.savagegames
 
 import org.bukkit.entity.Player
+import org.bukkit.Material
 
 ##
 # The diaspora phase of the game.
@@ -31,6 +32,11 @@ class DiasporaPhase < GamePhase
       player.getInventory.setArmorContents ainv
 
       player.updateInventory
+
+      # Give compass
+      items = ItemStack[1]
+      items[0] = ItemStack.new(Material.COMPASS, 1)
+      player.getInventory.addItem items
 
       # Setup class
       clazz = SavageGames.i.classes.get_class_of_player player
