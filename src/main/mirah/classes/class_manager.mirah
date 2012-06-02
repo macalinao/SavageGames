@@ -78,8 +78,8 @@ class ClassManager
       unless first
         response += ', ' + clazz.name
       else
-        response += clazz.name
         first = false
+        response += clazz.name
       end
     end
 

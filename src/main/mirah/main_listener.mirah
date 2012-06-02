@@ -101,10 +101,12 @@ class SGListener
     game = main.games.get_game_of_player player
 
     if game == nil
+      puts "NIL GAME!"
       return
     end
 
     unless game.type.spawn.getWorld.equals player.getLocation.getWorld
+      puts "ASDF"
       return
     end
 
@@ -118,6 +120,9 @@ class SGListener
 
     px = player.getLocation.getBlockX
     pz = player.getLocation.getBlockZ
+
+    puts "DEBUG1: " + player.getLocation.toString
+    puts "DEBUG2: " + game.type.spawn.toString
 
     unless px > minx and px < maxx and pz > minz and pz < maxz
       rminx = minx - 16

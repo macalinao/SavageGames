@@ -10,6 +10,8 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
 
+import org.bukkit.event.player.PlayerMoveEvent
+
 class SGListenerSpec extends Specification {
 
     SavageGames main

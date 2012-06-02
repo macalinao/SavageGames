@@ -1,5 +1,6 @@
 package net.savagegames.savagegames
 
+import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -41,6 +42,10 @@ class DiasporaPhase < GamePhase
 
       # Setup class
       clazz = SavageGames.i.classes.get_class_of_player player
+      if clazz == null
+        player.sendMessage ChatColor.RED.toString + 'Because you have not chosen a class, you have been assigned a random class.'
+        clazz = SavageGames.i.classes.get 'warrior'
+      end
       clazz.bind player
     end
 
