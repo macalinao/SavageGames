@@ -102,7 +102,7 @@ class Game
   # Ends the game.
   #
   def end_game:void
-    # TODO
+    SavageGames.i.games.end_game self
   end
 
   ##

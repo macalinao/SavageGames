@@ -69,4 +69,11 @@ class GameManager
     end
     return nil
   end
+
+  ##
+  # Ends the given game.
+  #
+  def end_game(game:Game):void
+    games.remove game.type.spawn.getWorld
+  end
 end
