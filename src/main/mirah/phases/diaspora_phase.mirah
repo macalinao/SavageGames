@@ -17,7 +17,7 @@ class DiasporaPhase < GamePhase
     # Setup the players
     game.players.each do |p|
       player = Player(p)
-      setup_player player
+      setup_player game, player
     end
 
     game.broadcast 'May the odds be ever in your favor!'
@@ -31,7 +31,7 @@ class DiasporaPhase < GamePhase
   ##
   # Sets up a player for the game.
   #
-  def setup_player(player:Player):void
+  def setup_player(game:Game, player:Player):void
     player.teleport game.type.spawn
 
     # Remove main inv
