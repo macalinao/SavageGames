@@ -68,5 +68,6 @@ class ClassManager
   private
   def setup_classes
     add_class Warrior.new
+    add_class Firefighter.new
   end
 end
