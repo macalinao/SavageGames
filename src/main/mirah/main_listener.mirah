@@ -187,6 +187,9 @@ class SGListener
 
     clazz = main.classes.get_class_of_player player
     if clazz == nil
+      classes = main.classes.list_classes_available player
+      player.sendMessage ChatColor.RED.toString + "You aren't allowed to chat until you've chosen a class!"
+      player.sendMessage ChatColor.YELLOW.toString + "Available classes: #{classes}"
       return
     end
 

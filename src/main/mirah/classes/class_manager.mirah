@@ -65,6 +65,26 @@ class ClassManager
     return ArrayList.new @classes.values
   end
 
+  ##
+  # Gets a list of available classes to a player in String format.
+  #
+  def list_classes_available(player:Player):String
+    response = ''
+
+    first = true
+
+    list.each do |c|
+      clazz = SClass(c)
+      unless first
+        response += ', ' + clazz.name
+      else
+        response += clazz.name
+      end
+    end
+
+    return response.trim
+  end
+
   private
   def setup_classes
     add_class Warrior.new
