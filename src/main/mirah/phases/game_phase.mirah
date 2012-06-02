@@ -13,7 +13,7 @@ import org.bukkit.entity.Player
 #
 class GamePhase
 
-  def initialize()
+  def initialize
     @tasks = HashMap.new
   end
 

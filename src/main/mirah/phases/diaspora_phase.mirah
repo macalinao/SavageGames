@@ -33,7 +33,7 @@ class DiasporaPhase < GamePhase
       player.updateInventory
 
       # Setup class
-      clazz = main.classes.get_class_of_player player
+      clazz = SavageGames.i.classes.get_class_of_player player
       clazz.bind player
     end
 
