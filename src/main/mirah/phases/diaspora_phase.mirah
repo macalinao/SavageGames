@@ -20,7 +20,8 @@ class DiasporaPhase < GamePhase
       setup_player game, player
     end
 
-    game.broadcast 'May the odds be ever in your favor!'
+    game.broadcast ChatColor.RED.toString + 'You have 2 minutes until you are invincible to other players.'
+    game.broadcast ChatColor.RED.toString + 'May the odds be ever in your favor!'
     game.start_repeating_task 'diaspora', DiasporaTimer.new, (60 * 20), (15 * 20)
   end
 
@@ -65,6 +66,9 @@ class DiasporaPhase < GamePhase
     clazz.bind player
   end
 
+  ##
+  # Timer to end the diaspora when appropriate.
+  #
   class DiasporaTimer < GameTask
     def initialize
       @time_left = 4
@@ -77,7 +81,7 @@ class DiasporaPhase < GamePhase
         return
       end
 
-      game.broadcast Integer.toString(time) + ' seconds left until vulnerability!'
+      game.broadcast ChatColor.RED.toString + Integer.toString(time) + ' seconds left until vulnerability!'
       @time_left -= 1
     end
   end
