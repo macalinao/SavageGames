@@ -35,6 +35,7 @@ class SavageGames < JavaPlugin
     end
 
     # Player router
+    @router = PlayerRouter(nil)
     @router = SingleGamePlayerRouter.new self
 
     # Inventory keeper

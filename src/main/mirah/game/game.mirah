@@ -65,6 +65,14 @@ class Game
   end
 
   ##
+  # Adds a spectator to the game.
+  #
+  def add_spectator(player:Player):void
+    @spectators.add player
+    player.sendMessage 'You are technically supposed to be spectating now.'
+  end
+
+  ##
   # Checks if the game is a full game.
   #
   def is_full?
@@ -111,14 +119,6 @@ class Game
     end
 
     return true
-  end
-
-  ##
-  # Adds a spectator to the game.
-  #
-  def add_spectator(player:Player):void
-    @spectators.add player
-    player.sendMessage 'You are technically supposed to be spectating now.'
   end
 
   ###################
