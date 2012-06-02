@@ -2,6 +2,8 @@ package net.savagegames.savagegames
 
 import org.bukkit.ChatColor
 
+import org.bukkit.entity.Player
+
 ##
 # The lobby phase of the game.
 #
@@ -12,10 +14,13 @@ class LobbyPhase < GamePhase
 
   def enter(game:Game):void
     LobbyPhase.schedule_new_countdown game
+
+    game.start_repeating_task 'hunger_satiator', HungerSatiator.new, 0, 40 # Every 2 seconds
   end
 
   def exit(game:Game):void
     game.cancel_task 'lobby_countdown'
+    game.cancel_task 'hunger_satiator'
   end
 
   def self.schedule_new_countdown(game:Game):void
@@ -76,6 +81,19 @@ class LobbyPhase < GamePhase
         game.broadcast ChatColor.YELLOW.toString + ss + 'left!'
       end
 
+    end
+  end
+
+  ##
+  # Satiates hunger.
+  #
+  class HungerSatiator < GameTask
+    def run:void
+      game.participants.each do |p|
+        player = Player(p)
+
+        player.setFoodLevel 20
+      end
     end
   end
 end
