@@ -3,6 +3,7 @@ package net.savagegames.savagegames
 import java.util.logging.Level
 import java.util.ArrayList
 
+import org.bukkit.World
 import org.bukkit.plugin.java.JavaPlugin
 
 import com.onarandombox.MultiverseCore.api.MVPlugin
@@ -32,6 +33,14 @@ class SavageGames < JavaPlugin
     rescue Exception => ex
       getLogger.log Level.SEVERE, 'Multiverse not found! Disabling plugin.'
       getServer.getPluginManager.disablePlugin self
+    end
+
+    # Check for extraneous old worlds
+    getServer.getWorlds.each do |w|
+      world = World(w)
+      if world.getName.startsWith '__sgame__'
+        mv.getCore.getMVWorldManager.deleteWorld world.getName
+      end
     end
 
     # Player router
