@@ -12,7 +12,7 @@ import org.bukkit.potion.PotionEffectType
 #
 class Pyro < SClass
   def initialize
-    super 'Firefighter'
+    super 'Pyro'
   end
 
   def bind(player:Player)
