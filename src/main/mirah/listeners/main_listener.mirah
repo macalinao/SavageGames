@@ -120,6 +120,7 @@ class SGListener
       return
     end
 
+    game.remove_player player
     main.router.route_death player, game
 
     # Check for game progression
