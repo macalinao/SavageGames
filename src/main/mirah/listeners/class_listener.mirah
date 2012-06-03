@@ -18,7 +18,7 @@ class ClassListener
   end
 
   $EventHandler
-  def onPlayerInteract(event:PlayerInteractEvent)
+  def onPlayerInteract(event:PlayerInteractEvent):void
     player = event.getPlayer
     clazz = main.classes.get_class_of_player player
 
