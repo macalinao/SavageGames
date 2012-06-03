@@ -57,8 +57,11 @@ class SavageGames < JavaPlugin
     @classes = ClassManager.new
 
     # Event listener
-    @eventListener = SGListener.new self
-    getServer.getPluginManager.registerEvents @eventListener, self
+    @event_listener = SGListener.new self
+    getServer.getPluginManager.registerEvents @event_listener, self
+
+    @class_listener = ClassListener.new self
+    getServer.getPluginManager.registerEvents @class_listener, self
 
     # Start routing
     router.setup
