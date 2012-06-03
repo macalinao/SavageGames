@@ -48,8 +48,8 @@ class Chef < SClass
     unless mat == nil
       item.setType mat
       player.setItemInHand item
+      player.sendMessage ChatColor.GOLD.toString + 'Bon appetite!'
     end
 
-    player.sendMessage ChatColor.GOLD.toString + 'Bon appetite!'
   end
 end

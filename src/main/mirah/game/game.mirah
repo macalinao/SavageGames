@@ -19,7 +19,7 @@ class Game
 
   def type; @type; end
   
-  def participants()
+  def participants
     list = ArrayList.new(players)
     list.addAll spectators
     return list
