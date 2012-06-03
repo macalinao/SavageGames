@@ -8,6 +8,8 @@ import org.bukkit.ChatColor
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
+import org.bukkit.event.player.PlayerLoginEvent
+
 ##
 # Router for a single game server.
 #
@@ -38,7 +40,16 @@ class SingleGamePlayerRouter < PlayerRouter
 
   def route_death(player:Player, game:Game)
     reset_player player
-    game.add_spectator player
+    player.kickPlayer ChatColor.GREEN.toString + 'You have been killed!'
+
+#    game.add_spectator player
+  end
+
+  def handle_login(event:PlayerLoginEvent):void
+    if current_game.phase.is_at_least GamePhases.Diaspora
+      event.setKickMessage ChatColor.YELLOW.toString + 'Sorry, tribute, a game is currently in progress. Come again later!'
+      event.setResult PlayerLoginEvent.Result.KICK_OTHER
+    end
   end
 
   ##

@@ -1,6 +1,7 @@
 package net.savagegames.savagegames
 
 import org.bukkit.entity.Player
+import org.bukkit.event.player.PlayerLoginEvent
 
 ##
 # Routes players who join to the correct lobby.
@@ -28,4 +29,9 @@ class PlayerRouter
   # Routes a player after they die in a game.
   #
   def route_death(player:Player, game:Game):void; end
+
+  ##
+  # Handles a login event.
+  #
+  def handle_login(event:PlayerLoginEvent):void; end
 end

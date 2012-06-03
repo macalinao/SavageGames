@@ -17,6 +17,7 @@ import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.player.PlayerChatEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerLoginEvent
 import org.bukkit.event.player.PlayerMoveEvent
 
 ##
@@ -31,6 +32,11 @@ class SGListener
 
   def initialize(main:SavageGames)
     @main = main
+  end
+
+  $EventHandler
+  def onPlayerLogin(event:PlayerLoginEvent):void
+    main.router.handle_login event
   end
 
   $EventHandler
