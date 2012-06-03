@@ -132,7 +132,7 @@ class Game
   # Checks if the game can start.
   #
   def can_start()
-    if participants.size < type.minPlayers
+    if participants.size < type.min_players
       return false
     end
 

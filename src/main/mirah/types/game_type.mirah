@@ -32,9 +32,20 @@ class GameType
   ##
   # Gets the minimum players the game can have.
   #
-  def minPlayers():int
+  def min_players:int
     begin
-      return Integer(settings.get 'minPlayers').intValue
+      return Integer(settings.get 'min_players').intValue
+    rescue Exception
+      return 6
+    end
+  end
+
+  ##
+  # Gets the amount of players needed for feasts to start occuring.
+  #
+  def feast_players:int
+    begin
+      return Integer(settings.get 'feast_players').intValue
     rescue Exception
       return 6
     end

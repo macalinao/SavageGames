@@ -106,7 +106,7 @@ class SingleGamePlayerRouter < PlayerRouter
   def populate_queue()
     settings = HashMap.new
     settings.put 'capacity', Integer.valueOf(24)
-    settings.put 'minPlayers', Integer.valueOf(1)
+    settings.put 'min_players', Integer.valueOf(2)
 
     @queue.add WorldGameType.new settings
     @queue.add WorldGameType.new settings
