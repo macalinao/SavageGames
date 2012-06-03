@@ -95,8 +95,7 @@ class SGListener
     main.router.route_death player, game
 
     # Check for game progression
-    count = game.players.size
-    if count <= game.type.feast_players
+    if game.players.size <= game.type.feast_players
       game.next_phase
     end
   end

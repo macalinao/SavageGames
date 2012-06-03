@@ -2,6 +2,8 @@ package net.savagegames.savagegames
 
 import spock.lang.*
 
+import java.util.ArrayList
+
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.entity.Player
@@ -44,6 +46,14 @@ class SGListenerSpec extends Specification {
 
         player.getLocation() >> pLoc
         pLoc.getWorld() >> pWorld
+
+        def players = Mock(ArrayList)
+        players.size() >> 100
+        game.players() >> players
+
+        def type = Mock(GameType)
+        type.feast_players() >> 10
+        game.type() >> type
 
         when: "The player dies ingame"
         listener.onEntityDeath event
