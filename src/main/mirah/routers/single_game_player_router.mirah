@@ -61,9 +61,13 @@ class SingleGamePlayerRouter < PlayerRouter
   #
   def reset_player(player:Player)
     # Remove all potion effects
-    PotionEffectType.values.each do |e|
-      effect = PotionEffectType(e)
-      player.removePotionEffect effect
+    player.getActivePotionEffects.each do |e|
+      effect = PotionEffect(e)
+      begin
+        player.removePotionEffect effect.getType
+      rescue Exception
+        # Slacka!
+      end
     end
 
     # Remove main inv
