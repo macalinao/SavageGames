@@ -13,4 +13,11 @@ class SClass
   # Called when the game starts.
   #
   def bind(player:Player):void; end
+
+  ##
+  # Returns true if the class name is identified by given.
+  #
+  def is(n:String)
+    return name.toLowerCase.equals n.toLowerCase
+  end
 end
