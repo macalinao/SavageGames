@@ -53,6 +53,7 @@ class SGListener
 
       game = main.games.get_game_of_player player
       if game == nil
+        event.setCancelled true
         return
       end
 
