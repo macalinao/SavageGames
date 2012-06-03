@@ -3,6 +3,7 @@ package net.savagegames.savagegames
 import org.bukkit.entity.Player
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
+import org.bukkit.ChatColor
 
 import org.bukkit.event.block.Action
 
@@ -18,21 +19,21 @@ class Chef < SClass
   end
 
   def bind(player:Player)
-    # It's all about the events!
+    player.sendMessage ChatColor.GOLD.toString + 'Cook by right-clicking with raw food in your hand.'
   end
 
   ##
   # Handles the player interact of people that are Chefs.
   #
   def self.player_interact(event:PlayerInteractEvent)
-    unless event.getAction.equals Action.RIGHT_CLICK_AIR
+    unless event.getAction.equals(Action.RIGHT_CLICK_AIR) or event.getAction.equals(Action.RIGHT_CLICK_BLOCK)
       return
     end
 
     player = event.getPlayer
     item = player.getItemInHand
     type = item.getType
-    mat = nil
+    mat = Material(nil)
 
     if type.equals Material.RAW_BEEF
       mat = Material.COOKED_BEEF
@@ -44,10 +45,11 @@ class Chef < SClass
       mat = Material.GRILLED_PORK
     end
 
-    if mat != nil
+    unless mat == nil
       item.setType mat
       player.setItemInHand item
     end
 
-    player.sendMessage ChatColor.GREEN.toString + 'Order up!'
+    player.sendMessage ChatColor.GOLD.toString + 'Bon appetite!'
+  end
 end
