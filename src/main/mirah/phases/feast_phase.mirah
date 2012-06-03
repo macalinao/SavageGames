@@ -93,7 +93,9 @@ class FeastPhase < GamePhase
           if height > highest_y
             highest_y = height
           end
+          j += 1
         end
+        i += 1
       end
 
       thex = pminx + 10
@@ -123,7 +125,9 @@ class FeastPhase < GamePhase
         j = z - 20
         while j < maxz
           world.getBlockAt(i, y, j).setType Material.GRASS
+          j += 1
         end
+        i += 1
       end
     end
 
