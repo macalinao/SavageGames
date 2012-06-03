@@ -25,7 +25,7 @@ class Chef < SClass
   ##
   # Handles the player interact of people that are Chefs.
   #
-  def self.player_interact(event:PlayerInteractEvent)
+  def self.player_interact(event:PlayerInteractEvent):void
     unless event.getAction.equals(Action.RIGHT_CLICK_AIR) or event.getAction.equals(Action.RIGHT_CLICK_BLOCK)
       return
     end
