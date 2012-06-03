@@ -67,7 +67,7 @@ class SGListener
 
     ede = EntityDamageByEntityEvent(event)
 
-    if ede.getEntity.kind_of?(Player) or ede.getDamager.kind_of?(Player)
+    if ede.getEntity.kind_of?(Player) and ede.getDamager.kind_of?(Player)
       # Check if in game
       game = main.games.get_game ede.getEntity.getLocation.getWorld
       if game == nil
