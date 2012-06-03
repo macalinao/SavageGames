@@ -91,5 +91,6 @@ class ClassManager
     add_class Warrior.new
     add_class Firefighter.new
     add_class Miner.new
+    add_class Chef.new
   end
 end
