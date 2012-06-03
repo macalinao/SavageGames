@@ -120,6 +120,10 @@ class SGListener
       return
     end
 
+    unless game.phase.is_at_least GamePhases.Diaspora
+      return
+    end
+
     spawn = game.type.spawn
 
     minx = spawn.getBlockX - 256
