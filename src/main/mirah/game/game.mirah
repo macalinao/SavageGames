@@ -111,7 +111,7 @@ class Game
   def broadcast(message:String)
     participants.each do |p|
       player = Player(p)
-      clazz = SavageGames.i.classes.get_class_of_player player
+      player.sendMessage message
     end
   end
 
