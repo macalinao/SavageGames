@@ -10,6 +10,9 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 
+import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.event.block.BlockPlaceEvent
+
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDeathEvent
@@ -32,6 +35,24 @@ class SGListener
 
   def initialize(main:SavageGames)
     @main = main
+  end
+
+  $EventHandler
+  def onBlockBreak(event:BlockBreakEvent):void
+    game = main.games.get_game_of_player event.getPlayer
+    if game == nil or game.phase.is_at_least(GamePhases.Diaspora)
+      event.getPlayer.sendMessage ChatColor.RED.toString + "Sorry, you can't build here."
+      event.setCancelled true
+    end
+  end
+
+  $EventHandler
+  def onBlockPlace(event:BlockPlaceEvent):void
+    game = main.games.get_game_of_player event.getPlayer
+    if game == nil or game.phase.is_at_least(GamePhases.Diaspora)
+      event.getPlayer.sendMessage ChatColor.RED.toString + "Sorry, you can't build here."
+      event.setCancelled true
+    end
   end
 
   $EventHandler
