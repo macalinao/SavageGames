@@ -58,6 +58,8 @@ class FeastPhase < GamePhase
       if s == 0
         start_feast
       end
+
+      @time -= 1
     end
 
     def startup
