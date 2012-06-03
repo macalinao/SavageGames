@@ -5,6 +5,7 @@ import org.bukkit.entity.Player
 import java.util.HashMap
 import org.bukkit.ChatColor
 
+import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
 ##
