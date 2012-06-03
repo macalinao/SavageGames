@@ -29,6 +29,7 @@ class Chef < SClass
       return
     end
 
+    player = event.getPlayer
     item = player.getItemInHand
     type = item.getType
     mat = nil
@@ -47,4 +48,6 @@ class Chef < SClass
       item.setType mat
       player.setItemInHand item
     end
+
+    player.sendMessage ChatColor.GREEN.toString + 'Order up!'
 end
