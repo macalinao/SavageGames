@@ -5,6 +5,8 @@ import org.bukkit.entity.Player
 import java.util.HashMap
 import org.bukkit.ChatColor
 
+import org.bukkit.potion.PotionEffectType
+
 ##
 # Router for a single game server.
 #
@@ -34,6 +36,7 @@ class SingleGamePlayerRouter < PlayerRouter
   end
 
   def route_death(player:Player, game:Game)
+    reset_player player
     game.add_spectator player
   end
 
@@ -44,7 +47,44 @@ class SingleGamePlayerRouter < PlayerRouter
     player.sendMessage ChatColor.GREEN.toString + 'Welcome to the SavageGames!'
     player.sendMessage ChatColor.GREEN.toString + 'Please choose a class with the command /class <class name>'
     player.sendMessage ChatColor.YELLOW.toString + 'Available classes: ' + main.classes.list_classes_available(player)
-    current_game.add_participant player # TODO
+
+    reset_player player
+
+    # Add to the game
+    current_game.add_participant player
+
+    # NOTE: lobby should be spawn of the server
+  end
+
+  ##
+  # Resets a player to normal state.
+  #
+  def reset_player(player:Player)
+    # Remove all potion effects
+    PotionEffectType.values.each do |e|
+      effect = PotionEffectType(e)
+      player.removePotionEffect effect
+    end
+
+    # Remove main inv
+    inv = player.getInventory.getContents
+    inv.length.times {|i|
+      inv[i] = null
+    }
+    player.getInventory.setContents inv
+
+    # Remove armor inv
+    ainv = player.getInventory.getArmorContents
+    ainv.length.times {|i|
+      ainv[i] = null
+    }
+    player.getInventory.setArmorContents ainv
+
+    player.updateInventory
+
+    # Heal
+    player.setHealth 20
+    player.setFoodLevel 20
   end
 
   ##
