@@ -134,9 +134,8 @@ class FeastPhase < GamePhase
       generate_feast
       game.broadcast ChatColor.RED.toString + 'The feast has begun!'
 
-      # TODO start another wait for feast, instead we slack.
       game.cancel_task 'feast_countdown'
-      game.start_repeating_task 'feast_countdown', FeastCountdown.new, 0, 20
+      game.start_delayed_task 'feast_intermission', FeastIntermission.new, 20 * 600 # 10 minutes
     end
 
     ##
@@ -146,6 +145,15 @@ class FeastPhase < GamePhase
       upcent = center.add 0, 1, 0
 
       upcent.getWorld.getBlockAt(upcent).setType Material.ENCHANTMENT_TABLE
+    end
+  end
+
+  ##
+  # Feast intermission.
+  #
+  class FeastIntermission < GameTask
+    def run:void
+      game.start_repeating_task 'feast_countdown', FeastCountdown.new, 0, 20
     end
   end
 end
