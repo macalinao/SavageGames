@@ -212,7 +212,7 @@ class SGListener
       return
     end
 
-    player.setCompassTarget shortestp.getLocation
+    main.compasses.set_target player, shortestp
     player.sendMessage 'Your compass is now pointing to ' + shortestp.getName + '.'
   end
 
