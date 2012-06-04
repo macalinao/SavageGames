@@ -1,5 +1,7 @@
 package net.savagegames.savagegames
 
+import java.util.HashMap
+
 import org.bukkit.entity.Player
 
 class CompassUpdater
@@ -26,6 +28,6 @@ class CompassUpdater
       return
     end
 
-    player.setCompassLocation tar.getLocation
+    player.setCompassTarget Player(tar).getLocation
   end
 end
