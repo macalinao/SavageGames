@@ -21,6 +21,7 @@ class GamePhase
   # Begins the game phase.
   def begin(game:Game):void
     enter game
+    game.check_progression
   end
 
   ##
@@ -28,6 +29,13 @@ class GamePhase
   #
   def end(game:Game):void
     exit game
+  end
+
+  ##
+  # Checks if the game should progress.
+  #
+  def should_progress?(game:Game):boolean
+    return false
   end
 
   ##

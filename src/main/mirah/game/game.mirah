@@ -158,9 +158,7 @@ class Game
   # Checks for game progression
   #
   def check_progression:void
-    if players.size <= type.feast_players
-      next_phase
-    end
+    next_phase if phase.should_progress?(self)
   end
 
   ###################
