@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 ##
 # Command to allow you to choose a class.
 #
-class ClassCommand < SGPlayerCommand
+class ClassCommand < BasePlayerCommand
   def run_player(player:Player, cmd:Command, label:String, args:String[]):void
     game = SavageGames.i.games.get_game_of_player player
     if game == nil

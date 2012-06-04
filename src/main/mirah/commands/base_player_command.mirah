@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 ##
 # A command for players.
 #
-class SGPlayerCommand < SGCommand
+class BasePlayerCommand < BaseCommand
   def run(sender:CommandSender, cmd:Command, label:String, args:String[]):void
     unless sender.kind_of? Player
       sender.sendMessage 'You must be a player to use this command.'
