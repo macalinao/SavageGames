@@ -32,26 +32,33 @@ class FeastPhase < GamePhase
     end
 
     def run:void
+      @time -= 1
       if time == 300
         startup
         return
-      else
-        m =  time / 60
-        s = time % 60
-
-        if m > 0 and s == 0
-            game.broadcast ChatColor.RED.toString + "The feast begins in #{m} minutes."
-        elsif s % 15 == 0
-          game.broadcast ChatColor.RED.toString + "The feast begins in #{s} seconds."
-        elsif s <= 10
-          game.broadcast ChatColor.RED.toString + "#{s} seconds left!"
-        elsif s == 0
-          start_feast
-        end
       end
 
-      @time -= 1
+      m =  time / 60
+      s = time % 60
 
+      if m > 0 and s == 0
+        game.broadcast ChatColor.RED.toString + "The feast begins in #{m} minutes."
+        return
+      end
+
+      if s <= 10
+        if s == 0
+          start_feast
+        else
+          game.broadcast ChatColor.RED.toString + "#{s} seconds left!"
+        end
+        return
+      end
+
+      if s % 15 == 0
+        game.broadcast ChatColor.RED.toString + "The feast begins in #{s} seconds."
+        return
+      end
     end
 
     def startup
