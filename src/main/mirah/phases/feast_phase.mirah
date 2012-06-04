@@ -113,7 +113,7 @@ class FeastPhase < GamePhase
       they = highest_y
       thez = pminz + 10
 
-      @center = Location.new spawn.getWorld, thex, they, thex
+      @center = Location.new spawn.getWorld, thex, they, thez
       generate_feast_platform
       
       game.broadcast ChatColor.RED.toString + "A feast will happen at (#{thex}, #{they}, #{thez}) in 5 minutes!"
