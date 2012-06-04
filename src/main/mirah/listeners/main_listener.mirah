@@ -20,8 +20,10 @@ import org.bukkit.event.entity.EntityDeathEvent
 import org.bukkit.event.player.PlayerChatEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerJoinEvent
+import org.bukkit.event.player.PlayerKickEvent
 import org.bukkit.event.player.PlayerLoginEvent
 import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.event.player.PlayerQuitEvent
 
 ##
 # The general SavageGames listener.
@@ -123,10 +125,7 @@ class SGListener
     game.remove_player player
     main.router.route_death player, game
 
-    # Check for game progression
-    if game.players.size <= game.type.feast_players
-      game.next_phase
-    end
+    game.check_progression
   end
 
   $EventHandler
@@ -242,5 +241,25 @@ class SGListener
     # TODO handle donators
     # TODO split chat of players and spectators
     game.broadcast_to_players "<#{name}> #{message}"
+  end
+
+  $EventHandler
+  def onPlayerKick(event:PlayerKickEvent):void
+    handle_leave event.getPlayer
+  end
+
+  $EventHandler
+  def onPlayerQuit(event:PlayerQuitEvent):void
+    handle_leave event.getPlayer
+  end
+
+  ##
+  # Handles the leaving of a player.
+  #
+  def handle_leave(player:Player):void
+    game = main.games.get_game_of_player player
+    unless game == nil
+      game.handle_leave player
+    end
   end
 end

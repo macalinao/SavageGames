@@ -4,6 +4,7 @@ import java.util.ArrayList
 import java.util.Date
 import java.util.HashMap
 
+import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.Bukkit
 import org.bukkit.World
@@ -131,12 +132,35 @@ class Game
   ##
   # Checks if the game can start.
   #
-  def can_start()
+  def can_start:boolean
     if participants.size < type.min_players
       return false
     end
 
     return true
+  end
+
+  ##
+  # Handles when a player leaves the game.
+  #
+  def handle_leave(player:Player):void
+    unless phase.is_at_least GamePhases.Diaspora
+      return
+    end
+    broadcast ChatColor.BLUE.toString + "#{player.getName} has left the game!"
+    remove_player player
+
+    check_progression
+    # TODO delay this 20 seconds
+  end
+
+  ##
+  # Checks for game progression
+  #
+  def check_progression:void
+    if players.size <= type.feast_players
+      next_phase
+    end
   end
 
   ###################
