@@ -10,7 +10,7 @@ class GamePhaseSpec extends Specification {
 
     def "the last phase's next should be null"() {
         expect:
-        GamePhases.Feast().next() == null
+        GamePhases.Win().next() == null
     }
 
     def "lobby is not at least main"() {

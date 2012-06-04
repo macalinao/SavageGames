@@ -8,7 +8,7 @@ class GamePhasesSpec extends Specification {
         GamePhases.after(GamePhases.Lobby()) == GamePhases.Diaspora()
         GamePhases.after(GamePhases.Diaspora()) == GamePhases.Main()
         GamePhases.after(GamePhases.Main()) == GamePhases.Feast()
-        GamePhases.after(GamePhases.Feast()) == null
+        GamePhases.after(GamePhases.Feast()) == GamePhases.Win()
     }
 
     def "with diaspora and main, main is last"() {

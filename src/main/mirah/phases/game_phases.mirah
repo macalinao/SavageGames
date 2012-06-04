@@ -10,18 +10,21 @@ class GamePhases
   def self.Diaspora(); @@diaspora; end
   def self.Main(); @@main; end
   def self.Feast(); @@feast; end
+  def self.Win; @@win; end
 
   def self.initialize():void
     @@lobby = GamePhase(LobbyPhase.new)
     @@diaspora = GamePhase(DiasporaPhase.new)
     @@main = GamePhase(MainPhase.new)
     @@feast = GamePhase(FeastPhase.new)
+    @@win = GamePhase(WinPhase.new)
 
     @@phases = LinkedList.new
     @@phases.add @@lobby
     @@phases.add @@diaspora
     @@phases.add @@main
     @@phases.add @@feast
+    @@phases.add @@win
   end
 
   ##

@@ -69,6 +69,10 @@ class FeastPhase < GamePhase
       end
     end
 
+    def should_progress?(game:Game):boolean
+      return game.players.size == 1
+    end
+
     def startup
       spawn = game.type.spawn
 
