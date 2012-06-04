@@ -21,7 +21,7 @@ class Firefighter < SClass
     player.getInventory.addItem items
 
     # Apply fire resistance
-    effect = PotionEffect.new PotionEffectType.FIRE_RESISTANCE, 1000000, 1 # Basically forever
+    effect = PotionEffect.new PotionEffectType.FIRE_RESISTANCE, 100000000, 1 # Basically forever
     player.addPotionEffect effect
   end
 end

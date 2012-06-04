@@ -136,7 +136,6 @@ class FeastPhase < GamePhase
         j = z - 10
         while j < maxz
           world.getBlockAt(i, y, j).setType Material.GRASS
-          puts world.getBlockAt(i, y, j)
           j += 1
         end
         i += 1
