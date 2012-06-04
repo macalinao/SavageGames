@@ -70,7 +70,7 @@ class FeastPhase < GamePhase
     end
 
     def should_progress?(game:Game):boolean
-      return game.players.size == 1
+      return game.players.size <= 1
     end
 
     def startup

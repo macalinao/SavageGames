@@ -147,11 +147,10 @@ class Game
     unless phase.is_at_least GamePhases.Diaspora
       return
     end
-    broadcast ChatColor.BLUE.toString + "#{player.getName} has left the game!"
-    remove_player player
 
-    check_progression
-    # TODO delay this 20 seconds
+    delay = GameLogoutDelay.new player
+
+    start_delayed_task "logout_delay_#{player.getName}", delay, 400 # 20 secs
   end
 
   ##
