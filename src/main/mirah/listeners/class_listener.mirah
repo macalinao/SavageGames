@@ -22,8 +22,12 @@ class ClassListener
     player = event.getPlayer
     clazz = main.classes.get_class_of_player player
 
-    if clazz != nil and clazz.is 'chef'
-      Chef.player_interact event
+    if clazz != nil 
+      if clazz.is 'chef'
+        Chef.player_interact event
+      elsif clazz.is 'ghost'
+        Ghost.player_interact event
+      end
     end
   end
 end

@@ -6,7 +6,6 @@ import org.bukkit.inventory.ItemStack
 
 ##
 # The Ghost class.
-# Starts out with a stone sword.
 #
 class Ghost < SClass
   def initialize
@@ -17,5 +16,8 @@ class Ghost < SClass
     items = ItemStack[1]
     items[0] = ItemStack.new(Material.GHAST_TEAR, 1)
     player.getInventory.addItem items
+  end
+
+  def player_interact(event:PlayerInteractEvent):void
   end
 end
