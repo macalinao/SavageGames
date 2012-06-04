@@ -28,7 +28,7 @@ class FeastPhase < GamePhase
 
     def initialize
       @center = Location(nil)
-      @time = 300
+      @time = 301 # Add 1 because i'm lazy
     end
 
     def run:void
@@ -41,8 +41,10 @@ class FeastPhase < GamePhase
       m =  time / 60
       s = time % 60
 
-      if m > 0 and s == 0
-        game.broadcast ChatColor.RED.toString + "The feast begins in #{m} minutes."
+      if m > 0 
+        if s == 0
+          game.broadcast ChatColor.RED.toString + "The feast begins in #{m} minutes."
+        end
         return
       end
 
@@ -150,7 +152,6 @@ class FeastPhase < GamePhase
     #
     def generate_feast
       upcent = center.add 0, 1, 0
-
       upcent.getWorld.getBlockAt(upcent).setType Material.ENCHANTMENT_TABLE
     end
   end
