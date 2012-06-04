@@ -1,6 +1,8 @@
 package net.savagegames.savagegames
 
 import org.bukkit.Bukkit
+import org.bukkit.entity.Player
+import org.bukkit.ChatColor
 
 ##
 # Delays logouts.
