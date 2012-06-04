@@ -195,16 +195,18 @@ class SGListener
     shortest = 1000000
     shortestp = Player(nil)
 
-    """
-    main.getServer.getOnlinePlayers.each do |p|
-      pl = Player(p)
+    players = main.getServer.getOnlinePlayers
+    amt = players.length
+    i = 0
+    while i < amt
+      pl = Player(players[i])
       dist = pl.getLocation.distanceSquared player.getLocation
       if dist < shortest
-        shortest = dist
+        shortest = int(dist)
         shortestp = pl
       end
+      i += 1
     end
-    """
 
     unless shortestp != nil
       return
