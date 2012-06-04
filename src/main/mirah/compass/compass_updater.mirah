@@ -37,7 +37,7 @@ class CompassUpdater
   ##
   # Updates the given player's compass target.
   #
-  def update_target(player:Player)
+  def update_target(player:Player):void
     tar = targets.get player
     if tar == nil
       return

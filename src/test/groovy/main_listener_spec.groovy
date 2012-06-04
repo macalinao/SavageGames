@@ -55,6 +55,9 @@ class SGListenerSpec extends Specification {
         type.feast_players() >> 10
         game.type() >> type
 
+        def compasses = Mock(CompassUpdater)
+        main.compasses() >> compasses
+
         when: "The player dies ingame"
         listener.onEntityDeath event
 
