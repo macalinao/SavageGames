@@ -46,6 +46,11 @@ class CompassUpdater
     player.setCompassTarget Player(tar).getLocation
   end
 
+  def remove_target_of(player:Player):void
+    player.setCompassTarget player.getLocation
+    targets.remove player
+  end
+
   ##
   # Updates the targets of all players.
   #

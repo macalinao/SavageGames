@@ -123,6 +123,7 @@ class SGListener
     end
 
     game.remove_player player
+    main.compasses.remove_target_of player
     main.router.route_death player, game
 
     game.check_progression
