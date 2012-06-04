@@ -1,5 +1,7 @@
 package net.savagegames.savagegames
 
+import java.util.Random
+
 import org.bukkit.Location
 import org.bukkit.ChatColor
 import org.bukkit.Material
@@ -76,8 +78,10 @@ class FeastPhase < GamePhase
       minz = z - 200
       maxz = z + 200
 
-      pox = int(Math.random * 400)
-      poz = int(Math.random * 400)
+      rand = Random.new System.currentTimeMillis
+
+      pox = rand.nextInt 400
+      poz = rand.nextInt 400
 
       pminx = minx + pox
       pmaxx = pminx + 20
