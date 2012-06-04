@@ -4,6 +4,10 @@ import org.bukkit.entity.Player
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
+import org.bukkit.event.block.Action
+
+import org.bukkit.event.player.PlayerInteractEvent
+
 ##
 # The Ghost class.
 #
@@ -18,6 +22,13 @@ class Ghost < SClass
     player.getInventory.addItem items
   end
 
-  def player_interact(event:PlayerInteractEvent):void
+  def self.player_interact(event:PlayerInteractEvent):void
+    action = event.getAction
+    unless event.getAction.equals(Action.RIGHT_CLICK_AIR) or event.getAction.equals(Action.RIGHT_CLICK_BLOCK)
+      return
+    end
+
+    player = event.getPlayer
+
   end
 end

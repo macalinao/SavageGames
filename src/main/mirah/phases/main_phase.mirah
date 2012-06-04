@@ -9,7 +9,7 @@ class MainPhase < GamePhase
 
   def enter(game:Game)
     game.broadcast 'You are now vulnerable to other players. Let the bloodshed begin!'
-    if game.players.size <= 2
+    if game.players.size <= game.type.feast_players
       game.next_phase
     end
   end
