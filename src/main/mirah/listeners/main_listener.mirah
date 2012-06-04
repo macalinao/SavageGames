@@ -40,7 +40,7 @@ class SGListener
   $EventHandler
   def onBlockBreak(event:BlockBreakEvent):void
     game = main.games.get_game_of_player event.getPlayer
-    if game == nil or game.phase.is_at_least(GamePhases.Diaspora)
+    if game == nil or not game.phase.is_at_least(GamePhases.Diaspora)
       event.getPlayer.sendMessage ChatColor.RED.toString + "Sorry, you can't build here."
       event.setCancelled true
     end
@@ -49,7 +49,7 @@ class SGListener
   $EventHandler
   def onBlockPlace(event:BlockPlaceEvent):void
     game = main.games.get_game_of_player event.getPlayer
-    if game == nil or game.phase.is_at_least(GamePhases.Diaspora)
+    if game == nil or not game.phase.is_at_least(GamePhases.Diaspora)
       event.getPlayer.sendMessage ChatColor.RED.toString + "Sorry, you can't build here."
       event.setCancelled true
     end
