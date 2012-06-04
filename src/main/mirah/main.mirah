@@ -17,6 +17,7 @@ class SavageGames < JavaPlugin
   def mv; @mv; end
   def router; @router; end
   def classes; @classes; end
+  def compasses; @compasses; end
 
   def onEnable
     @@i = self
@@ -55,6 +56,9 @@ class SavageGames < JavaPlugin
 
     # Classes
     @classes = ClassManager.new
+
+    # Compasses
+    @compasses = CompassUpdater.new self
 
     # Event listener
     @event_listener = SGListener.new self
