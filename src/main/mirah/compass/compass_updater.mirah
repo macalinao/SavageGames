@@ -15,6 +15,8 @@ class CompassUpdater
   def initialize(main:SavageGames)
     @main = main
     @targets = HashMap.new
+
+    setup_task
   end
 
   ##
