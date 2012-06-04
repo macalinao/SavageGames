@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 #
 class Ghost < SClass
   def initialize
-    super 'Warrior'
+    super 'Ghost'
   end
 
   def bind(player:Player)
