@@ -201,7 +201,7 @@ class SGListener
     while i < amt
       pl = Player(players[i])
       dist = pl.getLocation.distanceSquared player.getLocation
-      if dist < shortest and not shortestp.equals pl
+      if dist < shortest and not pl.equals(player)
         shortest = int(dist)
         shortestp = pl
       end
