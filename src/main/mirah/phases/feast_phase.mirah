@@ -122,18 +122,20 @@ class FeastPhase < GamePhase
       y = center.getBlockY
       z = center.getBlockZ
 
-      maxx = x + 20
-      maxz = z + 20
+      maxx = x + 10
+      maxz = z + 10
 
-      i = x - 20
+      i = x - 10
       while i < maxx
-        j = z - 20
+        j = z - 10
         while j < maxz
           world.getBlockAt(i, y, j).setType Material.GRASS
+          puts world.getBlockAt(i, y, j)
           j += 1
         end
         i += 1
       end
+
     end
 
     ##
