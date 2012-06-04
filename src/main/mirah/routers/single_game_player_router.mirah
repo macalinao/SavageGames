@@ -28,6 +28,13 @@ class SingleGamePlayerRouter < PlayerRouter
     ensure_game_exists
   end
 
+  def handle_game_end(game:Game):void
+    if game.equals current_game
+      @current_game = nil
+      ensure_game_exists
+    end
+  end
+
   def route(player:Player)
     ensure_game_exists
 

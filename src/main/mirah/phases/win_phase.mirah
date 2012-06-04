@@ -1,5 +1,7 @@
 package net.savagegames.savagegames
 
+import org.bukkit.entity.Player
+
 ##
 # The main phase of the game.
 #
@@ -8,7 +10,12 @@ package net.savagegames.savagegames
 class WinPhase < GamePhase
 
   def enter(game:Game)
-    game.broadcast 'You have won the game! Unfortunately the code to start the next game does not exist!'
+    if game.players.size <= 0
+      game.next_phase
+    end
+
+    player = game.players.get(0)
+    Player(player).kickPlayer "Congrats! You've won! Please rejoin in 5 seconds."
   end
 
   def exit(game:Game)

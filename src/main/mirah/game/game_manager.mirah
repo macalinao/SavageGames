@@ -14,6 +14,7 @@ import org.bukkit.entity.Player
 # Manages Games.
 #
 class GameManager
+  def main; @main; end
   def games; @games; end
 
   ##
@@ -75,5 +76,6 @@ class GameManager
   #
   def end_game(game:Game):void
     games.remove game.type.spawn.getWorld
+    main.router.handle_game_end game
   end
 end

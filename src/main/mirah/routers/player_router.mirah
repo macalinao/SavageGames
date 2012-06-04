@@ -14,6 +14,11 @@ class PlayerRouter
   end
 
   ##
+  # Handles the end of a game.
+  #
+  def handle_game_end(game:Game):void; end
+
+  ##
   # Sets up the router.
   #
   def setup:void; end
