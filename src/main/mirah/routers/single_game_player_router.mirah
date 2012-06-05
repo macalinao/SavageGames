@@ -124,6 +124,9 @@ class SingleGamePlayerRouter < PlayerRouter
     # Heal
     player.setHealth 20
     player.setFoodLevel 20
+
+    # No exp
+    player.setExp 0
   end
 
   ##
