@@ -10,13 +10,13 @@ import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEvent
 
 ##
-# The Ghost class.
+# The Assassin class.
 #
-class Ghost < SClass
+class Assassin < SClass
   def self.i; @@i; end
 
   def initialize
-    super 'Ghost'
+    super 'Assassin'
     @@i = self
   end
 

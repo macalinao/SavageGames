@@ -92,6 +92,6 @@ class ClassManager
     add_class Firefighter.new
     add_class Miner.new
     add_class Chef.new
-    add_class Ghost.new
+    add_class Assassin.new
   end
 end
