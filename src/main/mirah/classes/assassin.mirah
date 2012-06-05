@@ -1,5 +1,7 @@
 package net.savagegames.savagegames
 
+import java.util.HashSet
+
 import org.bukkit.entity.Player
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -7,6 +9,7 @@ import org.bukkit.ChatColor
 
 import org.bukkit.event.block.Action
 
+import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
 ##
@@ -15,9 +18,13 @@ import org.bukkit.event.player.PlayerInteractEvent
 class Assassin < SClass
   def self.i; @@i; end
 
+  def hiddens; @hiddens; end
+
   def initialize
     super 'Assassin'
     @@i = self
+
+    @hiddens = HashSet.new
   end
 
   def bind(player:Player)
@@ -49,30 +56,38 @@ class Assassin < SClass
     game.start_delayed_task "class_assassin_show_#{player.getName}", AssassinShowTask.new(player), 400 # 20 secs
   end
 
-  def entity_damage(player:Player, event:EntityDamageEvent):void
-    
+  def entity_damage(damager:Player, event:EntityDamageEvent):void
+    show_player damager
   end
 
   ##
   # Hides the given player.
   #
-  def hide_player(player:Player)
+  def hide_player(player:Player):void
+    if hiddens.contains player
+      return
+    end
     game = SavageGames.i.games.get_game_of_player player
     game.players.each do |p|
       pl = Player(p)
       pl.hidePlayer player
     end
+    hiddens.add player
   end
 
   ##
   # Shows the given player again.
   #
-  def show_player(player:Player)
+  def show_player(player:Player):void
+    unless hiddens.contains player
+      return
+    end
     game = SavageGames.i.games.get_game_of_player player
     game.players.each do |p|
       pl = Player(p)
       pl.showPlayer player
     end
+    hiddens.remove player
   end
 
   ##
