@@ -42,8 +42,6 @@ class LobbyPhase < GamePhase
     def initialize
       @time = 300
       @time = 60 # TEMP!
-
-      @@id += 1
     end
 
     def run:void

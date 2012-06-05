@@ -68,46 +68,7 @@ class SGListenerSpec extends Specification {
         1 * pWorld.strikeLightningEffect(pLoc)
     }
 
-    def "the event is cancelled if a player gets damaged in the lobby"() {
-        given:
-        def event = Mock(EntityDamageEvent)
-        def player = Mock(Player)
-
-        event.getEntity() >> player
-        game.phase() >> GamePhases.Lobby()
-
-        when: "The player is damaged"
-        listener.onEntityDamage event
-
-        then: "The event should be cancelled"
-        1 * event.setCancelled(true)
-    }
-
-    def "the event is cancelled if a player gets damaged by another player in diaspora"() {
-        given:
-        def event = Mock(EntityDamageByEntityEvent)
-        def player = Mock(Player)
-        def enemy = Mock(Player)
-
-        def pLoc = Mock(Location)
-        def pWorld = Mock(World)
-
-        player.getLocation() >> pLoc
-        pLoc.getWorld() >> pWorld
-
-        games.get_game(_) >> game
-        event.getEntity() >> player
-        event.getDamager() >> enemy
-        game.phase() >> GamePhases.Diaspora()
-
-        when: "The player is damaged"
-        listener.onEntityDamage event
-
-        then: "The event should be cancelled"
-        1 * event.setCancelled(true)
-    }
-
-    def "the event is not cancelled if a player gets damaged in the diaspora not by another player"() {
+    def "the event is cancelled if a player gets damaged in the diaspora"() {
         given:
         def event = Mock(EntityDamageEvent)
         def player = Mock(Player)
@@ -119,6 +80,6 @@ class SGListenerSpec extends Specification {
         listener.onEntityDamage event
 
         then: "The event should be cancelled"
-        (_..0) * event.setCancelled(true)
+        1 * event.setCancelled(true)
     }
 }
