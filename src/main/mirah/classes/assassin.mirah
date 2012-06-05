@@ -37,8 +37,20 @@ class Assassin < SClass
     end
 
     player = event.getPlayer
+
+    game = SavageGames.i.games.get_game_of_player player
+    if game == nil
+      return
+    end
+
     player.sendMessage ChatColor.GRAY.toString + 'You are now hidden.'
     hide_player player
+
+    game.start_delayed_task "class_assassin_show_#{player.getName}", AssassinShowTask.new(player), 400 # 20 secs
+  end
+
+  def entity_damage(player:Player, event:EntityDamageEvent):void
+    
   end
 
   ##
@@ -60,6 +72,21 @@ class Assassin < SClass
     game.players.each do |p|
       pl = Player(p)
       pl.showPlayer player
+    end
+  end
+
+  ##
+  # Shows the assassin.
+  #
+  class AssassinShowTask < GameTask
+    def player; @player; end
+
+    def initialize(player:Player)
+      @player = player
+    end  
+
+    def run:void
+      Assassin.i.show_player player
     end
   end
 end
