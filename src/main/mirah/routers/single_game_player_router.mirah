@@ -3,6 +3,7 @@ package net.savagegames.savagegames
 import java.util.concurrent.ArrayBlockingQueue
 import org.bukkit.entity.Player
 import java.util.HashMap
+import org.bukkit.World
 import org.bukkit.ChatColor
 
 import org.bukkit.potion.PotionEffect
@@ -25,12 +26,14 @@ class SingleGamePlayerRouter < PlayerRouter
   end
 
   def setup
+    delete_old_worlds
     ensure_game_exists
   end
 
   def handle_game_end(game:Game):void
     if game.equals current_game
       @current_game = nil
+      delete_old_worlds
       ensure_game_exists
     end
   end
@@ -56,6 +59,19 @@ class SingleGamePlayerRouter < PlayerRouter
     if current_game.phase.is_at_least GamePhases.Diaspora
       event.setKickMessage ChatColor.YELLOW.toString + 'Sorry, tribute, a game is currently in progress. Come again later!'
       event.setResult PlayerLoginEvent.Result.KICK_OTHER
+    end
+  end
+
+  ##
+  # Deletes old worlds
+  #
+  def delete_old_worlds
+    # Check for extraneous old worlds
+    main.getServer.getWorlds.each do |w|
+      world = World(w)
+      if world.getName.startsWith '__sgame__'
+        main.mv.getCore.getMVWorldManager.deleteWorld world.getName
+      end
     end
   end
 

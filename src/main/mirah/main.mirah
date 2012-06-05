@@ -36,14 +36,6 @@ class SavageGames < JavaPlugin
       getServer.getPluginManager.disablePlugin self
     end
 
-    # Check for extraneous old worlds
-    getServer.getWorlds.each do |w|
-      world = World(w)
-      if world.getName.startsWith '__sgame__'
-        mv.getCore.getMVWorldManager.deleteWorld world.getName
-      end
-    end
-
     # Player router
     @router = PlayerRouter(nil)
     @router = SingleGamePlayerRouter.new self
