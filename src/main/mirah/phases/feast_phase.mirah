@@ -19,6 +19,10 @@ class FeastPhase < GamePhase
   def exit(game:Game):void
   end
 
+  def should_progress?(game:Game):boolean
+    return game.players.size <= 1
+  end
+
   ##
   # Countdown to create the feast
   #
@@ -67,10 +71,6 @@ class FeastPhase < GamePhase
         game.broadcast ChatColor.RED.toString + "The feast begins in #{s} seconds at (#{thex}, #{they}, #{thez})."
         return
       end
-    end
-
-    def should_progress?(game:Game):boolean
-      return game.players.size <= 1
     end
 
     def startup

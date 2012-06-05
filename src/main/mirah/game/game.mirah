@@ -130,17 +130,6 @@ class Game
   end
 
   ##
-  # Checks if the game can start.
-  #
-  def can_start:boolean
-    if participants.size < type.min_players
-      return false
-    end
-
-    return true
-  end
-
-  ##
   # Handles when a player leaves the game.
   #
   def handle_leave(player:Player):void
