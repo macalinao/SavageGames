@@ -194,6 +194,8 @@ class Game
       return
     end
 
+    @tasks.remove name
+
     Bukkit.getScheduler.cancelTask current
   end
 

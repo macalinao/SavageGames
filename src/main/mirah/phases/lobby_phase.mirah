@@ -23,10 +23,6 @@ class LobbyPhase < GamePhase
     game.cancel_task 'hunger_satiator'
   end
 
-  def should_progress?(game:Game):boolean
-    return game.participants.size <= game.type.min_players
-  end
-
   def self.schedule_new_countdown(game:Game):void
     game.cancel_task 'lobby_countdown'
     game.start_repeating_task 'lobby_countdown', LobbyCountdown.new, 0, 20
@@ -46,6 +42,8 @@ class LobbyPhase < GamePhase
     def initialize
       @time = 300
       @time = 60 # TEMP!
+
+      @@id += 1
     end
 
     def run:void
@@ -53,7 +51,7 @@ class LobbyPhase < GamePhase
       @time -= 1
 
       if secs <= 0
-        unless game.phase.should_progress?(game)
+        unless game.participants.size >= game.type.min_players
           game.broadcast 'The start of the game is being delayed as there are not enough players.'
           LobbyPhase.schedule_new_countdown game
           return
@@ -85,7 +83,6 @@ class LobbyPhase < GamePhase
       else
         game.broadcast ChatColor.YELLOW.toString + ss + 'left!'
       end
-
     end
   end
 
