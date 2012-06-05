@@ -47,9 +47,9 @@ class FeastPhase < GamePhase
 
       if m > 0 
         if s == 0
-        thex = center.getBlockX
-        they = center.getBlockY
-        thez = center.getBlockZ
+          thex = center.getBlockX
+          they = center.getBlockY
+          thez = center.getBlockZ
           game.broadcast ChatColor.RED.toString + "The feast begins in #{m} minutes at (#{thex}, #{they}, #{thez})."
         end
         return

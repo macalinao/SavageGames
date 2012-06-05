@@ -24,9 +24,9 @@ class ClassListener
 
     if clazz != nil 
       if clazz.is 'chef'
-        Chef.player_interact event
+        Chef.i.player_interact event
       elsif clazz.is 'ghost'
-        Ghost.player_interact event
+        Ghost.i.player_interact event
       end
     end
   end

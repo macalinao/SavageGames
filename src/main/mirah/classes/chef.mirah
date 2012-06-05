@@ -14,8 +14,11 @@ import org.bukkit.event.player.PlayerInteractEvent
 # Order up!
 #
 class Chef < SClass
+  def self.i; @@i; end
+
   def initialize
     super 'Chef'
+    @@i = self
   end
 
   def bind(player:Player)
@@ -25,7 +28,7 @@ class Chef < SClass
   ##
   # Handles the player interact of people that are Chefs.
   #
-  def self.player_interact(event:PlayerInteractEvent):void
+  def player_interact(event:PlayerInteractEvent):void
     unless event.getAction.equals(Action.RIGHT_CLICK_AIR) or event.getAction.equals(Action.RIGHT_CLICK_BLOCK)
       return
     end

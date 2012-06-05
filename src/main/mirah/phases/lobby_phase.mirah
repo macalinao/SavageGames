@@ -23,8 +23,8 @@ class LobbyPhase < GamePhase
     game.cancel_task 'hunger_satiator'
   end
 
-  def can_progress?(game:Game):boolean
-    return game.participants.size < game.type.min_players
+  def should_progress?(game:Game):boolean
+    return game.participants.size <= game.type.min_players
   end
 
   def self.schedule_new_countdown(game:Game):void
