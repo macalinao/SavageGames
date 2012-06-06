@@ -6,6 +6,12 @@ import org.bukkit.Location
 import org.bukkit.ChatColor
 import org.bukkit.Material
 
+import org.bukkit.block.BlockState
+import org.bukkit.block.Chest
+
+import org.bukkit.inventory.Inventory
+import org.bukkit.inventory.ItemStack
+
 ##
 # The feast phase of the game.
 #
@@ -163,7 +169,38 @@ class FeastPhase < GamePhase
     #
     def generate_feast
       upcent = center.add 0, 1, 0
+      first = upcent.add(-2, 0, -2)
+      
+      i = 0
+      j = 0
+
+      while i < 2
+        while j < 2
+          block = first.getWorld.getBlockAt(first.add(i, 0, j))
+          block.setType Material.CHEST
+          
+          state = block.getState
+          chest = Chest(state)
+
+          chest_inv = chest.getBlockInventory
+          populate_chest chest_inv
+
+          i += 2
+        end
+        i += 2
+      end
+
       upcent.getWorld.getBlockAt(upcent).setType Material.ENCHANTMENT_TABLE
+    end
+
+    ##
+    # Populates the chest.
+    #
+    def populate_chest(inv:Inventory)
+      items = ItemStack[1]
+      items[0] = ItemStack.new(Material.STONE_SWORD, 1)
+
+      inv.addItem items
     end
   end
 
