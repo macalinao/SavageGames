@@ -126,6 +126,7 @@ class SingleGamePlayerRouter < PlayerRouter
     player.setFoodLevel 20
 
     # No exp
+    player.setLevel 0
     player.setExp 0
   end
 
