@@ -18,6 +18,7 @@ class SavageGames < JavaPlugin
   def router; @router; end
   def classes; @classes; end
   def compasses; @compasses; end
+  def sessions; @sessions; end
 
   def onEnable
     @@i = self
@@ -51,6 +52,9 @@ class SavageGames < JavaPlugin
 
     # Compasses
     @compasses = CompassUpdater.new self
+
+    # Sessions
+    @sessions = SessionManager.new self
 
     # Event listener
     @event_listener = SGListener.new self

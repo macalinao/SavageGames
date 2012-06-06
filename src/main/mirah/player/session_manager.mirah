@@ -5,7 +5,8 @@ import java.util.HashMap
 class SessionManager
   def sessions; @sessions; end
 
-  def initialize
+  def initialize(main:SavageGames)
+    @main = main
     @sessions = HashMap.new
   end
 
