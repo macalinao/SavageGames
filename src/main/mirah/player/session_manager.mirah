@@ -10,6 +10,13 @@ class SessionManager
   end
 
   ##
+  # Gets the session of the given player.
+  #
+  def get_session_of_player(player:Player):PlayerSession
+    return get_session player.getName
+  end
+
+  ##
   # Gets the session of a player.
   #
   def get_session(player:String):PlayerSession
@@ -23,6 +30,13 @@ class SessionManager
       session = PlayerSession(obj)
     end
     return session
+  end
+
+  ##
+  # Clears the session of the given player.
+  #
+  def clear_session_of_player(player:Player):void
+    clear_session player.getName
   end
 
   ##

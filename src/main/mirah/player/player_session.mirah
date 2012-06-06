@@ -40,4 +40,11 @@ class PlayerSession
   def set(key:String, value:Object):void
     map.put key, value
   end
+
+  ##
+  # Unsets a value.
+  #
+  def unset(key:String)
+    map.remove key
+  end
 end

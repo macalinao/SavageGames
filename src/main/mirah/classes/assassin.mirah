@@ -18,13 +18,9 @@ import org.bukkit.event.player.PlayerInteractEvent
 class Assassin < SClass
   def self.i; @@i; end
 
-  def hiddens; @hiddens; end
-
   def initialize
     super 'Assassin'
     @@i = self
-
-    @hiddens = HashSet.new
   end
 
   def bind(player:Player)
@@ -64,30 +60,36 @@ class Assassin < SClass
   # Hides the given player.
   #
   def hide_player(player:Player):void
-    if hiddens.contains player
+    session = SavageGames.i.sessions.get_session_of_player player
+    if session.get_boolean 'assassin_hidden'
       return
     end
+
     game = SavageGames.i.games.get_game_of_player player
     game.players.each do |p|
       pl = Player(p)
       pl.hidePlayer player
     end
-    hiddens.add player
+
+    session.set 'assassin_hidden', Boolean.TRUE
   end
 
   ##
   # Shows the given player again.
   #
   def show_player(player:Player):void
-    unless hiddens.contains player
+    session = SavageGames.i.sessions.get_session_of_player player
+    unless session.get_boolean 'assassin_hidden'
       return
     end
+
     game = SavageGames.i.games.get_game_of_player player
     game.players.each do |p|
       pl = Player(p)
       pl.showPlayer player
     end
-    hiddens.remove player
+
+    session.unset 'assassin_hidden'
   end
 
   ##
