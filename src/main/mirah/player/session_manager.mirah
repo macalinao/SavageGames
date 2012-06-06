@@ -2,6 +2,8 @@ package net.savagegames.savagegames
 
 import java.util.HashMap
 
+import org.bukkit.entity.Player
+
 class SessionManager
   def sessions; @sessions; end
 
