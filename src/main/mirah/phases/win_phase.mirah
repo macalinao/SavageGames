@@ -16,6 +16,7 @@ class WinPhase < GamePhase
 
     player = game.players.get(0)
     Player(player).kickPlayer "Congrats! You've won! Please rejoin in 5 seconds."
+    game.players.remove player
   end
 
   def exit(game:Game)
