@@ -9,7 +9,7 @@ import org.bukkit.ChatColor
 
 import org.bukkit.event.block.Action
 
-import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 
 ##
@@ -56,8 +56,8 @@ class Assassin < SClass
     game.start_delayed_task "class_assassin_show_#{player.getName}", AssassinShowTask.new(player), 400 # 20 secs
   end
 
-  def entity_damage(damager:Player, event:EntityDamageEvent):void
-    show_player damager
+  def entity_damage_by_entity(event:EntityDamageByEntityEvent):void
+#    show_player damager
   end
 
   ##
