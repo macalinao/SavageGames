@@ -5,8 +5,8 @@ import org.bukkit.entity.Player
 import org.bukkit.event.Listener
 import org.bukkit.event.EventHandler
 
-import org.bukkit.event.player.EntityDamageEvent
-import org.bukkit.event.player.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.entity.EntityDamageByEntityEvent
 
 import org.bukkit.event.player.PlayerInteractEvent
 
@@ -48,7 +48,7 @@ class ClassListener
 
         if clazz != nil
           if clazz.is 'assassin'
-            Assassin.i.entity_damage_by_entity damager_player
+            Assassin.i.entity_damage_by_entity ede
           end
         end
       end

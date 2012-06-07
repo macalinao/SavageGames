@@ -56,12 +56,12 @@ class Assassin < SClass
     damager = Player(event.getDamager)
     show_player damager
 
-    game = SavageGames.i.get_game_of_player damager
+    game = SavageGames.i.games.get_game_of_player damager
     if game == nil
       return
     end
 
-    game.cancel_task "class_assassin_show_#{player.getName}"
+    game.cancel_task "class_assassin_show_#{damager.getName}"
   end
 
   ##
