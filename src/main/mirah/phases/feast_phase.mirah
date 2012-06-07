@@ -204,10 +204,8 @@ class FeastPhase < GamePhase
     # Populates the chest.
     #
     def populate_chest(inv:Inventory)
-      items = ItemStack[7]
       rand = Random.new System.currentTimeMillis
-
-      inv.addItem items
+      inv.addItem gen_chest_items rand
     end
 
     ##
