@@ -99,6 +99,7 @@ class ClassManager
     add_class Loner.new
     add_class Miner.new
     add_class Nightcrawler.new
+    add_class Rabbit.new
     add_class Ranger.new
     add_class Warrior.new
     add_class Yeti.new
