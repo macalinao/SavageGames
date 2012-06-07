@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack
 
 ##
 # The Yeti class.
-# Starts out with 10 snowballs and a wooden shovel.
+# Starts out with 16 snowballs and a wooden shovel.
 #
 class Yeti < SClass
   def initialize
@@ -16,7 +16,7 @@ class Yeti < SClass
   def bind(player:Player)
     items = ItemStack[2]
     items[0] = ItemStack.new(Material.WOOD_SPADE, 1)
-    items[1] = ItemStack.new Material.SNOW_BALL, 10
+    items[1] = ItemStack.new Material.SNOW_BALL, 16
     player.getInventory.addItem items
   end
 end
