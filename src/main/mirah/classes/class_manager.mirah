@@ -101,5 +101,6 @@ class ClassManager
     add_class Herbalist.new
     add_class Fisherman.new
     add_class Diver.new
+    add_class Loner.new
   end
 end
