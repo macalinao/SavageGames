@@ -32,6 +32,8 @@ class ClassListener
         Chef.i.player_interact event
       elsif clazz.is 'ghost'
         Assassin.i.player_interact event
+      elsif clazz.is 'herbalist'
+        Herbalist.i.player_interact event
       end
     end
   end
