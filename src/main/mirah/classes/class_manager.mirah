@@ -95,7 +95,7 @@ class ClassManager
     add_class Assassin.new
     add_class Excavator.new
     add_class Arsonist.new
-    add_class Jumper.new
+    add_class Nightcrawler.new
     add_class Yeti.new
     add_class Ranger.new
     add_class Herbalist.new

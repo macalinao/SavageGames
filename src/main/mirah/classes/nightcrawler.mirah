@@ -5,12 +5,12 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
 ##
-# The Jumper class.
+# The Nightcrawler class.
 # Starts out with 5 ender pearls.
 #
-class Jumper < SClass
+class Nightcrawler < SClass
   def initialize
-    super 'Jumper'
+    super 'Nightcrawler'
   end
 
   def bind(player:Player)
