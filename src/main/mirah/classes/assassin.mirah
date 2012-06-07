@@ -6,6 +6,7 @@ import org.bukkit.entity.Player
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.ChatColor
+import org.bukkit.Bukkit
 
 import org.bukkit.event.block.Action
 
@@ -93,7 +94,10 @@ class Assassin < SClass
 
     game = SavageGames.i.games.get_game_of_player player
     game.players.each do |p|
-      pl = Player(p)
+      pl = Bukkit.getPlayer p
+      if pl == nil
+        next
+      end
       pl.hidePlayer player
     end
 
