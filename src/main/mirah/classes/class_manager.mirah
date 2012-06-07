@@ -96,5 +96,6 @@ class ClassManager
     add_class Excavator.new
     add_class Pyro.new
     add_class Jumper.new
+    add_class Yeti.new
   end
 end
