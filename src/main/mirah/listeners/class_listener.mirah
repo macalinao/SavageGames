@@ -51,6 +51,8 @@ class ClassListener
         if clazz != nil
           if clazz.is 'assassin'
             Assassin.i.entity_damage_by_entity ede
+          elsif clazz.is 'slayer'
+            Slayer.i.entity_damage_by_entity ede
           end
         end
       end

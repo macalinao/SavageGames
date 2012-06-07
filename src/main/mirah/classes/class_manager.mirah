@@ -101,6 +101,7 @@ class ClassManager
     add_class Nightcrawler.new
     add_class Rabbit.new
     add_class Ranger.new
+    add_class Slayer.new
     add_class Warrior.new
     add_class Yeti.new
   end
