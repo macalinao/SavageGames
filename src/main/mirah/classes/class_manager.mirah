@@ -97,5 +97,6 @@ class ClassManager
     add_class Pyro.new
     add_class Jumper.new
     add_class Yeti.new
+    add_class Ranger.new
   end
 end
