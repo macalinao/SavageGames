@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemStack
 
 ##
 # The Excavator class.
-# Starts out with a diamond shovel.
+# Starts out with a gold shovel.
 #
 class Excavator < SClass
   def initialize
@@ -15,7 +15,7 @@ class Excavator < SClass
 
   def bind(player:Player)
     items = ItemStack[1]
-    items[0] = ItemStack.new(Material.DIAMOND_SPADE, 1)
+    items[0] = ItemStack.new(Material.GOLD_SPADE, 1)
     player.getInventory.addItem items
   end
 end
