@@ -1,6 +1,8 @@
 package net.savagegames.savagegames
 
 import java.util.Random
+import java.util.ArrayList
+import java.util.Arrays
 
 import org.bukkit.Location
 import org.bukkit.ChatColor
@@ -9,8 +11,13 @@ import org.bukkit.Material
 import org.bukkit.block.BlockState
 import org.bukkit.block.Chest
 
+import org.bukkit.enchantments.Enchantment
+
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
+
+import org.bukkit.potion.Potion
+import org.bukkit.potion.PotionType
 
 ##
 # The feast phase of the game.
@@ -197,10 +204,119 @@ class FeastPhase < GamePhase
     # Populates the chest.
     #
     def populate_chest(inv:Inventory)
-      items = ItemStack[1]
-      items[0] = ItemStack.new(Material.STONE_SWORD, 1)
+      items = ItemStack[7]
+      rand = Random.new System.currentTimeMillis
 
       inv.addItem items
+    end
+
+    ##
+    # Generates chest items.
+    # Thanks Svinnik.
+    #
+    #
+    # [21:54:40] (Channel) Svinnik: Diamond boots: 2%
+    # Diamond Chesplate: 2%
+    # Diamond leggings: 2%
+    # Diamond headpiece: 2%
+    # Diamond sword: 5%
+    # Power V bow: 1%
+    # Diamond: 5%
+    # Strength II pot: 3%
+    # Poison II pot: 3%
+    # Swiftness II pot: 3%
+    # Ender pearl: 10%
+    # Food: 30%
+    # Lava bucket: 10%
+    # Water Bucket: 10%
+    # Bottle o' enchanting: 15%
+    # Fire resist pot: 6%
+    # Iron: 21%
+    #
+    def gen_chest_items(rand:Random):ItemStack[]
+      items = ArrayList.new
+
+      roll = 0
+
+      roll = rand.nextInt 100
+      if roll <= 2
+        items.add ItemStack.new(Material.DIAMOND_BOOTS, 1)
+        return items.toArray if items.size >= 7
+      end
+
+      roll = rand.nextInt 100
+      if roll <= 2
+        items.add ItemStack.new(Material.DIAMOND_LEGGINGS, 1)
+        return items.toArray if items.size >= 7
+      end
+
+      roll = rand.nextInt 100
+      if roll <= 2
+        items.add ItemStack.new(Material.DIAMOND_HELMET, 1)
+        return items.toArray if items.size >= 7
+      end
+
+      roll = rand.nextInt 100
+      if roll <= 5
+        items.add ItemStack.new(Material.DIAMOND_SWORD, 1)
+        return items.toArray if items.size >= 7
+      end
+
+      roll = rand.nextInt 100
+      if roll <= 1
+        bow = ItemStack.new(Material.BOW, 1)
+        bow.addEnchantment Enchantment.ARROW_DAMAGE, 5
+        items.add bow
+
+        return items.toArray if items.size >= 7
+      end
+
+      roll = rand.nextInt 100
+      if roll <= 5
+        items.add ItemStack.new(Material.DIAMOND, 5)
+        return items.toArray if items.size >= 7
+      end
+
+      # Strength II
+      roll = rand.nextInt 100
+      if roll <= 3
+        potion = Potion.new PotionType.STRENGTH, 2
+        items.add potion.toItemStack 1
+        return items.toArray if items.size >= 7
+      end
+
+      # Poison II
+      roll = rand.nextInt 100
+      if roll <= 3
+        potion = Potion.new PotionType.POISON, 2
+        items.add potion.toItemStack 1
+      end
+
+      # Swiftness II
+      roll = rand.nextInt 100
+      if roll <= 3
+        potion = Potion.new PotionType.SPEED, 2
+        items.add potion.toItemStack 1
+      end
+
+      # Strength II
+      roll = rand.nextInt 100
+      if roll <= 10
+        items.add ItemStack.new Material.ENDER_PEARL, 1
+      end
+
+      ret = ItemStack[items.size]
+
+      q = 0
+      it = items.iterator
+
+      while it.hasNext
+        o = it.next
+        i = ItemStack(o)
+
+        ret[q] = i
+        q += 1
+      end
     end
   end
 
