@@ -110,8 +110,11 @@ class Game
   #
   def broadcast(message:String)
     participants.each do |p|
-      player = Player(p)
-      player.sendMessage message
+      pl = Bukkit.getPlayer String(p)
+      if pl == nil
+        next
+      end
+      pl.sendMessage message
     end
   end
 
@@ -120,10 +123,13 @@ class Game
   #
   def broadcast_to_players(message:String)
     participants.each do |p|
-      player = Player(p)
-      clazz = SavageGames.i.classes.get_class_of_player player
+      pl = Bukkit.getPlayer String(p)
+      if pl == nil
+        next
+      end
+      clazz = SavageGames.i.classes.get_class_of_player pl
       unless clazz == nil
-        player.sendMessage message
+        pl.sendMessage message
       end
     end
   end

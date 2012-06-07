@@ -1,5 +1,6 @@
 package net.savagegames.savagegames
 
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
 ##
@@ -15,7 +16,8 @@ class WinPhase < GamePhase
     end
 
     player = game.players.get(0)
-    Player(player).kickPlayer "Congrats! You've won! Please rejoin in 5 seconds."
+    pl = Bukkit.getPlayer player.toString
+    pl.kickPlayer "Congrats! You've won! Please rejoin in 5 seconds."
     game.players.remove player
   end
 

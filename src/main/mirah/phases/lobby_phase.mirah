@@ -1,5 +1,6 @@
 package net.savagegames.savagegames
 
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 
 import org.bukkit.entity.Player
@@ -90,8 +91,10 @@ class LobbyPhase < GamePhase
   class HungerSatiator < GameTask
     def run:void
       game.participants.each do |p|
-        player = Player(p)
-
+        player = Bukkit.getPlayer String(p)
+        if player == nil
+          next
+        end
         player.setFoodLevel 20
       end
     end

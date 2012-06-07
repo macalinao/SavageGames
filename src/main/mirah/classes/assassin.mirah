@@ -94,7 +94,7 @@ class Assassin < SClass
 
     game = SavageGames.i.games.get_game_of_player player
     game.players.each do |p|
-      pl = Bukkit.getPlayer p
+      pl = Bukkit.getPlayer String(p)
       if pl == nil
         next
       end
@@ -117,7 +117,10 @@ class Assassin < SClass
 
     game = SavageGames.i.games.get_game_of_player player
     game.players.each do |p|
-      pl = Player(p)
+      pl = Bukkit.getPlayer String(p)
+      if pl == nil
+        next
+      end
       pl.showPlayer player
     end
 

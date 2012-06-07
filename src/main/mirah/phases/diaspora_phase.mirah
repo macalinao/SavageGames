@@ -1,5 +1,6 @@
 package net.savagegames.savagegames
 
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.entity.Player
 import org.bukkit.Material
@@ -16,7 +17,10 @@ class DiasporaPhase < GamePhase
   def enter(game:Game)
     # Setup the players
     game.players.each do |p|
-      player = Player(p)
+      player = Bukkit.getPlayer String(p)
+      if player == nil
+        next
+      end
       setup_player game, player
     end
 
