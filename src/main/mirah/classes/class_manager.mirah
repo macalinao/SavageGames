@@ -93,5 +93,6 @@ class ClassManager
     add_class Miner.new
     add_class Chef.new
     add_class Assassin.new
+    add_class Excavator.new
   end
 end
