@@ -43,7 +43,7 @@ class Herbalist < SClass
     if amt > 1
       item.setAmount(amt - 1)
     else
-      player.setItemInHand nil
+      player.setItemInHand ItemStack(nil)
     end
 
     player.updateInventory

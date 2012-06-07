@@ -103,7 +103,7 @@ class SGListener
       return
     end
 
-    game.remove_player player
+    game.remove_player player.getName
     main.compasses.remove_target_of player
     main.router.route_death player, game
 
@@ -251,7 +251,7 @@ class SGListener
   def handle_leave(player:Player):void
     game = main.games.get_game_of_player player
     unless game == nil
-      game.handle_leave player
+      game.handle_leave player.getName
     end
   end
 end

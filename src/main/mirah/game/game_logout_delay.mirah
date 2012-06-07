@@ -10,14 +10,12 @@ import org.bukkit.ChatColor
 class GameLogoutDelay < GameTask
   def player; @player; end
 
-  def initialize(player:Player)
+  def initialize(player:String)
     @player = player
   end
 
   def run:void
-    Bukkit.getPlayerExact player.getName
-
-    game.broadcast ChatColor.BLUE.toString + "#{player.getName} has left the game!"
+    game.broadcast ChatColor.BLUE.toString + "#{@player} has left the game!"
     game.remove_player player
     game.check_progression
   end

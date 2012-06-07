@@ -42,7 +42,9 @@ class SingleGamePlayerRouter < PlayerRouter
     ensure_game_exists
 
     if current_game.phase.is_at_least GamePhases.Diaspora
-      current_game.add_spectator player
+      unless current_game.players.contains player.getName
+        current_game.add_spectator player.getName
+      end
     else
       route_to_lobby player
     end
@@ -86,7 +88,7 @@ class SingleGamePlayerRouter < PlayerRouter
     reset_player player
 
     # Add to the game
-    current_game.add_participant player
+    current_game.add_participant player.getName
 
     # NOTE: lobby should be spawn of the server
   end

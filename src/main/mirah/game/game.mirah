@@ -50,14 +50,14 @@ class Game
   #
   # Just from the list.
   #
-  def remove_player(p:Player):void
+  def remove_player(p:String):void
     @players.remove p
   end
 
   ##
   # Adds a participant to the game.
   #
-  def add_participant(p:Player):boolean
+  def add_participant(p:String):boolean
     unless is_full?
       players.add p
       return true
@@ -68,13 +68,12 @@ class Game
   ##
   # Adds a spectator to the game.
   #
-  def add_spectator(player:Player):void
+  def add_spectator(player:String):void
     if players.contains player
       players.remove player
     end
 
     @spectators.add player
-    player.sendMessage 'You are technically supposed to be spectating now.'
   end
 
   ##
@@ -132,14 +131,14 @@ class Game
   ##
   # Handles when a player leaves the game.
   #
-  def handle_leave(player:Player):void
+  def handle_leave(player:String):void
     unless phase.is_at_least GamePhases.Diaspora
       return
     end
 
     delay = GameLogoutDelay.new player
 
-    start_delayed_task "logout_delay_#{player.getName}", delay, 400 # 20 secs
+    start_delayed_task "logout_delay_#{player}", delay, 400 # 20 secs
   end
 
   ##
