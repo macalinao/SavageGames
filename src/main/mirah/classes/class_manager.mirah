@@ -99,5 +99,6 @@ class ClassManager
     add_class Yeti.new
     add_class Ranger.new
     add_class Herbalist.new
+    add_class Fisherman.new
   end
 end
