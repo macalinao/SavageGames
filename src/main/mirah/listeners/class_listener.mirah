@@ -1,7 +1,12 @@
 package net.savagegames.savagegames
 
+import org.bukkit.entity.Player
+
 import org.bukkit.event.Listener
 import org.bukkit.event.EventHandler
+
+import org.bukkit.event.player.EntityDamageEvent
+import org.bukkit.event.player.EntityDamageByEntityEvent
 
 import org.bukkit.event.player.PlayerInteractEvent
 
@@ -27,6 +32,25 @@ class ClassListener
         Chef.i.player_interact event
       elsif clazz.is 'ghost'
         Assassin.i.player_interact event
+      end
+    end
+  end
+
+  $EventHandler
+  def onEntityDamage(event:EntityDamageEvent):void
+    if event.kind_of? EntityDamageByEntityEvent
+      ede = EntityDamageByEntityEvent(event)
+
+      if ede.getDamager.kind_of? Player
+        damager_player = Player(ede.getDamager)
+
+        clazz = main.classes.get_class_of_player damager_player
+
+        if clazz != nil
+          if clazz.is 'assassin'
+            Assassin.i.entity_damage_by_entity damager_player
+          end
+        end
       end
     end
   end

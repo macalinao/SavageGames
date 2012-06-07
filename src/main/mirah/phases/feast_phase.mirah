@@ -223,6 +223,7 @@ class FeastPhase < GamePhase
     # Strength II pot: 3%
     # Poison II pot: 3%
     # Swiftness II pot: 3%
+    # -- BELOW IS UNIMPLEMENTED --
     # Ender pearl: 10%
     # Food: 30%
     # Lava bucket: 10%

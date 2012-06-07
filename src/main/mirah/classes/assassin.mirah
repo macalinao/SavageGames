@@ -53,7 +53,15 @@ class Assassin < SClass
   end
 
   def entity_damage_by_entity(event:EntityDamageByEntityEvent):void
-#    show_player damager
+    damager = Player(event.getDamager)
+    show_player damager
+
+    game = SavageGames.i.get_game_of_player damager
+    if game == nil
+      return
+    end
+
+    game.cancel_task "class_assassin_show_#{player.getName}"
   end
 
   ##
