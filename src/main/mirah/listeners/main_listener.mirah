@@ -187,6 +187,7 @@ class SGListener
       loc = pl.getLocation
 
       unless loc.getWorld.equals player.getLocation.getWorld
+        i += 1
         next
       end
 
