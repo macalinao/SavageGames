@@ -95,5 +95,6 @@ class ClassManager
     add_class Assassin.new
     add_class Excavator.new
     add_class Pyro.new
+    add_class Jumper.new
   end
 end
