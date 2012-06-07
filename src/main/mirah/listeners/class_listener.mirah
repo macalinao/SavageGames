@@ -30,7 +30,7 @@ class ClassListener
     if clazz != nil 
       if clazz.is 'chef'
         Chef.i.player_interact event
-      elsif clazz.is 'ghost'
+      elsif clazz.is 'assassin'
         Assassin.i.player_interact event
       elsif clazz.is 'herbalist'
         Herbalist.i.player_interact event
