@@ -39,6 +39,14 @@ class Herbalist < SClass
       return
     end
 
+    amt = item.getAmount
+    if amt > 1
+      item.setAmount(amt - 1)
+    else
+      player.setItemInHand nil
+    end
+
+    player.updateInventory
     player.setHealth(player.getHealth + 8)
   end
 end
