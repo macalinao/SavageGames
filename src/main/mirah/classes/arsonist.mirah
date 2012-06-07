@@ -5,12 +5,12 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 
 ##
-# The Pyro class.
+# The Arsonist class.
 # Starts out with a flint and steel.
 #
-class Pyro < SClass
+class Arsonist < SClass
   def initialize
-    super 'Pyro'
+    super 'Arsonist'
   end
 
   def bind(player:Player)
