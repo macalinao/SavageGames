@@ -88,19 +88,19 @@ class ClassManager
 
   private
   def setup_classes
-    add_class Warrior.new
-    add_class Firefighter.new
-    add_class Miner.new
-    add_class Chef.new
-    add_class Assassin.new
-    add_class Excavator.new
     add_class Arsonist.new
-    add_class Nightcrawler.new
-    add_class Yeti.new
-    add_class Ranger.new
-    add_class Herbalist.new
-    add_class Fisherman.new
+    add_class Assassin.new
+    add_class Chef.new
     add_class Diver.new
+    add_class Excavator.new
+    add_class Firefighter.new
+    add_class Fisherman.new
+    add_class Herbalist.new
     add_class Loner.new
+    add_class Miner.new
+    add_class Nightcrawler.new
+    add_class Ranger.new
+    add_class Warrior.new
+    add_class Yeti.new
   end
 end
