@@ -52,6 +52,28 @@ class GameType
   end
 
   ##
+  # Gets the X dimension.
+  #
+  def dimx:int
+    begin
+      return Integer(settings.get 'dimx').intValue
+    rescue Exception
+      return 512
+    end
+  end
+
+  ##
+  # Gets the Z dimension.
+  #
+  def dimz:int
+    begin
+      return Integer(settings.get 'dimz').intValue
+    rescue Exception
+      return 512
+    end
+  end
+
+  ##
   # Creates a new GameType with the given settings.
   #
   def initialize(settings:HashMap)

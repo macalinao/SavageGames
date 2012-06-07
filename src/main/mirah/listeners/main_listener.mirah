@@ -129,11 +129,14 @@ class SGListener
 
     spawn = game.type.spawn
 
-    minx = spawn.getBlockX - 256
-    maxx = spawn.getBlockX + 256
+    hdimx = game.type.dimx / 2
+    hdimz = game.type.dimz / 2
 
-    minz = spawn.getBlockZ - 256
-    maxz = spawn.getBlockZ + 256
+    minx = spawn.getBlockX - hdimx
+    maxx = spawn.getBlockX + hdimx
+
+    minz = spawn.getBlockZ - hdimz
+    maxz = spawn.getBlockZ + hdimz
 
     px = player.getLocation.getBlockX
     pz = player.getLocation.getBlockZ
