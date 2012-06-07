@@ -46,6 +46,16 @@ class Assassin < SClass
       return
     end
 
+    last = get_last_hide player
+    unless last == 0
+      elapsed = System.currentTimeMillis - last
+      if elapsed < 1000 * 180 # 3 minutes
+        secs = elapsed / 1000
+        player.sendMessage ChatColor.RED.toString + "There are #{secs} seconds remaining until you can use this ability again."
+        return
+      end
+    end
+
     player.sendMessage ChatColor.GRAY.toString + 'You are now hidden.'
     hide_player player
 
@@ -88,6 +98,7 @@ class Assassin < SClass
     end
 
     session.set 'assassin_hidden', Boolean.TRUE
+    set_last_hide player, System.currentTimeMillis
     return true
   end
 
@@ -121,9 +132,9 @@ class Assassin < SClass
   ##
   # Sets the last hide time.
   #
-  def set_last_hide(player:Player, time:Long):void
+  def set_last_hide(player:Player, time:long):void
     session = SavageGames.i.sessions.get_session_of_player player
-    session.set 'assassin_last_hide', time
+    session.set 'assassin_last_hide', Long.valueOf(time)
   end
 
   ##
