@@ -53,7 +53,7 @@ class WorldGameType < GameType
       return false
     end
 
-    @spawn = @world.getSpawnLocation
+    @spawn = @world.getHighestBlockAt(@world.getSpawnLocation.getBlockX, @world.getSpawnLocation.getBlockZ).getLocation.add(0, 5, 0)
     main.getLogger.log Level.INFO, 'Spawn determined!'
 
     return true
