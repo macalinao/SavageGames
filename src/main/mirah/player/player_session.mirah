@@ -29,9 +29,23 @@ class PlayerSession
       rescue Exception
         return false
       end
-    else
-      return false
     end
+    return false
+  end
+
+  ##
+  # Gets a long.
+  #
+  def get_long(key:String):long
+    val = get key
+    if val != null
+      begin
+        return Long(val).longValue
+      rescue Exception
+        return long(0)
+      end
+    end
+    return long(0)
   end
 
   ##

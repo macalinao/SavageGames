@@ -54,12 +54,20 @@ class Assassin < SClass
 
   def entity_damage_by_entity(event:EntityDamageByEntityEvent):void
     damager = Player(event.getDamager)
-    show_player damager
 
     game = SavageGames.i.games.get_game_of_player damager
     if game == nil
       return
     end
+
+    tar = event.getEntity
+    unless tar.kind_of? Player
+      return
+    end
+    target = Player(tar)
+    
+    target.sendMessage ChatColor.RED.toString + "You've been ambushed by an assassin!"
+    show_player damager
 
     game.cancel_task "class_assassin_show_#{damager.getName}"
   end
@@ -67,10 +75,10 @@ class Assassin < SClass
   ##
   # Hides the given player.
   #
-  def hide_player(player:Player):void
+  def hide_player(player:Player):boolean
     session = SavageGames.i.sessions.get_session_of_player player
     if session.get_boolean 'assassin_hidden'
-      return
+      return false
     end
 
     game = SavageGames.i.games.get_game_of_player player
@@ -80,15 +88,16 @@ class Assassin < SClass
     end
 
     session.set 'assassin_hidden', Boolean.TRUE
+    return true
   end
 
   ##
   # Shows the given player again.
   #
-  def show_player(player:Player):void
+  def show_player(player:Player):boolean
     session = SavageGames.i.sessions.get_session_of_player player
     unless session.get_boolean 'assassin_hidden'
-      return
+      return false
     end
 
     game = SavageGames.i.games.get_game_of_player player
@@ -98,6 +107,23 @@ class Assassin < SClass
     end
 
     session.unset 'assassin_hidden'
+    return true
+  end
+
+  ##
+  # Gets the last hide time.
+  #
+  def get_last_hide(player:Player):long
+    session = SavageGames.i.sessions.get_session_of_player player
+    return session.get_long 'assassin_last_hide'
+  end
+
+  ##
+  # Sets the last hide time.
+  #
+  def set_last_hide(player:Player, time:Long):void
+    session = SavageGames.i.sessions.get_session_of_player player
+    session.set 'assassin_last_hide', time
   end
 
   ##
