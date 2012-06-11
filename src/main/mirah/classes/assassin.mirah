@@ -76,6 +76,10 @@ class Assassin < SClass
       return
     end
     target = Player(tar)
+
+    unless session.get_boolean 'assassin_hidden'
+      return
+    end
     
     target.sendMessage ChatColor.RED.toString + "You've been ambushed by an assassin!"
     show_player damager
@@ -125,6 +129,7 @@ class Assassin < SClass
     end
 
     session.unset 'assassin_hidden'
+    player.sendMessage 'You are no longer invisible!'
     return true
   end
 
