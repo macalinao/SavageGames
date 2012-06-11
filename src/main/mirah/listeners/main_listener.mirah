@@ -236,19 +236,8 @@ class SGListener
   end
 
   $EventHandler
-  def onPlayerKick(event:PlayerKickEvent):void
-    handle_leave event.getPlayer
-  end
-
-  $EventHandler
   def onPlayerQuit(event:PlayerQuitEvent):void
-    handle_leave event.getPlayer
-  end
-
-  ##
-  # Handles the leaving of a player.
-  #
-  def handle_leave(player:Player):void
+    player = event.getPlayer
     game = main.games.get_game_of_player player
     unless game == nil
       game.handle_leave player.getName
