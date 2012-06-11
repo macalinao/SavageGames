@@ -77,6 +77,7 @@ class Assassin < SClass
     end
     target = Player(tar)
 
+    session = SavageGames.i.sessions.get_session_of_player player
     unless session.get_boolean 'assassin_hidden'
       return
     end
