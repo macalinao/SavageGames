@@ -203,9 +203,18 @@ class FeastPhase < GamePhase
     ##
     # Populates the chest.
     #
-    def populate_chest(inv:Inventory)
+    def populate_chest(inv:Inventory):void
       rand = Random.new System.currentTimeMillis
-      inv.addItem gen_chest_items rand
+      objs = gen_chest_items rand
+      items = ItemStack[objs.length]
+
+      i = 0
+      while i < objs.length
+        items[i] = ItemStack(objs[i])
+        i += 1
+      end
+
+      inv.addItem items
     end
 
     ##
@@ -232,7 +241,7 @@ class FeastPhase < GamePhase
     # Fire resist pot: 6%
     # Iron: 21%
     #
-    def gen_chest_items(rand:Random):ItemStack[]
+    def gen_chest_items(rand:Random):Object[]
       items = ArrayList.new
 
       roll = 0
