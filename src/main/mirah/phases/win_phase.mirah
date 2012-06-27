@@ -19,6 +19,7 @@ class WinPhase < GamePhase
     pl = Bukkit.getPlayer player.toString
     pl.kickPlayer "Congrats! You've won! Please rejoin in 5 seconds."
     game.remove_player player.toString
+    Bukkit.getServer().shutdown()
   end
 
   def exit(game:Game)
