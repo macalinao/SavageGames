@@ -36,6 +36,10 @@ class Assassin < SClass
       return
     end
 
+    if event.getItem == nil
+      return
+    end
+
     unless event.getItem.getType.equals Material.GHAST_TEAR
       return
     end
