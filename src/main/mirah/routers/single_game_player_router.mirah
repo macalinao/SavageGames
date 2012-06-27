@@ -59,8 +59,8 @@ class SingleGamePlayerRouter < PlayerRouter
 
   def handle_login(event:PlayerLoginEvent):void
     if current_game.phase.is_at_least GamePhases.Diaspora
-      if current_game.players.contains player.getName
-        game.cancel_task "logout_delay_#{player.getName}"
+      if current_game.players.contains event.getPlayer.getName
+        current_game.cancel_task "logout_delay_#{event.getPlayer.getName}"
         return
       end
       event.setKickMessage ChatColor.YELLOW.toString + 'Sorry, tribute, a game is currently in progress. Come again later!'
