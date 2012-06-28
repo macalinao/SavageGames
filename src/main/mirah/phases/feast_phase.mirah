@@ -205,16 +205,7 @@ class FeastPhase < GamePhase
     #
     def populate_chest(inv:Inventory):void
       rand = Random.new System.currentTimeMillis
-      objs = gen_chest_items rand
-      items = ItemStack[objs.length]
-
-      i = 0
-      while i < objs.length
-        items[i] = ItemStack(objs[i])
-        i += 1
-      end
-
-      inv.addItem items
+      inv.addItem gen_chest_items rand
     end
 
     ##
@@ -241,7 +232,7 @@ class FeastPhase < GamePhase
     # Fire resist pot: 6%
     # Iron: 21%
     #
-    def gen_chest_items(rand:Random):Object[]
+    def gen_chest_items(rand:Random):ItemStack[]
       items = ArrayList.new
 
       roll = 0
@@ -249,25 +240,21 @@ class FeastPhase < GamePhase
       roll = rand.nextInt 100
       if roll <= 2
         items.add ItemStack.new(Material.DIAMOND_BOOTS, 1)
-        return items.toArray if items.size >= 7
       end
 
       roll = rand.nextInt 100
       if roll <= 2
         items.add ItemStack.new(Material.DIAMOND_LEGGINGS, 1)
-        return items.toArray if items.size >= 7
       end
 
       roll = rand.nextInt 100
       if roll <= 2
         items.add ItemStack.new(Material.DIAMOND_HELMET, 1)
-        return items.toArray if items.size >= 7
       end
 
       roll = rand.nextInt 100
       if roll <= 5
         items.add ItemStack.new(Material.DIAMOND_SWORD, 1)
-        return items.toArray if items.size >= 7
       end
 
       roll = rand.nextInt 100
@@ -275,14 +262,11 @@ class FeastPhase < GamePhase
         bow = ItemStack.new(Material.BOW, 1)
         bow.addEnchantment Enchantment.ARROW_DAMAGE, 5
         items.add bow
-
-        return items.toArray if items.size >= 7
       end
 
       roll = rand.nextInt 100
       if roll <= 5
         items.add ItemStack.new(Material.DIAMOND, 5)
-        return items.toArray if items.size >= 7
       end
 
       # Strength II
@@ -290,7 +274,6 @@ class FeastPhase < GamePhase
       if roll <= 3
         potion = Potion.new PotionType.STRENGTH, 2
         items.add potion.toItemStack 1
-        return items.toArray if items.size >= 7
       end
 
       # Poison II
@@ -325,6 +308,8 @@ class FeastPhase < GamePhase
         ret[q] = i
         q += 1
       end
+
+      return ret
     end
   end
 
