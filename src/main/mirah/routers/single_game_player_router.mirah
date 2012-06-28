@@ -85,6 +85,8 @@ class SingleGamePlayerRouter < PlayerRouter
   # Routes a player to the lobby.
   #
   def route_to_lobby(player:Player)
+    player.teleport current_game.type.spawn
+
     player.sendMessage ChatColor.GREEN.toString + 'Welcome to the SavageGames!'
     player.sendMessage ChatColor.GREEN.toString + 'Please choose a class with the command /class <class name>'
     player.sendMessage ChatColor.YELLOW.toString + 'Available classes: ' + main.classes.list_classes_available(player)
