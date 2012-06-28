@@ -10,6 +10,7 @@ import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
 
 import org.bukkit.event.player.PlayerLoginEvent
+import org.bukkit.Location
 
 ##
 # Router for a single game server.
@@ -85,7 +86,6 @@ class SingleGamePlayerRouter < PlayerRouter
   # Routes a player to the lobby.
   #
   def route_to_lobby(player:Player)
-    player.teleport current_game.type.spawn
 
     player.sendMessage ChatColor.GREEN.toString + 'Welcome to the SavageGames!'
     player.sendMessage ChatColor.GREEN.toString + 'Please choose a class with the command /class <class name>'
@@ -95,8 +95,7 @@ class SingleGamePlayerRouter < PlayerRouter
 
     # Add to the game
     current_game.add_participant player.getName
-
-    # NOTE: lobby should be spawn of the server
+    main.getServer.getScheduler.scheduleSyncDelayedTask main, TeleportTask.new(player, current_game.type.spawn), long(20)
   end
 
   ##
@@ -180,5 +179,18 @@ class SingleGamePlayerRouter < PlayerRouter
     end
 
     return GameType(@queue.poll)
+  end
+end
+
+class TeleportTask
+  implements Runnable
+
+  def initialize(player:Player, loc:Location)
+    @player = player
+    @loc = loc
+  end
+
+  def run:void
+    @player.teleport @loc
   end
 end
