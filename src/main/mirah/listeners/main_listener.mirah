@@ -280,7 +280,7 @@ class SGListener
     player = event.getPlayer
     game = main.games.get_game_of_player player
     unless game == nil
-      game.remove_player player
+      game.remove_player player.getName
     end
   end
 end
