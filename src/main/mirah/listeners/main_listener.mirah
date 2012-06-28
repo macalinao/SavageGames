@@ -274,4 +274,13 @@ class SGListener
       game.handle_leave player.getName
     end
   end
+
+  $EventHandler
+  def onPlayerKick(event:PlayerKickEvent):void
+    player = event.getPlayer
+    game = main.games.get_game_of_player player
+    unless game == nil
+      game.remove_player player
+    end
+  end
 end
