@@ -192,7 +192,7 @@ class FeastPhase < GamePhase
           chest_inv = chest.getBlockInventory
           populate_chest chest_inv
 
-          i += 2
+          j += 2
         end
         i += 2
       end
