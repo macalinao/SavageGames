@@ -19,6 +19,7 @@ class SavageGames < JavaPlugin
   def classes; @classes; end
   def compasses; @compasses; end
   def sessions; @sessions; end
+  def secret; 'temp'; end
 
   def onEnable
     @@i = self
