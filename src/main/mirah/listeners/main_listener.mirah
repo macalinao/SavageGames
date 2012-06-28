@@ -122,6 +122,7 @@ class SGListener
     else
       ranking.kills = ArrayList.new
     end
+    game.report.push_ranking ranking
 
     killer = player.getKiller
     unless killer == nil
