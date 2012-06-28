@@ -18,7 +18,7 @@ class GameReport
   end
 
   def push_ranking(ranking:Ranking):void
-    ranking.rank = rankings.size - @game_size.intValue
+    ranking.rank = @game_size.intValue - rankings.size
     rankings.add ranking
   end
 
