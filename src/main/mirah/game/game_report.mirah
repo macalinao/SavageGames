@@ -7,6 +7,7 @@ import org.json.JSONObject
 import org.json.JSONStringer
 
 class GameReport
+  def date; @date; end
   def rankings:ArrayList; @rankings; end
 
   def initialize(game_size:Integer)
@@ -58,6 +59,7 @@ class Ranking
   def player=(player:String); @player = player; end
 
   def kills; @kills; end
+  def kills=(kills:ArrayList); @kills = kills; end
 
   def clazz; @clazz; end
   def clazz=(clazz:String); @clazz = clazz; end

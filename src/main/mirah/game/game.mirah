@@ -15,6 +15,9 @@ class Game
   def phase; @phase; end
   def phase=(phase:GamePhase); @phase = phase; end
 
+  def report; @report; end
+  def report=(report:GameReport); @report = report; end
+
   def players; @players; end
   def spectators; @spectators; end
 

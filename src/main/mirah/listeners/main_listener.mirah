@@ -1,5 +1,7 @@
 package net.savagegames.savagegames
 
+import java.util.ArrayList
+
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.Location
@@ -101,6 +103,35 @@ class SGListener
     game = main.games.get_game_of_player player
     if game == nil
       return
+    end
+
+    ranking = Ranking.new
+    ranking.time = int(System.currentTimeMillis - game.report.date) / 1000
+    ranking.player = player.getName
+
+    clazz = main.classes.get_class_of_player player
+    if clazz != nil
+      ranking.clazz = clazz.name
+    else
+      ranking.clazz = 'None'
+    end
+
+    killsObj = main.sessions.get_session_of_player(player).get 'kills'
+    unless killsObj == nil
+      ranking.kills = ArrayList(killsObj)
+    else
+      ranking.kills = ArrayList.new
+    end
+
+    killer = player.getKiller
+    unless killer == nil
+      killerKillsObj = main.sessions.get_session_of_player(killer).get 'kills'
+      if killerKillsObj == nil
+        killerKillsObj = Object(ArrayList.new)
+        main.sessions.get_session_of_player(killer).set 'kills', killerKillsObj
+      end
+      killerKills = ArrayList(killerKillsObj)
+      killerKills.add player.getName
     end
 
     game.remove_player player.getName

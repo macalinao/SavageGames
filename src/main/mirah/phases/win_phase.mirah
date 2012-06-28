@@ -17,8 +17,11 @@ class WinPhase < GamePhase
 
     player = game.players.get(0)
     pl = Bukkit.getPlayer player.toString
-    pl.kickPlayer "Congrats! You've won! Please rejoin in 5 seconds."
+    pl.kickPlayer "Congrats! You've won! The server will be back up in about a minute."
     game.remove_player player.toString
+
+    puts game.report.toString
+
     Bukkit.getServer().shutdown()
   end
 

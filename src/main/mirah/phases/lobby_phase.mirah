@@ -14,6 +14,8 @@ import org.bukkit.entity.Player
 class LobbyPhase < GamePhase
 
   def enter(game:Game):void
+    game.report = GameReport.new Integer.valueOf game.players.size
+
     LobbyPhase.schedule_new_countdown game
 
     game.start_repeating_task 'hunger_satiator', HungerSatiator.new, 0, 40 # Every 2 seconds
