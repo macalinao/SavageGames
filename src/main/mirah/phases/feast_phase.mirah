@@ -175,15 +175,14 @@ class FeastPhase < GamePhase
     # Generates a feast.
     #
     def generate_feast
-      upcent = center.add 0, 1, 0
-      first = upcent.add(-2, 0, -2)
+      upcent = center.clone.add 0, 1, 0
+      first = upcent.clone.add(-2, 0, -2)
       
       i = 0
       while i < 5
         j = 0
         while j < 5
-          block = first.getWorld.getBlockAt first.add(i, 0, j)
-          puts 'Block at ' + block.getLocation.toString + ' is CHEST'
+          block = first.getWorld.getBlockAt first.clone.add(i, 0, j)
           block.setType Material.CHEST
           
           state = block.getState
@@ -212,87 +211,67 @@ class FeastPhase < GamePhase
     # Generates chest items.
     # Thanks Svinnik.
     #
-    #
-    # [21:54:40] (Channel) Svinnik: Diamond boots: 50%
-    # Diamond Chesplate: 50%
-    # Diamond leggings: 50%
-    # Diamond headpiece: 50%
-    # Diamond sword: 50%
-    # Power V bow: 25%
-    # Diamond: 40%
-    # Strength II pot: 35%
-    # Poison II pot: 35%
-    # Swiftness II pot: 35%
-    # -- BELOW IS UNIMPLEMENTED --
-    # Ender pearl: 10%
-    # Food: 30%
-    # Lava bucket: 10%
-    # Water Bucket: 10%
-    # Bottle o' enchanting: 15%
-    # Fire resist pot: 6%
-    # Iron: 21%
-    #
     def gen_chest_items(rand:Random):ItemStack[]
       items = ArrayList.new
 
       roll = 0
 
       roll = rand.nextInt 100
-      if roll <= 50
+      if roll <= 25
         items.add ItemStack.new(Material.DIAMOND_BOOTS, 1)
       end
 
       roll = rand.nextInt 100
-      if roll <= 50
+      if roll <= 25
         items.add ItemStack.new(Material.DIAMOND_LEGGINGS, 1)
       end
 
       roll = rand.nextInt 100
-      if roll <= 50
+      if roll <= 25
         items.add ItemStack.new(Material.DIAMOND_HELMET, 1)
       end
 
       roll = rand.nextInt 100
-      if roll <= 50
+      if roll <= 25
         items.add ItemStack.new(Material.DIAMOND_SWORD, 1)
       end
 
       roll = rand.nextInt 100
-      if roll <= 25
+      if roll <= 13
         bow = ItemStack.new(Material.BOW, 1)
         bow.addEnchantment Enchantment.ARROW_DAMAGE, 5
         items.add bow
       end
 
       roll = rand.nextInt 100
-      if roll <= 40
+      if roll <= 20
         items.add ItemStack.new(Material.DIAMOND, 5)
       end
 
       # Strength II
       roll = rand.nextInt 100
-      if roll <= 35
+      if roll <= 15
         potion = Potion.new PotionType.STRENGTH, 2
         items.add potion.toItemStack 1
       end
 
       # Poison II
       roll = rand.nextInt 100
-      if roll <= 35
+      if roll <= 15
         potion = Potion.new PotionType.POISON, 2
         items.add potion.toItemStack 1
       end
 
       # Swiftness II
       roll = rand.nextInt 100
-      if roll <= 35
+      if roll <= 15
         potion = Potion.new PotionType.SPEED, 2
         items.add potion.toItemStack 1
       end
 
       # Strength II
       roll = rand.nextInt 100
-      if roll <= 10
+      if roll <= 5
         items.add ItemStack.new Material.ENDER_PEARL, 1
       end
 
