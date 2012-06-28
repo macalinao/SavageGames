@@ -1,7 +1,7 @@
 SavageGames [![Build Status](https://secure.travis-ci.org/simplyianm/SavageGames.png?branch=master)](http://travis-ci.org/simplyianm/SavageGames)
 ===========
 
-**SavageGames** is the plugin powering the [SavageGames.net] Minecraft server.
+**SavageGames** is the plugin powering the [SavageGames](http://savagegames.net) Minecraft server.
 
 Building
 ========
