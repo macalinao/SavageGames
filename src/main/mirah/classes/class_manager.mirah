@@ -96,7 +96,7 @@ class ClassManager
     add_class Firefighter.new
     add_class Fisherman.new
     add_class Herbalist.new
-    add_class Loner.new
+#    add_class Loner.new
     add_class Miner.new
     add_class Nightcrawler.new
     add_class Rabbit.new

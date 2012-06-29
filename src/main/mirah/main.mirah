@@ -38,6 +38,14 @@ class SavageGames < JavaPlugin
       getServer.getPluginManager.disablePlugin self
     end
 
+    # Read secret
+    @secret = getConfig.get 'secret'
+    if @secret == nil
+      getConfig.set 'secret', 'unknown'
+      saveConfig
+      getServer.getPluginManager.disablePlugin self
+    end
+
     # Player router
     @router = PlayerRouter(nil)
     @router = SingleGamePlayerRouter.new self
