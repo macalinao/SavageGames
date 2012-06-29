@@ -53,6 +53,7 @@ class LobbyPhase < GamePhase
       if secs <= 0
         unless game.participants.size >= game.type.min_players
           game.broadcast 'The start of the game is being delayed as there are not enough players.'
+          game.broadcast 'Invite your friends! We need 6 players to start the game.'
           LobbyPhase.schedule_new_countdown game
           return
         else
