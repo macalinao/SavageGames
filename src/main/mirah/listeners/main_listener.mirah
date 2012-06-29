@@ -43,6 +43,7 @@ class SGListener
     @main = main
   end
 
+  $EventHandler
   def onServerListPing(event:ServerListPingEvent)
     event.setMotd main.router.motd
   end

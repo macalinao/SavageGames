@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack
 class DiasporaPhase < GamePhase
 
   def enter(game:Game)
+    game.report = GameReport.new Integer.valueOf(game.players.size)
     # Setup the players
     game.players.each do |p|
       player = Bukkit.getPlayer String(p)

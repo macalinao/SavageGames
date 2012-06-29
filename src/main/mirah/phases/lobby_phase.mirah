@@ -14,7 +14,6 @@ import org.bukkit.entity.Player
 class LobbyPhase < GamePhase
 
   def enter(game:Game):void
-    game.report = GameReport.new Integer.valueOf game.players.size
 
     LobbyPhase.schedule_new_countdown game
 
