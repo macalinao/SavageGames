@@ -95,7 +95,7 @@ class SingleGamePlayerRouter < PlayerRouter
 
     # Add to the game
     current_game.add_participant player.getName
-    main.getServer.getScheduler.scheduleSyncDelayedTask main, TeleportTask.new(player, current_game.type.spawn), long(20)
+    main.getServer.getScheduler.scheduleSyncDelayedTask main, TeleportTask.new(self, player, current_game.type.spawn), long(20)
   end
 
   ##
@@ -194,12 +194,14 @@ end
 class TeleportTask
   implements Runnable
 
-  def initialize(player:Player, loc:Location)
+  def initialize(router:SingleGamePlayerRouter, player:Player, loc:Location)
+    @router = router
     @player = player
     @loc = loc
   end
 
   def run:void
     @player.teleport @loc
+    @router.reset_player @player
   end
 end

@@ -231,7 +231,7 @@ class SGListener
       end
 
       dist = loc.distanceSquared player.getLocation
-      if dist < shortest and not pl.equals(player)
+      if dist > 10 and dist < shortest and not pl.equals(player)
         shortest = int(dist)
         shortestp = pl
       end
@@ -239,6 +239,7 @@ class SGListener
     end
 
     unless shortestp != nil
+      player.sendMessage 'There is nobody else alive not within 10 blocks of you. Kill them!'
       return
     end
 
@@ -257,6 +258,7 @@ class SGListener
 
     # We'll handle the chat our own way.
     event.setCancelled true
+    puts player.getName + ': ' + event.getMessage
 
     clazz = main.classes.get_class_of_player player
     if clazz == nil
