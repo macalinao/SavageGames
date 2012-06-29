@@ -19,7 +19,7 @@ class SavageGames < JavaPlugin
   def classes; @classes; end
   def compasses; @compasses; end
   def sessions; @sessions; end
-  def secret; 'temp'; end
+  def secret; @secret; end
 
   def onEnable
     @@i = self
@@ -43,7 +43,9 @@ class SavageGames < JavaPlugin
     if @secret == nil
       getConfig.set 'secret', 'unknown'
       saveConfig
-      getServer.getPluginManager.disablePlugin self
+      puts '=============================='
+      puts 'ERRORRRRRRRRRRRRRRRRRRRRRRRRRR'
+      puts '=============================='
     end
 
     # Player router
