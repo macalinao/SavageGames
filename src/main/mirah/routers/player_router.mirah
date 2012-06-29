@@ -39,4 +39,9 @@ class PlayerRouter
   # Handles a login event.
   #
   def handle_login(event:PlayerLoginEvent):void; end
+
+  ##
+  # Gets the MOTD
+  #
+  def motd:String; end
 end

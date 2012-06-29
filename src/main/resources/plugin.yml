@@ -5,7 +5,6 @@ website: http://savagegames.net/
 version: 0.1
 
 main: net.savagegames.savagegames.SavageGames
-depend: ["WorldEdit"]
 
 commands:
   savagegames:

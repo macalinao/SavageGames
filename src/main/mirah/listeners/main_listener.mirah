@@ -27,6 +27,8 @@ import org.bukkit.event.player.PlayerLoginEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
 
+import org.bukkit.event.server.ServerListPingEvent
+
 ##
 # The general SavageGames listener.
 #
@@ -39,6 +41,10 @@ class SGListener
 
   def initialize(main:SavageGames)
     @main = main
+  end
+
+  def onServerListPing(event:ServerListPingEvent)
+    event.setMotd main.router.motd
   end
 
   $EventHandler

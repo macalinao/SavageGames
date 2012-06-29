@@ -180,6 +180,15 @@ class SingleGamePlayerRouter < PlayerRouter
 
     return GameType(@queue.poll)
   end
+
+  def motd:String
+    phase = current_game.phase
+    if phase.equals GamePhases.Lobby
+      return 'Waiting for players'
+    end
+
+    return 'Game in progress. Go to http://mcsg.co for servers.'
+  end
 end
 
 class TeleportTask
