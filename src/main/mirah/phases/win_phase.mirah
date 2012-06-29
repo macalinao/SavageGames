@@ -23,7 +23,9 @@ class WinPhase < GamePhase
 
     player = game.players.get(0)
     pl = Bukkit.getPlayer player.toString
-    pl.kickPlayer "Congrats! You've won! The server will be back up in about a minute."
+    if pl != nil
+      pl.kickPlayer "Congrats! You've won! The server will be back up in about a minute."
+    end
     game.remove_player player.toString
 
     report = game.report.toString
