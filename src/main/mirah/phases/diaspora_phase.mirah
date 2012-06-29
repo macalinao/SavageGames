@@ -25,7 +25,7 @@ class DiasporaPhase < GamePhase
       setup_player game, player
     end
 
-    game.broadcast ChatColor.RED.toString + 'You have 2 minutes until you are invincible to other players.'
+    game.broadcast ChatColor.RED.toString + 'You have 2 minutes until your invincibility wears off.'
     game.broadcast ChatColor.RED.toString + 'May the odds be ever in your favor!'
     game.start_repeating_task 'diaspora', DiasporaTimer.new, (60 * 20), (15 * 20)
   end

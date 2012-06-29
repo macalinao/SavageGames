@@ -55,7 +55,7 @@ class Assassin < SClass
     unless last == 0
       elapsed = System.currentTimeMillis - last
       if elapsed < 1000 * 180 # 3 minutes
-        secs = elapsed / 1000
+        secs = 180 - (elapsed / 1000)
         player.sendMessage ChatColor.RED.toString + "There are #{secs} seconds remaining until you can use this ability again."
         return
       end

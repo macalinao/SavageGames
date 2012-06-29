@@ -52,7 +52,7 @@ class SGListener
   def onBlockBreak(event:BlockBreakEvent):void
     game = main.games.get_game_of_player event.getPlayer
     if game == nil or not game.phase.is_at_least(GamePhases.Diaspora)
-      event.getPlayer.sendMessage ChatColor.RED.toString + "Sorry, you can't build here."
+      event.getPlayer.sendMessage ChatColor.RED.toString + "Sorry, you can't build yet."
       event.setCancelled true
     end
   end
@@ -61,7 +61,7 @@ class SGListener
   def onBlockPlace(event:BlockPlaceEvent):void
     game = main.games.get_game_of_player event.getPlayer
     if game == nil or not game.phase.is_at_least(GamePhases.Diaspora)
-      event.getPlayer.sendMessage ChatColor.RED.toString + "Sorry, you can't build here."
+      event.getPlayer.sendMessage ChatColor.RED.toString + "Sorry, you can't build yet."
       event.setCancelled true
     end
   end
@@ -262,6 +262,7 @@ class SGListener
     if clazz == nil
       classes = main.classes.list_classes_available player
       player.sendMessage ChatColor.RED.toString + "You aren't allowed to chat until you've chosen a class!"
+      player.sendMessage ChatColor.RED.toString + "Type /class classname to pick a class!"
       player.sendMessage ChatColor.YELLOW.toString + "Available classes: #{classes}"
       return
     end

@@ -17,15 +17,14 @@ import java.util.logging.Level
 class WinPhase < GamePhase
 
   def enter(game:Game)
+    puts game.players.toString
     if game.players.size <= 0
       game.next_phase
     end
 
     player = game.players.get(0)
     pl = Bukkit.getPlayer player.toString
-    if pl != nil
-      pl.kickPlayer "Congrats! You've won! The server will be back up in about a minute."
-    end
+    pl.kickPlayer "Congrats! You've won! The server will be back up in about a minute."
     game.remove_player player.toString
 
     report = game.report.toString

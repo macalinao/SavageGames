@@ -178,6 +178,8 @@ class FeastPhase < GamePhase
       upcent = center.clone.add 0, 1, 0
       first = upcent.clone.add(-2, 0, -2)
       
+      rand = Random.new System.currentTimeMillis
+
       i = 0
       while i < 5
         j = 0
@@ -189,7 +191,7 @@ class FeastPhase < GamePhase
           chest = Chest(state)
 
           chest_inv = chest.getBlockInventory
-          populate_chest chest_inv
+          populate_chest rand, chest_inv
 
           j += 2
         end
@@ -202,8 +204,7 @@ class FeastPhase < GamePhase
     ##
     # Populates the chest.
     #
-    def populate_chest(inv:Inventory):void
-      rand = Random.new System.currentTimeMillis
+    def populate_chest(rand:Random, inv:Inventory):void
       inv.addItem gen_chest_items rand
     end
 
