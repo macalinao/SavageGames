@@ -74,7 +74,7 @@ class WinPhase < GamePhase
       SavageGames.i.getLogger.log Level.INFO, 'Error when posting results to the HIVE!', ex
     end
 
-    Bukkit.getServer.shutdown
+    Bukkit.getServer.dispatchCommand Bukkit.getConsoleSender, 'stop'
   end
 
   def exit(game:Game)
