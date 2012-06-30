@@ -3,6 +3,7 @@ package net.savagegames.savagegames
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 
+import java.util.ArrayList
 import java.net.URL
 import java.io.OutputStreamWriter
 import java.io.BufferedReader
@@ -18,17 +19,34 @@ class WinPhase < GamePhase
 
   def enter(game:Game)
     puts game.players.toString
-    if game.players.size <= 0
-      game.next_phase
-    end
 
     player = game.players.get(0)
     pl = Bukkit.getPlayer player.toString
-    pl.kickPlayer "Congrats! You've won! The server will be back up in about a minute."
-    game.remove_player player.toString
+
+    ranking = Ranking.new
+    ranking.time = int(System.currentTimeMillis - game.report.date) / 1000
+    ranking.player = player.toString
+
+    clazz = SavageGames.i.classes.get_class_of_player pl
+    if clazz != nil
+      ranking.clazz = clazz.name
+    else
+      ranking.clazz = 'None'
+    end
+
+    killsObj = SavageGames.i.sessions.get_session(player.toString).get 'kills'
+    unless killsObj == nil
+      ranking.kills = ArrayList(killsObj)
+    else
+      ranking.kills = ArrayList.new
+    end
+    game.report.push_ranking ranking
 
     report = game.report.toString
     puts report
+    
+    pl.kickPlayer "Congrats! You've won! The server will be back up in about a minute."
+    game.remove_player player.toString
 
     begin
         url = URL.new "http://savagegames.net/reports"
