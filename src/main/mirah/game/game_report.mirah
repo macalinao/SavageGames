@@ -35,7 +35,11 @@ class GameReport
       ranking = Ranking(obj)
       rankingNode.put 'time', ranking.time
       rankingNode.put 'player', ranking.player
-      rankingNode.put 'kills', JSONArray.new(ranking.kills)
+      jsonKillsArray = JSONArray.new
+      ranking.kills.each do |kill|
+        jsonKillsArray.put kill.toString
+      end
+      rankingNode.put 'kills', jsonKillsArray
       rankingNode.put 'class', ranking.clazz
       rankingNode.put 'rank', ranking.rank
       rankingsNode.put rankingNode
